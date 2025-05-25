@@ -8,10 +8,12 @@ require_once("controller/HomeController.php");
 require_once("controller/GroupController.php");
 require_once("controller/SongController.php");
 require_once("controller/TourController.php");
+require_once("controller/IngresoController.php");
 
 require_once("model/GroupModel.php");
 require_once("model/SongModel.php");
 require_once("model/TourModel.php");
+require_once("model/IngresoModel.php");
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
@@ -59,6 +61,10 @@ class Configuration
     public function getGroupController()
     {
         return new GroupController(new GroupModel($this->getDatabase()), $this->getViewer());
+    }
+
+    public function getIngresoController(){
+        return new IngresoController(new IngresoModel($this->getDatabase()) ,$this->getViewer());
     }
 
     public function getRouter()
