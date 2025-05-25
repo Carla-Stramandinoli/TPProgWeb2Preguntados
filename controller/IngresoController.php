@@ -18,25 +18,71 @@ class IngresoController
     }
 
     public function register(){
-        $this->view->render('register', array('msjError' => 'HOLA'));
+        if (isset($_GET['msjError'])) $this->view->render('register', ['msjError' => $_GET['msjError']]);
+        if (isset($_GET['msjExito'])) $this->view->render('register', ['msjExito' => $_GET['msjExito']]);
+        if (!isset($_GET['msjExito']) && !isset($_GET['msjError'])) $this->view->render('register');
     }
 
     public function loginValidator(){
 
-        $usuarioId = $this->model->obtenerIdUsuario($_POST['nickname'], $_POST['contrasenia']);
+        if (isset($_POST['nickname']) && isset($_POST['contrasenia'])){
+            $usuarioId = $this->model->obtenerIdUsuario($_POST['nickname'], $_POST['contrasenia']);
 
-        if(empty($usuarioId)){
-            $msjError = "Usuario o contraseña incorrectos";
-            header("Location: /ingreso/login?msjError=" . urlencode($msjError));
-            exit();
+            if(!empty($usuarioId[0]['id'])){
+                $_SESSION['usuarioId'] = $usuarioId[0]['id'];
+                header("Location: /lobby/home");
+                exit();
+            }
         }
 
-        $_SESSION['usuarioId'] = $usuarioId;
-        header("Location: /lobby/home");
+        $msjError = "Usuario o contraseña incorrectos";
+        header("Location: /ingreso/login?msjError=" . urlencode($msjError));
         exit();
+
     }
 
     public function registerValidator(){
+        $nombreCompleto = isset($_POST['nombre-completo']) ? trim($_POST['nombre-completo']) : '';
+        $fechaNacimiento = isset($_POST['fecha-nacimiento']) ? trim($_POST['fecha-nacimiento']) : '';
+        $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+        $nickname = isset($_POST['nickname']) ? trim($_POST['nickname']) : '';
+        $contrasenia = isset($_POST['contrasenia']) ? trim($_POST['contrasenia']) : '';
+        $contraseniaRepetida = isset($_POST['contrasenia-repetida']) ? trim($_POST['contrasenia-repetida']) : '';
+        $genero = isset($_POST['genero']) ? trim($_POST['genero']) : '';
 
+        if ($nombreCompleto
+            && $fechaNacimiento
+            && $email
+            && $nickname
+            && $contrasenia
+            && $contraseniaRepetida
+            && $genero
+            && $_FILES['foto-perfil']['error'] === UPLOAD_ERR_OK){
+
+            $informe = $this->model->registrarUsuario(
+                        $nombreCompleto,
+                        $fechaNacimiento,
+                        $email,
+                        $nickname,
+                        $contrasenia,
+                        $contraseniaRepetida,
+                        $genero,
+                        $_FILES['foto-perfil']);
+
+            $msjExito ="";
+            $msjError ="";
+
+            ($informe === true)
+                ? $msjExito = "Registro exitoso!"
+                : $msjError = $informe;
+
+            if (empty($msjExito)){
+                header ("Location: /ingreso/register?msjError=" . $msjError);
+                exit();
+            } else{
+                header ("Location: /ingreso/register?msjExito=" . $msjExito);
+                exit();
+            }
+        }
     }
 }

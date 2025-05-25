@@ -19,7 +19,7 @@ class Database
 
     public function execute($sql)
     {
-        $this->conn->query($sql);
+        return $this->conn->query($sql);
     }
 
     function __destruct()
