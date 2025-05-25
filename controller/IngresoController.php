@@ -83,6 +83,9 @@ class IngresoController
                 header ("Location: /ingreso/register?msjExito=" . $msjExito);
                 exit();
             }
+        }else{
+            $msjError = "Por favor complete todos los datos para el registro.";
+            header ("Location: /ingreso/register?msjError=" . $msjError);
         }
     }
 }
