@@ -77,12 +77,16 @@ class IngresoController
                 : $msjError = $informe;
 
             if (empty($msjExito)){
-                header ("Location: /ingreso/register?msjError=" . $msjError);
+                header ("Location: /ingreso/register?msjError=" . urlencode($msjError));
                 exit();
             } else{
-                header ("Location: /ingreso/register?msjExito=" . $msjExito);
+                header ("Location: /ingreso/register?msjExito=" . urlencode($msjExito));
                 exit();
             }
+        }else{
+            $msjError = "Por favor complete todos los datos para el registro.";
+            header ("Location: /ingreso/register?msjError=" . urlencode($msjError));
+            exit();
         }
     }
 }
