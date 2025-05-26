@@ -1,0 +1,18 @@
+<main class="container-fluid flex-fill d-flex flex-column justify-content-center">
+    <div class="d-flex justify-content-center row">
+        <form action="/ingreso/loginValidator" method="POST" class="card d-flex flex-column gap-3 p-2 col-sm-11 col-md-6 col-lg-5 col-xl-4 col-xxl-3 p-4 fs-4 ">
+
+            <h3 class="m-auto">Iniciar Sesión</h3>
+
+            <input type="text" name="nickname" placeholder="Nombre de usuario" required>
+            <input type="password" name="contrasenia" placeholder="Contraseña" required>
+            {{#msjError}}
+                <p class="alert alert-danger">{{msjError}}</p>
+            {{/msjError}}
+            <input type="submit"  value="Iniciar Sesión">
+
+            <p class="m-auto">¿No tenes cuenta? <a href="/ingreso/register" class="text-decoration-none">Regístrate</a></p>
+
+        </form>
+    </div>
+</main>
