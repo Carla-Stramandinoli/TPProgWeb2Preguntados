@@ -23,12 +23,13 @@ class IngresoModel
                                      $genero,
                                      $fotoPerfil){
 
-        $emailValido = $this->validarEmail($email);
+        $formatoEmailValido = $this->validarFormatoEmail($email);
+        $emailLibre = $this->correoLibreEnLaBd($email);
         $nicknameValido = $this->validarNicknameNuevo($nickname);
         $contraseniaValida = $this->validarContraseniasIguales($contrasenia, $contraseniaRepetida);
         $imagenValida = $this->validarFormatoImagen($fotoPerfil);
 
-        if ($emailValido && $nicknameValido && $contraseniaValida && $imagenValida) {
+        if ($formatoEmailValido && $emailLibre && $nicknameValido && $contraseniaValida && $imagenValida) {
 
             $imagenPerfilGuardada = $this->guardarFotoDePerfil($fotoPerfil);
             $contraseniaHasheada = password_hash($contrasenia, PASSWORD_DEFAULT);
@@ -39,16 +40,17 @@ class IngresoModel
             // falta pasarle pais y ciudad cuando vemaos el mapa.
         }
 
-        if(!$emailValido) return "El email no es valido.";
+        if(!$formatoEmailValido) return "El formato del email no es valido.";
+        if(!$emailLibre) return "El email ya esta registrado en el sistema.";
         if(!$nicknameValido) return "El nickname ya lo usa otro usuario.";
         if(!$contraseniaValida) return "Las contrasenias no coinciden.";
         if(!$imagenValida) return "El formato de imagen no es valido.";
 
     }
 
-    private function validarEmail($email)
+    private function validarFormatoEmail($email)
     {
-        if(filter_var($email, FILTER_VALIDATE_EMAIL)) return $this->correoLibreEnLaBd($email);
+        return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
     public function correoLibreEnLaBd($email)
