@@ -14,4 +14,9 @@
     <div class="container text-white">
            Preguntatres
     </div>
+    {{#showLogout}}
+            <form method="POST" action="/ingreso/cerrarSesion">
+                <button class="btn btn-dark" type="submit">Cerrar sesión</button>
+            </form>
+    {{/showLogout}}
 </nav>

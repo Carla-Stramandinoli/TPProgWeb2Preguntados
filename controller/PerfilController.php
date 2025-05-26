@@ -15,8 +15,9 @@ class PerfilController
 
     public function mostrar()
     {
-        $datosUsuario["datosUsuario"] = $this->model->obtenerDatosUsuario($this->verificarSession());
-        $this->view->render("perfil", $datosUsuario);
+        $datosUsuario = $this->model->obtenerDatosUsuario($this->verificarSession());
+//        $this->view->render("perfil");
+        $this->view->render("perfil", [ "datosUsuario" => $datosUsuario, "showLogout" => true]);
     }
 
     private function verificarSession(){

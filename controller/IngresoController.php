@@ -23,6 +23,12 @@ class IngresoController
         if (!isset($_GET['msjExito']) && !isset($_GET['msjError'])) $this->view->render('register');
     }
 
+    public function cerrarSesion() {
+        session_destroy();
+        header("Location: /ingreso/login");
+        exit();
+    }
+
     public function loginValidator(){
 
         if (isset($_POST['nickname']) && isset($_POST['contrasenia'])){
