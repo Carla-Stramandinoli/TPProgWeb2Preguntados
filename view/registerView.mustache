@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<main class="container-fluid">
     <div class="d-flex justify-content-center row">
         <form action="/ingreso/registerValidator" method=POST enctype="multipart/form-data" class="card d-flex flex-column gap-3 p-2 m-2 col-sm-11 col-md-8 col-lg-6 col-xl-4 my-5 p-4 fs-4">
             <h3 class="m-auto">Registrarse</h3>
@@ -53,10 +53,12 @@
             {{#msjError}}
                 <p class="alert alert-danger">{{msjError}}</p>
             {{/msjError}}
-            <p class="m-auto">¿Ya tenes una cuenta? <a href="/ingreso/login" class="text-decoration-none">Inicia Sesion</a></p>
-
+            {{#msjExito}}
+                <p class="alert alert-success">{{msjExito}}  Ahora puedes <a href="/ingreso/login" class="text-decoration-none">iniciar sesión</a></p>
+            {{/msjExito}}
+            <p class="m-auto">¿Ya tenes una cuenta? <a href="/ingreso/login" class="text-decoration-none">Inicia Sesión</a></p>
         </form>
     </div>
-</div>
+</main>
 <script src="/public/js/registerScript.js" ></script>
 

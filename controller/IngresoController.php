@@ -25,8 +25,7 @@ class IngresoController
 
     public function cerrarSesion() {
         session_destroy();
-        header("Location: /ingreso/login");
-        exit();
+        $this->redirectTo("/ingreso/login");
     }
 
     public function loginValidator(){
@@ -36,14 +35,12 @@ class IngresoController
 
             if(!empty($usuarioId[0]['id'])){
                 $_SESSION['usuarioId'] = $usuarioId[0]['id'];
-                header("Location: /lobby/home");
-                exit();
+                $this->redirectTo("/lobby/home");
             }
         }
 
         $msjError = "Usuario o contraseña incorrectos";
-        header("Location: /ingreso/login?msjError=" . urlencode($msjError));
-        exit();
+        $this->redirectTo("/ingreso/login?msjError=" . urlencode($msjError));
 
     }
 
@@ -82,17 +79,23 @@ class IngresoController
                 ? $msjExito = "Registro exitoso!"
                 : $msjError = $informe;
 
-            if (empty($msjExito)){
-                header ("Location: /ingreso/register?msjError=" . urlencode($msjError));
-                exit();
-            } else{
-                header ("Location: /ingreso/register?msjExito=" . urlencode($msjExito));
-                exit();
-            }
+            if (empty($msjExito)) $this->redirectTo("/ingreso/register?msjError=" . urlencode($msjError));
+            else $this->redirectTo("/ingreso/register?msjExito=" . urlencode($msjExito));
+
         }else{
             $msjError = "Por favor complete todos los datos para el registro.";
-            header ("Location: /ingreso/register?msjError=" . urlencode($msjError));
-            exit();
+            $this->redirectTo("/ingreso/register?msjError=" . urlencode($msjError));
         }
     }
+
+    public function mostrar(){
+        $this->login();
+    }
+
+    private function redirectTo($str)
+    {
+        header("location:" . $str);
+        exit();
+    }
+
 }
