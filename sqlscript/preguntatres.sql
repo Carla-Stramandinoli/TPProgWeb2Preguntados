@@ -37,8 +37,8 @@ CREATE TABLE `usuario` (
   `foto_perfil` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `genero` varchar(100) NOT NULL,
-  `pais` varchar(100) NOT NULL,
-  `ciudad` varchar(100) NOT NULL
+  `pais` varchar(100), -- NOT NULL
+  `ciudad` varchar(100) -- NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
