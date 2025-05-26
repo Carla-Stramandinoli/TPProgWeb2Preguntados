@@ -33,6 +33,7 @@ class IngresoModel
 
             $imagenPerfilGuardada = $this->guardarFotoDePerfil($fotoPerfil);
             $contraseniaHasheada = password_hash($contrasenia, PASSWORD_DEFAULT);
+            date_default_timezone_set('America/Argentina/Buenos_Aires');
             $fechaActual = date("Y-m-d");
 
             return $this->database->execute("INSERT INTO usuario (nickname, nombre_completo, anio_nacimiento, contrasenia, fecha_registro, foto_perfil, email, genero) 
