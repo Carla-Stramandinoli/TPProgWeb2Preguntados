@@ -38,12 +38,19 @@
                 </div>
             </div>
             <div class="row">
-                <div id="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.3641581326856!2d-58.5628052!3d-34.670757599999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc62cc3ef7083%3A0x8867107f425fade5!2sUniversidad%20Nacional%20de%20La%20Matanza!5e0!3m2!1ses!2sar!4v1748119067840!5m2!1ses!2sar" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="w-100"></iframe>
-                </div>
+                    <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.3641581326856!2d-58.5628052!3d-34.670757599999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc62cc3ef7083%3A0x8867107f425fade5!2sUniversidad%20Nacional%20de%20La%20Matanza!5e0!3m2!1ses!2sar!4v1748119067840!5m2!1ses!2sar"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            class="w-100">
+                    </iframe>
             </div>
             <input type="submit" value="Registrarse">
-
+            {{#msjError}}
+                <p class="alert alert-danger">{{msjError}}</p>
+            {{/msjError}}
             <p class="m-auto">¿Ya tenes una cuenta? <a href="/ingreso/login" class="text-decoration-none">Inicia Sesion</a></p>
 
         </form>
