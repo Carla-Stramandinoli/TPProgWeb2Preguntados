@@ -50,7 +50,7 @@ class Configuration
         $defaultController='getIngresoController';
         $defaultMethod='login';
 
-        if(isset($_SESSION['usuarioId'])){
+        if(isset($_SESSION['nickname'])){
             $defaultController = 'getLobbyController';
             $defaultMethod = 'mostrar';
         }

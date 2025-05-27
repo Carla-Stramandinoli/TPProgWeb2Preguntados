@@ -15,13 +15,11 @@ class PerfilController
 
     public function mostrar()
     {
-        if(!isset($_SESSION['usuarioId'])) $this->redirectTo('/');
+        if(!isset($_SESSION['nickname'])) $this->redirectTo('/');
 
         $datosUsuario = $this->model->obtenerDatosUsuario($_SESSION["usuarioId"]);
         $this->view->render("perfil", [ "datosUsuario" => $datosUsuario, "showLogout" => true]);
     }
-
-
 
     private function redirectTo($str)
     {
