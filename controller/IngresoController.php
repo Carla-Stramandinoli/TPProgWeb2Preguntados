@@ -12,12 +12,14 @@ class IngresoController
     }
 
     public function login(){
+        if(isset($_SESSION['usuarioId'])) $this->redirectTo('/');
         (isset($_GET['msjError'])) // verificar despues si se puede limpiar la ruta
             ? $this->view->render('login', ['msjError' => $_GET['msjError']])
             : $this->view->render('login');
     }
 
     public function register(){
+        if(isset($_SESSION['usuarioId'])) $this->redirectTo('/');
         if (isset($_GET['msjError'])) $this->view->render('register', ['msjError' => $_GET['msjError']]);
         if (isset($_GET['msjExito'])) $this->view->render('register', ['msjExito' => $_GET['msjExito']]);
         if (!isset($_GET['msjExito']) && !isset($_GET['msjError'])) $this->view->render('register');
@@ -25,7 +27,7 @@ class IngresoController
 
     public function cerrarSesion() {
         session_destroy();
-        $this->redirectTo("/ingreso/login");
+        $this->redirectTo("/");
     }
 
     public function loginValidator(){
@@ -35,7 +37,7 @@ class IngresoController
 
             if(!empty($usuarioId[0]['id'])){
                 $_SESSION['usuarioId'] = $usuarioId[0]['id'];
-                $this->redirectTo("/lobby/home");
+                $this->redirectTo("/");
             }
         }
 
@@ -86,10 +88,6 @@ class IngresoController
             $msjError = "Por favor complete todos los datos para el registro.";
             $this->redirectTo("/ingreso/register?msjError=" . urlencode($msjError));
         }
-    }
-
-    public function mostrar(){
-        $this->login();
     }
 
     private function redirectTo($str)

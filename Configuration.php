@@ -46,11 +46,23 @@ class Configuration
 
     public function getRouter()
     {
-        return new Router("getLobbyController", "mostrar", $this);
+
+        $defaultController='getIngresoController';
+        $defaultMethod='login';
+
+        if(isset($_SESSION['usuarioId'])){
+            $defaultController = 'getLobbyController';
+            $defaultMethod = 'mostrar';
+        }
+
+        // analizar switch para tipos luego.
+
+        return new Router($defaultController, $defaultMethod, $this);
     }
 
     public function getViewer()
     {
         return new MustachePresenter("view");
     }
+
 }

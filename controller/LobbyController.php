@@ -11,8 +11,9 @@ class LobbyController
 
     public function mostrar()
     {
-        if(!isset($_SESSION['usuarioId'])) $this->redirectTo("/ingreso/login");
-        $this->view->render("lobby", ["showLogout" => true]);
+        (isset($_SESSION['usuarioId']))
+            ? $this->view->render("lobby", ["showLogout" => true])
+            : $this->redirectTo('/');
     }
 
     private function redirectTo($str)
@@ -20,4 +21,5 @@ class LobbyController
         header("location:" . $str);
         exit();
     }
+
 }
