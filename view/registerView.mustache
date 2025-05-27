@@ -1,8 +1,8 @@
-<div class="container-fluid">
+<main class="container-fluid">
     <div class="d-flex justify-content-center row">
         <form action="/ingreso/registerValidator" method=POST enctype="multipart/form-data" class="card d-flex flex-column gap-3 p-2 m-2 col-sm-11 col-md-8 col-lg-6 col-xl-4 my-5 p-4 fs-4">
             <h3 class="m-auto">Registrarse</h3>
-            <div class="row p-4">
+            <div class="row p-4 pb-0">
                 <div class="col-6">
                     <input class="w-100 h-100 border border-secondary rounded-1" type="text" name="nombre-completo" placeholder="Nombre completo" required>
                 </div>
@@ -37,7 +37,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row p-3">
+                <div class="ratio ratio-16x9 shadow-sm rounded-3 overflow-hidden border">
                     <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.3641581326856!2d-58.5628052!3d-34.670757599999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc62cc3ef7083%3A0x8867107f425fade5!2sUniversidad%20Nacional%20de%20La%20Matanza!5e0!3m2!1ses!2sar!4v1748119067840!5m2!1ses!2sar"
                             style="border:0;"
@@ -46,14 +47,18 @@
                             referrerpolicy="no-referrer-when-downgrade"
                             class="w-100">
                     </iframe>
+                </div>
             </div>
             <input type="submit" value="Registrarse">
             {{#msjError}}
                 <p class="alert alert-danger">{{msjError}}</p>
             {{/msjError}}
-            <p class="m-auto">¿Ya tenes una cuenta? <a href="/ingreso/login" class="text-decoration-none">Inicia Sesion</a></p>
+            {{#msjExito}}
+                <p class="alert alert-success">{{msjExito}}  Ahora puedes <a href="/ingreso/login" class="text-decoration-none">iniciar sesión</a></p>
+            {{/msjExito}}
+            <p class="m-auto">¿Ya tenes una cuenta? <a href="/ingreso/login" class="text-decoration-none">Inicia Sesión</a></p>
         </form>
     </div>
-</div>
+</main>
 <script src="/public/js/registerScript.js" ></script>
 

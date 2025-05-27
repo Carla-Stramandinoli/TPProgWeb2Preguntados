@@ -1,0 +1,36 @@
+#logo-footer{
+    max-width: 80px;
+    border: white solid 2px;
+}
+
+#logo-header{
+    max-width: 35px;
+    scale: 2;
+    border: white solid 1px;
+}
+
+#titulo-pagina > span{
+    border-bottom: 3px solid white;
+}
+
+.link-nav{
+    transition: all 0.3s ease;
+}
+
+.link-nav:hover {
+    transform: scale(1.1);
+}
+
+#redes > a{
+    font-size: 30px;
+    transition: all 0.3s ease;
+}
+
+#redes > a:hover{
+    transform: scale(1.1);
+}
+
+nav, footer{
+    background: #949494;
+    background: linear-gradient(0deg,rgba(148, 148, 148, 1) 0%, rgba(86, 87, 92, 1) 100%);
+}

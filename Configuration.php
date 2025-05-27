@@ -1,19 +1,12 @@
 <?php
 require_once("core/Database.php");
-require_once("core/FilePresenter.php");
 require_once("core/MustachePresenter.php");
 require_once("core/Router.php");
 
-require_once("controller/HomeController.php");
-require_once("controller/GroupController.php");
-require_once("controller/SongController.php");
-require_once("controller/TourController.php");
+require_once("controller/LobbyController.php");
 require_once("controller/IngresoController.php");
 require_once("controller/PerfilController.php");
 
-require_once("model/GroupModel.php");
-require_once("model/SongModel.php");
-require_once("model/TourModel.php");
 require_once("model/IngresoModel.php");
 require_once("model/PerfilModel.php");
 
@@ -38,31 +31,9 @@ class Configuration
         return parse_ini_file("configuration/config.ini", true);
     }
 
-    public function getSongController()
+    public function getLobbyController()
     {
-        return new SongController(
-            new SongModel($this->getDatabase()),
-            $this->getViewer()
-        );
-    }
-
-    public function getTourController()
-    {
-        return new TourController(
-            new TourModel($this->getDatabase()),
-            $this->getViewer()
-        );
-    }
-
-    public function getHomeController()
-    {
-        return new HomeController($this->getViewer());
-    }
-
-
-    public function getGroupController()
-    {
-        return new GroupController(new GroupModel($this->getDatabase()), $this->getViewer());
+        return new LobbyController($this->getViewer());
     }
 
     public function getIngresoController(){
@@ -75,12 +46,23 @@ class Configuration
 
     public function getRouter()
     {
-        return new Router("getHomeController", "show", $this);
+
+        $defaultController='getIngresoController';
+        $defaultMethod='login';
+
+        if(isset($_SESSION['nickname'])){
+            $defaultController = 'getLobbyController';
+            $defaultMethod = 'mostrar';
+        }
+
+        // analizar switch para tipos luego.
+
+        return new Router($defaultController, $defaultMethod, $this);
     }
 
     public function getViewer()
     {
-        //return new FileView();
         return new MustachePresenter("view");
     }
+
 }

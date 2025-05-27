@@ -15,20 +15,16 @@ class PerfilController
 
     public function mostrar()
     {
-        $datosUsuario = $this->model->obtenerDatosUsuario($this->verificarSession());
-//        $this->view->render("perfil");
+        if(!isset($_SESSION['nickname'])) $this->redirectTo('/');
+
+        $datosUsuario = $this->model->obtenerDatosUsuario($_SESSION["usuarioId"]);
         $this->view->render("perfil", [ "datosUsuario" => $datosUsuario, "showLogout" => true]);
     }
 
-    private function verificarSession(){
-       $usuarioExiste = isset($_SESSION["usuarioId"]);
-
-       if($usuarioExiste){
-           $usuarioLogueado = $_SESSION["usuarioId"];
-           return $usuarioLogueado;
-       }
-       header("location: /ingreso/login");
-       exit();
+    private function redirectTo($str)
+    {
+        header("location:" . $str);
+        exit();
     }
 
 }
