@@ -12,12 +12,14 @@ class IngresoController
     }
 
     public function login(){
+        if(isset($_SESSION['nickname'])) $this->redirectTo('/');
         (isset($_GET['msjError'])) // verificar despues si se puede limpiar la ruta
             ? $this->view->render('login', ['msjError' => $_GET['msjError']])
             : $this->view->render('login');
     }
 
     public function register(){
+        if(isset($_SESSION['nickname'])) $this->redirectTo('/');
         if (isset($_GET['msjError'])) $this->view->render('register', ['msjError' => $_GET['msjError']]);
         if (isset($_GET['msjExito'])) $this->view->render('register', ['msjExito' => $_GET['msjExito']]);
         if (!isset($_GET['msjExito']) && !isset($_GET['msjError'])) $this->view->render('register');
@@ -25,17 +27,25 @@ class IngresoController
 
     public function cerrarSesion() {
         session_destroy();
-        $this->redirectTo("/ingreso/login");
+        $this->redirectTo("/");
     }
 
     public function loginValidator(){
 
         if (isset($_POST['nickname']) && isset($_POST['contrasenia'])){
-            $usuarioId = $this->model->obtenerIdUsuario($_POST['nickname'], $_POST['contrasenia']);
+            $usuario = $this->model->obtenerUsuario($_POST['nickname'], $_POST['contrasenia']);
 
-            if(!empty($usuarioId[0]['id'])){
-                $_SESSION['usuarioId'] = $usuarioId[0]['id'];
-                $this->redirectTo("/lobby/home");
+
+            if(!empty($usuario[0])){
+                if($usuario[0]['cuenta_activada'] == 0) {
+                    $msjError = "El usuario esta inactivo, por favor verifique su casilla de correo.";
+                    $this->redirectTo("/ingreso/login?msjError=" . urlencode($msjError));
+                }
+
+                $_SESSION['nickname'] = $usuario[0]['nickname'];
+                $_SESSION['usuarioId'] = $usuario[0]['id'];
+
+                $this->redirectTo("/");
             }
         }
 
@@ -75,9 +85,18 @@ class IngresoController
             $msjExito ="";
             $msjError ="";
 
-            ($informe === true)
-                ? $msjExito = "Registro exitoso!"
-                : $msjError = $informe;
+            if($informe === true){
+                $msjExito = "Registro exitoso! Verifique su correo para activar su cuenta.";
+                $usuario = $this->model->obtenerUsuario($nickname, $contrasenia);
+
+                // mandar mail $usuario['nickname_hash']
+
+                $this->redirectTo("/ingreso/activar?hash=" . $usuario[0]['nickname_hash']); // esto lo pasara el html del correo por post.
+
+            } else {
+                $msjError = $informe;
+            }
+
 
             if (empty($msjExito)) $this->redirectTo("/ingreso/register?msjError=" . urlencode($msjError));
             else $this->redirectTo("/ingreso/register?msjExito=" . urlencode($msjExito));
@@ -88,8 +107,18 @@ class IngresoController
         }
     }
 
-    public function mostrar(){
-        $this->login();
+    public function activar(){
+        $hash = isset($_GET['hash']) ? trim($_GET['hash']) : '';
+
+        $this->view->render('activar', array('hash' => $hash));
+    }
+
+    public function validarCuenta(){
+        $hash = isset($_POST['hash']) ? trim($_POST['hash']) : '';
+
+        if ($this->model->existeUsuarioConHash($hash)) $this->model->activarUsuario($hash);
+
+        $this->redirectTo("/ingreso/login");
     }
 
     private function redirectTo($str)
