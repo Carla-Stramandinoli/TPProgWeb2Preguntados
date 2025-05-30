@@ -1,0 +1,28 @@
+<div id="bg-{{categoria}}">
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <div class="col">
+                <h4 class="border rounded">Categoría: {{categoria}}</h4>
+            </div>
+            <div class="col">
+                <h4 class="border rounded" id="reloj"></h4>
+            </div>
+            <div class="col">
+                <h4 class="border rounded">Puntuacion {{puntos}} </h4>
+            </div>
+            <div class="col">
+                <button class="btn btn-danger border rounded"> Reportar pregunta</button>
+            </div>
+        </div>
+    </div>
+<h3>{{pregunta}}</h3>
+    <form method="post" action="./JugarPartidaController/validarResultado">
+<ul>
+    {{#opciones}}
+        <li><button class="btn btn-light p-2 m-2" >{{.}}</button></li>
+    {{/opciones}}
+</ul>
+    </form>
+</div>
+
+<script src="/public/js/pregunta.js"></script>

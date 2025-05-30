@@ -1,7 +1,8 @@
 const categorias = [
-    "Historia", "Ciencia", "Geografía",
+    "Historia", "Ciencia", "Geografia",
     "Deportes", "Entretenimiento", "Arte"
 ];
+
 
 const colores = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"];
 const canvas = document.getElementById("ruleta");
@@ -37,9 +38,17 @@ function dibujarRuleta() {
 
 dibujarRuleta();
 
+function enviarCategoria(categoria) {
+
+    setTimeout(() => {
+        window.location.href = `/jugarPartida/categoria?cat=${encodeURIComponent(categoria)}`;
+    }, 500); // 500 milisegundos = 0.5 segundos
+}
+
 let anguloActual = 0;
 
 function girar() {
+
     const vueltas = Math.floor(Math.random() * 3) + 6; // entre 3 y 5 vueltas
     const anguloPorCategoria = 360 / categorias.length;
     const seccionElegida = Math.floor(Math.random() * categorias.length);
@@ -70,10 +79,12 @@ function girar() {
             const categoriaGanadora = categorias[index];
 
             document.getElementById("resultado").innerText = `¡Salió: ${categoriaGanadora}!`;
+            enviarCategoria(categoriaGanadora);
         }
     }
 
     requestAnimationFrame(animarRuleta);
+
 }
 
 
