@@ -1,28 +1,35 @@
-<div id="bg-{{categoria}}">
-    <div class="container text-center">
-        <div class="row align-items-start">
+<div id="bg-{{categoria}}" class="game-container py-5">
+    <div class="container text-center text-white">
+        <div class="row mb-4">
             <div class="col">
-                <h4 class="border rounded">Categoría: {{categoria}}</h4>
+                <h4 class="info-box">🎯 Categoría: {{categoria}}</h4>
             </div>
             <div class="col">
-                <h4 class="border rounded" id="reloj"></h4>
+                <h4 class="info-box" id="reloj">⏱️</h4>
             </div>
             <div class="col">
-                <h4 class="border rounded">Puntuacion {{puntos}} </h4>
+                <h4 class="info-box">🏆 Puntos: {{puntos}}</h4>
             </div>
             <div class="col">
-                <button class="btn btn-danger border rounded"> Reportar pregunta</button>
+                <button class="btn btn-danger rounded-pill">⚠️ Reportar pregunta</button>
             </div>
         </div>
+
+        <div class="question-box bg-white text-dark p-4 rounded shadow mb-4">
+            <h3 class="mb-3">{{pregunta}}</h3>
+
+            <form method="post" action="./validarResultado">
+                <input type="hidden" name="pregunta_id" value="{{id}}">
+                <div class="d-flex flex-column align-items-center gap-3">
+                    {{#respuestas}}
+                        <button type="submit" name="respuesta" value="{{descripcion}}" class="btn btn-answer">
+                            {{descripcion}}
+                        </button>
+                    {{/respuestas}}
+                </div>
+            </form>
+        </div>
     </div>
-<h3>{{pregunta}}</h3>
-    <form method="post" action="./JugarPartidaController/validarResultado">
-<ul>
-    {{#opciones}}
-        <li><button class="btn btn-light p-2 m-2" >{{.}}</button></li>
-    {{/opciones}}
-</ul>
-    </form>
 </div>
 
 <script src="/public/js/pregunta.js"></script>

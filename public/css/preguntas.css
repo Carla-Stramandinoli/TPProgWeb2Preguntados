@@ -1,18 +1,70 @@
-#bg-Historia{
-    background-color: orange;
+body {
+    background: #f4f4f4;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    margin: 0;
+    padding: 0;
 }
-#bg-Deportes{
-    background-color: blue;
+
+.game-container {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #7f7fd5, #86a8e7, #91eae4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
 }
-#bg-Ciencia{
-    background-color: green;
+
+.info-box {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
 }
-#bg-Arte{
-    background-color: red;
+
+.question-box {
+    max-width: 600px;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.85); /* fondo más liviano */
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    padding: 2rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
 }
-#bg-Entretenimiento{
-    background-color: pink;
+
+.question-box h3 {
+    margin-bottom: 2rem;
 }
-#bg-Geografia{
-    background-color: orange;
+
+
+
+.btn-answer:hover {
+    background-color: #ffeaa7;
+    transform: scale(1.03);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
+
+.btn-answer {
+    padding: 1rem;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #ffdd59;
+    color: #222;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    width: 40%;
+}
+#reloj {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+#bg-geografía { background: linear-gradient(to right, #34e89e, #0f3443); }
+#bg-ciencia   { background: linear-gradient(to right, #43cea2, #185a9d); }
+#bg-historia  { background: linear-gradient(to right, #f7971e, #ffd200); }
+#bg-deportes  { background: linear-gradient(to right, #ff512f, #dd2476); }
+#bg-arte      { background: linear-gradient(to right, #ee9ca7, #ffdde1); }
+#bg-entretenimiento { background: linear-gradient(to right, #00c6ff, #0072ff); }

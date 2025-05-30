@@ -1,5 +1,5 @@
 const categorias = [
-    "Historia", "Ciencia", "Geografia",
+    "Historia", "Ciencia", "Geografía",
     "Deportes", "Entretenimiento", "Arte"
 ];
 
