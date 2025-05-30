@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d3c63534-2af5-459f-a625-42942ec8932d" name="Changes" comment="Ruleta agregada y pagina de jugar Partida">
-      <change afterPath="$PROJECT_DIR$/view/ganasteView.mustache" afterDir="false" />
+    <list default="true" id="d3c63534-2af5-459f-a625-42942ec8932d" name="Changes" comment="Cree nuevas tablas en la base de datos, preguntas, respuestas y categorias. Sume la logica para que se cargen de forma random las preguntas, el metodo post con las respuestas y valide si la respuesta es correcta o incorrecta sin que se vea desde el front">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configuration/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/configuration/config.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/JugarPartidaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/JugarPartidaController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/JugarPartidaModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/JugarPartidaModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/preguntas.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/preguntas.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/jugarPartida.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/jugarPartida.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sqlscript/preguntatres.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sqlscript/preguntatres.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/preguntaView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/preguntaView.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +40,16 @@
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Carla-Stramandinoli/TPProgWeb2Preguntados.git&quot;,
     &quot;accountId&quot;: &quot;5d3cec17-7597-4fcb-a38a-03c403d275e0&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;Carla-Stramandinoli&quot;,
+    &quot;repository&quot;: &quot;TPProgWeb2Preguntados&quot;
   }
 }</component>
   <component name="PhpDebugGeneral" listening_started="true" />
@@ -107,7 +113,10 @@
       <workItem from="1748288578888" duration="16405000" />
       <workItem from="1748549752662" duration="3735000" />
       <workItem from="1748573339141" duration="7563000" />
-      <workItem from="1748583581742" duration="5575000" />
+      <workItem from="1748583581742" duration="6402000" />
+      <workItem from="1748629603962" duration="1577000" />
+      <workItem from="1748635408554" duration="483000" />
+      <workItem from="1748639269272" duration="376000" />
     </task>
     <task id="LOCAL-00001" summary="Ruleta agregada y pagina de jugar Partida">
       <option name="closed" value="true" />
@@ -125,7 +134,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748573468493</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Cree nuevas tablas en la base de datos, preguntas, respuestas y categorias. Sume la logica para que se cargen de forma random las preguntas, el metodo post con las respuestas y valide si la respuesta es correcta o incorrecta sin que se vea desde el front">
+      <option name="closed" value="true" />
+      <created>1748589520537</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748589520537</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +150,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ruleta agregada y pagina de jugar Partida" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ruleta agregada y pagina de jugar Partida" />
+    <MESSAGE value="Cree nuevas tablas en la base de datos, preguntas, respuestas y categorias. Sume la logica para que se cargen de forma random las preguntas, el metodo post con las respuestas y valide si la respuesta es correcta o incorrecta sin que se vea desde el front" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cree nuevas tablas en la base de datos, preguntas, respuestas y categorias. Sume la logica para que se cargen de forma random las preguntas, el metodo post con las respuestas y valide si la respuesta es correcta o incorrecta sin que se vea desde el front" />
   </component>
 </project>
