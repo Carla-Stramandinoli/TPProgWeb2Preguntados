@@ -59,7 +59,13 @@ class JugarPartidaModel{
         return $result[0]['es_correcta'];
     }
 
+    public  function  actualizarPreguntaCantidadDeVecesJugadaMasUnoPorId($num)
+    {
+        $this->database->execute("UPDATE pregunta SET cantidad_jugada = cantidad_jugada + 1 WHERE id = $num");
+    }
 
-
-
+    public function  actualizarPreguntaRespuestaExitosaMasUnoPorId($num)
+    {
+        $this->database->execute("UPDATE pregunta SET cantidad_aciertos = cantidad_aciertos + 1 WHERE id = $num");
+    }
 }

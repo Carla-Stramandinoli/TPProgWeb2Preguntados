@@ -52,10 +52,11 @@ class JugarPartidaController{
        $idPregunta = $_POST['pregunta_id'];
        $respuesta = $_POST['respuesta'];
 
-
        $resultado = $this->model->validarRespuestaCorrecta($idPregunta,$respuesta);
 
+       $this->model->actualizarPreguntaCantidadDeVecesJugadaMasUnoPorId($idPregunta);
        if ($resultado==1){
+           $this->model->actualizarPreguntaRespuestaExitosaMasUnoPorId($idPregunta);
            $this->view->render("ganaste", [
                "showLogout" => true] );
        }    else  echo "Perdisteeee manquito";
