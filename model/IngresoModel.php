@@ -14,6 +14,12 @@ class IngresoModel
         else return [];
     }
 
+    public function obtenerUsuarioParaJugador($hash)
+    {
+        $resultado = $this->database->query("SELECT id FROM usuario WHERE nickname_hash = '$hash'");
+        return isset($resultado[0]['id']) ? $resultado[0]['id'] : false;
+    }
+
     public function existeUsuarioConHash($hash){
         $usuario = $this->database->query("SELECT nickname_hash FROM usuario WHERE nickname_hash = '$hash'");
         return !empty($usuario);
@@ -43,7 +49,7 @@ class IngresoModel
             $fechaActual = date("Y-m-d");
 
             return $this->database->execute("INSERT INTO usuario (nickname, nombre_completo, anio_nacimiento, contrasenia, fecha_registro, foto_perfil, email, genero, nickname_hash) 
-                                      VALUES ('$nickname','$nombreCompleto', '$fechaNacimiento', '$contraseniaHasheada', '$fechaActual', '$imagenPerfilGuardada', '$email', '$genero', '$nicknameHasheado')");
+                                                VALUES ('$nickname','$nombreCompleto', '$fechaNacimiento', '$contraseniaHasheada', '$fechaActual', '$imagenPerfilGuardada', '$email', '$genero', '$nicknameHasheado')");
             // falta pasarle pais y ciudad cuando vemaos el mapa.
         }
 
@@ -53,6 +59,14 @@ class IngresoModel
         if(!$contraseniaValida) return "Las contrasenias no coinciden.";
         if(!$imagenValida) return "El formato de imagen no es valido.";
 
+    }
+
+    public function registrarJugador($hash)
+    {
+        $idUsuario = $this->obtenerUsuarioParaJugador($hash);
+        if ($idUsuario){
+            $this->database->execute("INSERT INTO jugador (id, puntaje_alcanzado, qr, id_nivel) VALUES ($idUsuario, null, null, 1)");
+        }
     }
 
     public function activarUsuario($hash){
