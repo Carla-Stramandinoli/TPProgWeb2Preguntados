@@ -12,8 +12,11 @@ class JugarPartidaController{
 
     public function mostrar()
     {
-        $this-> view->render("jugarPartida" ,["showLogout" => true]);
+        $_SESSION["puntos"] = 0;
+        $this-> view->render("jugarPartida" ,["showLogout" => true, "primerInicio" => true]);
     }
+
+
 
     public function categoria()
     {
@@ -26,8 +29,10 @@ class JugarPartidaController{
 
         $ids = $this->model->obtenerArrayDeIds($preguntas);
         $num = $ids[array_rand($ids)];
-        $puntos = 0;
-
+        if (!isset($_SESSION["puntos"])) {
+            $_SESSION["puntos"] = 0;
+        }
+        $puntos =  $_SESSION["puntos"];
         $pregunta = $this->model->obtenerPreguntaPorId($num, $preguntas);
         if (!$pregunta) {
             die("No se encontró la pregunta con ID $num");
@@ -55,12 +60,27 @@ class JugarPartidaController{
        $resultado = $this->model->validarRespuestaCorrecta($idPregunta,$respuesta);
 
        $this->model->actualizarPreguntaCantidadDeVecesJugadaMasUnoPorId($idPregunta);
+        $trofeos = "no tenes";
+        $racha = "22 preguntas";
+        $puntos = $_SESSION["puntos"];
        if ($resultado==1){
            $this->model->actualizarPreguntaRespuestaExitosaMasUnoPorId($idPregunta);
-           $this->view->render("ganaste", [
-               "showLogout" => true] );
-       }    else  echo "Perdisteeee manquito";
-
+           $_SESSION["puntos"] += 1;
+           $puntos = $_SESSION["puntos"];
+           $trofeos = "no tenes";
+           $racha = "22 preguntas";
+           $this-> view->render("jugarPartida" ,[
+               "puntos" => $puntos,
+               "trofeos" => $trofeos,
+               "racha" => $racha,
+               "showLogout" => true,
+               "partidaEnCurso" => true]);
+       } else{  $this-> view->render("perdiste" ,[
+        "puntos" => $puntos,
+        "trofeos" => $trofeos,
+        "racha" => $racha,
+        "showLogout" => true]);
+       }
     }
 }
 

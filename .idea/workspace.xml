@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d3c63534-2af5-459f-a625-42942ec8932d" name="Changes" comment="Cree nuevas tablas en la base de datos, preguntas, respuestas y categorias. Sume la logica para que se cargen de forma random las preguntas, el metodo post con las respuestas y valide si la respuesta es correcta o incorrecta sin que se vea desde el front">
+    <list default="true" id="d3c63534-2af5-459f-a625-42942ec8932d" name="Changes" comment="Actualizar base de datos mediante a metodos cuando se juega una pregunta y cuando se responde bien">
+      <change afterPath="$PROJECT_DIR$/public/css/perdiste.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/perdisteView.mustache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configuration/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/configuration/config.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/JugarPartidaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/JugarPartidaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/JugarPartidaModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/JugarPartidaModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/header.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/header.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/jugarPartidaView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/jugarPartidaView.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +119,10 @@
       <workItem from="1748583581742" duration="6402000" />
       <workItem from="1748629603962" duration="1577000" />
       <workItem from="1748635408554" duration="483000" />
-      <workItem from="1748639269272" duration="376000" />
+      <workItem from="1748639269272" duration="783000" />
+      <workItem from="1748666510257" duration="1373000" />
+      <workItem from="1748723615568" duration="540000" />
+      <workItem from="1748724579308" duration="8932000" />
     </task>
     <task id="LOCAL-00001" summary="Ruleta agregada y pagina de jugar Partida">
       <option name="closed" value="true" />
@@ -142,7 +148,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748589520537</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Actualizar base de datos mediante a metodos cuando se juega una pregunta y cuando se responde bien">
+      <option name="closed" value="true" />
+      <created>1748639984215</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748639984215</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -151,6 +165,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ruleta agregada y pagina de jugar Partida" />
     <MESSAGE value="Cree nuevas tablas en la base de datos, preguntas, respuestas y categorias. Sume la logica para que se cargen de forma random las preguntas, el metodo post con las respuestas y valide si la respuesta es correcta o incorrecta sin que se vea desde el front" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cree nuevas tablas en la base de datos, preguntas, respuestas y categorias. Sume la logica para que se cargen de forma random las preguntas, el metodo post con las respuestas y valide si la respuesta es correcta o incorrecta sin que se vea desde el front" />
+    <MESSAGE value="Actualizar base de datos mediante a metodos cuando se juega una pregunta y cuando se responde bien" />
+    <option name="LAST_COMMIT_MESSAGE" value="Actualizar base de datos mediante a metodos cuando se juega una pregunta y cuando se responde bien" />
   </component>
 </project>
