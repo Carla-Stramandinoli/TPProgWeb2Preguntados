@@ -6,9 +6,11 @@ require_once("core/Router.php");
 require_once("controller/LobbyController.php");
 require_once("controller/IngresoController.php");
 require_once("controller/PerfilController.php");
+require_once ("controller/JugarPartidaController.php");
 
 require_once("model/IngresoModel.php");
 require_once("model/PerfilModel.php");
+require_once ("model/JugarPartidaModel.php");
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
@@ -42,6 +44,11 @@ class Configuration
 
     public function getPerfilController(){
         return new PerfilController(new PerfilModel($this->getDatabase()) ,$this->getViewer());
+    }
+
+    public function getJugarPartidaController()
+    {
+        return new JugarPartidaController(new JugarPartidaModel($this->getDatabase()) ,$this->getViewer());
     }
 
     public function getRouter()
