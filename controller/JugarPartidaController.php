@@ -13,18 +13,18 @@ class JugarPartidaController{
     public function mostrar()
     {
         $_SESSION["puntos"] = 0;
-        $this-> view->render("jugarPartida" ,["showLogout" => true, "primerInicio" => true]);
+        $categoria = $this->model->elegirCategoriaRandom();
+        $_SESSION["categoria_actual"] = $categoria;
+
+        $this-> view->render("jugarPartida" ,["showLogout" => true, "primerInicio" => true, "categoria" =>$categoria]);
     }
 
 
 
     public function categoria()
     {
-        $categoria = isset($_GET['cat']) ? $_GET['cat'] : '';
 
-
-        error_log("Categoría recibida: " . $_GET['cat']);
-
+        $categoria = $_SESSION["categoria_actual"];
         $preguntas = $this->model->obtenerPreguntasPorCategoria($categoria);
 
         $ids = $this->model->obtenerArrayDeIds($preguntas);
@@ -41,7 +41,7 @@ class JugarPartidaController{
         // Mezclar las opciones
 
         shuffle($respuestas);
-
+        $_SESSION['inicio_pregunta'] = time();
         // Renderizar con Mustache
         $this->view->render("pregunta", [
             "categoria" => $categoria,
@@ -51,7 +51,19 @@ class JugarPartidaController{
             "puntos" => $puntos,
          "showLogout" => true] );
     }
+    public function timeOut()
+    {
+        $trofeos = "no tenes";
+        $racha = "22 preguntas";
+        $puntos = $_SESSION["puntos"];
 
+     $this-> view->render("perdiste" ,[
+        "puntos" => $puntos,
+        "trofeos" => $trofeos,
+        "racha" => $racha,
+        "showLogout" => true]);
+
+    }
     public function validarResultado()
     {
        $idPregunta = $_POST['pregunta_id'];
@@ -63,18 +75,20 @@ class JugarPartidaController{
         $trofeos = "no tenes";
         $racha = "22 preguntas";
         $puntos = $_SESSION["puntos"];
-       if ($resultado==1){
+        $tiempo_actual = time();
+       if ($resultado==1 && $tiempo_actual - $_SESSION['inicio_pregunta'] <10){
            $this->model->actualizarPreguntaRespuestaExitosaMasUnoPorId($idPregunta);
            $_SESSION["puntos"] += 1;
            $puntos = $_SESSION["puntos"];
-           $trofeos = "no tenes";
-           $racha = "22 preguntas";
+           $categoria = $this->model->elegirCategoriaRandom();
+           $_SESSION["categoria_actual"] = $categoria;
            $this-> view->render("jugarPartida" ,[
                "puntos" => $puntos,
                "trofeos" => $trofeos,
                "racha" => $racha,
                "showLogout" => true,
-               "partidaEnCurso" => true]);
+               "partidaEnCurso" => true,
+                "categoria"=> $categoria]);
        } else{  $this-> view->render("perdiste" ,[
         "puntos" => $puntos,
         "trofeos" => $trofeos,

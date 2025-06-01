@@ -64,6 +64,13 @@ class JugarPartidaModel{
         $this->database->execute("UPDATE pregunta SET cantidad_jugada = cantidad_jugada + 1 WHERE id = $num");
     }
 
+    public function elegirCategoriaRandom()
+    {
+        $categorias = ["Historia", "Ciencia", "Geografía", "Deportes", "Entretenimiento", "Arte"];
+        $indiceElegido = array_rand($categorias);
+        $categoria = $categorias[$indiceElegido];
+        return $categoria;
+    }
     public function  actualizarPreguntaRespuestaExitosaMasUnoPorId($num)
     {
         $this->database->execute("UPDATE pregunta SET cantidad_aciertos = cantidad_aciertos + 1 WHERE id = $num");
