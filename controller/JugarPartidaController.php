@@ -15,6 +15,7 @@ class JugarPartidaController{
         $_SESSION["puntos"] = 0;
         $categoria = $this->model->elegirCategoriaRandom();
         $_SESSION["categoria_actual"] = $categoria;
+        $this->model->crearInstanciaDePartida($_SESSION["usuarioId"]);
 
         $this-> view->render("jugarPartida" ,["showLogout" => true, "primerInicio" => true, "categoria" =>$categoria]);
     }
@@ -24,29 +25,36 @@ class JugarPartidaController{
     public function categoria()
     {
 
-        $categoria = $_SESSION["categoria_actual"];
-        $preguntas = $this->model->obtenerPreguntasPorCategoria($categoria);
+        $descripcionCategoria = $_SESSION["categoria_actual"];
+        //$enunciadoPregunta = $this->model->obtenerEnunciadoPregunta($descripcionCategoria);
 
-        $ids = $this->model->obtenerArrayDeIds($preguntas);
-        $num = $ids[array_rand($ids)];
+        //$ids = $this->model->obtenerArrayDeIds($preguntas);
+        //$num = $ids[array_rand($ids)];
         if (!isset($_SESSION["puntos"])) {
             $_SESSION["puntos"] = 0;
         }
         $puntos =  $_SESSION["puntos"];
-        $pregunta = $this->model->obtenerPreguntaPorId($num, $preguntas);
+        $pregunta = $this->model->obtenerEnunciadoPregunta($descripcionCategoria);
         if (!$pregunta) {
-            die("No se encontró la pregunta con ID $num");
+            die("No se encontró la pregunta con ID");
         }
-        $respuestas = $this->model->obtenerRespuestasPorPregunta($pregunta);
+
+        $partidaActual = $this->model->obtenerPartidaPorJugador($_SESSION["usuarioId"]);
+        $idPregunta = $this->model->obtenerIdPregunta($pregunta);
+        echo "ID de pregunta: " . $idPregunta . "<br>";
+        echo "ID de partida: " . $partidaActual . "<br>";
+        $this->model->almacenarPreguntaDePartidaEnTablaCompuesta($partidaActual, $idPregunta);
+
+        $respuestas = $this->model->obtenerRespuestasPorPregunta($idPregunta);
         // Mezclar las opciones
 
         shuffle($respuestas);
         $_SESSION['inicio_pregunta'] = time();
         // Renderizar con Mustache
         $this->view->render("pregunta", [
-            "categoria" => $categoria,
-            "pregunta" => $pregunta["enunciado"],
-            "id" => $num,
+            "categoria" => $descripcionCategoria,
+            "pregunta" => $pregunta,
+            "id" => $idPregunta,
             "respuestas" => $respuestas,
             "puntos" => $puntos,
          "showLogout" => true] );
@@ -70,30 +78,32 @@ class JugarPartidaController{
        $idPregunta = $_POST['pregunta_id'];
        $respuesta = $_POST['respuesta'];
 
-       $resultado = $this->model->validarRespuestaCorrecta($idPregunta,$respuesta);
+       //Cambiar por query?
+       //$this->model->actualizarPreguntaCantidadDeVecesJugadaMasUnoPorId($idPregunta);
 
-       $this->model->actualizarPreguntaCantidadDeVecesJugadaMasUnoPorId($idPregunta);
-        $trofeos = "no tenes";
-        $racha = "22 preguntas";
+        $resultado = $this->model->validarRespuestaCorrecta($idPregunta, $respuesta);
+        if ($resultado){
+            $this->model->actualizarPuntosPartida($this->model->obtenerPartidaPorJugador($_SESSION["usuarioId"]));
+        }
+
+
         $puntos = $_SESSION["puntos"];
         $tiempo_actual = time();
        if ($resultado==1 && $tiempo_actual - $_SESSION['inicio_pregunta'] <10){
-           $this->model->actualizarPreguntaRespuestaExitosaMasUnoPorId($idPregunta);
+           //Cambiar por query?
+           //$this->model->actualizarPreguntaRespuestaExitosaMasUnoPorId($idPregunta);
+
            $_SESSION["puntos"] += 1;
            $puntos = $_SESSION["puntos"];
            $categoria = $this->model->elegirCategoriaRandom();
            $_SESSION["categoria_actual"] = $categoria;
            $this-> view->render("jugarPartida" ,[
                "puntos" => $puntos,
-               "trofeos" => $trofeos,
-               "racha" => $racha,
                "showLogout" => true,
                "partidaEnCurso" => true,
-                "categoria"=> $categoria]);
+               "categoria"=> $categoria]);
        } else{  $this-> view->render("perdiste" ,[
         "puntos" => $puntos,
-        "trofeos" => $trofeos,
-        "racha" => $racha,
         "showLogout" => true]);
        }
     }
