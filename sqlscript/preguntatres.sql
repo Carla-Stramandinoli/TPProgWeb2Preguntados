@@ -95,7 +95,7 @@ CREATE TABLE jugador (
 
 CREATE TABLE partida (
     id_partida int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    fecha_partida date NOT NULL,
+    fecha_partida datetime CURRENT_TIMESTAMP NOT NULL,
     resultado int,
     id_jugador int NOT NULL,
     FOREIGN KEY (id_jugador) REFERENCES jugador(id)
@@ -162,8 +162,8 @@ INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (7, 'Am
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (8, 'Europa', 0, 2);
 
 INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria, id_nivel) VALUES (3, '¿Qué río es el más largo del mundo?', 0, 0, CURRENT_TIMESTAMP, 0, 1, 1);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (9, 'Amazonas', 1, 3);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (10, 'Nilo', 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (9, 'Nilo', 1, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (10, 'Amazonas', 0, 3);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (11, 'Yangtsé', 0, 3);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (12, 'Misisipi', 0, 3);
 

@@ -41,8 +41,6 @@ class JugarPartidaController{
 
         $partidaActual = $this->model->obtenerPartidaPorJugador($_SESSION["usuarioId"]);
         $idPregunta = $this->model->obtenerIdPregunta($pregunta);
-        echo "ID de pregunta: " . $idPregunta . "<br>";
-        echo "ID de partida: " . $partidaActual . "<br>";
         $this->model->almacenarPreguntaDePartidaEnTablaCompuesta($partidaActual, $idPregunta);
 
         $respuestas = $this->model->obtenerRespuestasPorPregunta($idPregunta);
@@ -82,7 +80,7 @@ class JugarPartidaController{
        //$this->model->actualizarPreguntaCantidadDeVecesJugadaMasUnoPorId($idPregunta);
 
         $resultado = $this->model->validarRespuestaCorrecta($idPregunta, $respuesta);
-        if ($resultado){
+        if ($resultado == 1){
             $this->model->actualizarPuntosPartida($this->model->obtenerPartidaPorJugador($_SESSION["usuarioId"]));
         }
 
