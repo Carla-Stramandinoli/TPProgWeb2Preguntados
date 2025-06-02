@@ -53,15 +53,16 @@ class JugarPartidaController{
     }
     public function timeOut()
     {
-        $trofeos = "no tenes";
-        $racha = "22 preguntas";
+        //$trofeos = "no tenes";
+        //$racha = "22 preguntas";
         $puntos = $_SESSION["puntos"];
 
-     $this-> view->render("perdiste" ,[
-        "puntos" => $puntos,
-        "trofeos" => $trofeos,
-        "racha" => $racha,
-        "showLogout" => true]);
+        $this-> view->render("perdiste" ,[
+            "puntos" => $puntos,
+            //"trofeos" => $trofeos,
+            //"racha" => $racha,
+            "showLogout" => true
+        ]);
 
     }
     public function validarResultado()
