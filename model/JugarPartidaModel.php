@@ -31,16 +31,10 @@ class JugarPartidaModel{
 
     public function obtenerEnunciadoPregunta($descripcionCategoria)
     {
-        /*foreach ($preguntas as $pregunta) {
-            if( $pregunta['id'] == $num){
-                return $pregunta;
-            }
-        }
-        return null;*/
         $resultado = $this->database->query("SELECT enunciado FROM pregunta 
                                             JOIN categoria ON pregunta.id_categoria = categoria.id
                                             WHERE categoria.descripcion = '$descripcionCategoria' 
-                                            ORDER BY RAND() 
+                                            ORDER BY RAND()
                                             LIMIT 1");
         return isset($resultado[0]['enunciado']) ? $resultado[0]['enunciado'] : false;
     }
@@ -92,10 +86,8 @@ class JugarPartidaModel{
 
     public function crearInstanciaDePartida($id)
     {
-        /*date_default_timezone_set('America/Argentina/Buenos_Aires');
-        $fechaActual = date("Y-m-d");*/
         $this->database->execute("INSERT INTO partida (fecha_partida, resultado, id_jugador) 
-                                    VALUES (CURRENT_DATE(), 0, $id)");
+                                    VALUES (CURRENT_TIMESTAMP(), 0, $id)");
     }
 
     public function actualizarPuntosPartida($idPartida)

@@ -9,8 +9,7 @@
       <change beforePath="$PROJECT_DIR$/controller/JugarPartidaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/JugarPartidaController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/PerfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/PerfilController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/JugarPartidaModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/JugarPartidaModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/PerfilModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PerfilModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/perfilView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/perfilView.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sqlscript/preguntatres.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sqlscript/preguntatres.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
