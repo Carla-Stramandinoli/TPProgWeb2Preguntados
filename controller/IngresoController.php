@@ -125,8 +125,7 @@ class IngresoController
         $hash = isset($_POST['hash']) ? trim($_POST['hash']) : '';
 
         if ($this->model->existeUsuarioConHash($hash)){
-            $this->model->registrarJugador($hash);
-            $this->model->activarUsuario($hash);
+            $this->model->activarJugador($hash);
         }
 
         $this->redirectTo("/ingreso/login");

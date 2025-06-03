@@ -64,22 +64,26 @@ CREATE TABLE usuario (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nickname VARCHAR(100) NOT NULL,
     nombre_completo VARCHAR(100) NOT NULL,
-    anio_nacimiento DATE NOT NULL,
     contrasenia VARCHAR(100) NOT NULL,
+    UNIQUE (nickname)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO usuario (id, nickname, nombre_completo, contrasenia, nickname_hash) VALUES (1, "admin", 'Juan Perez', '123', null);
+
+INSERT INTO usuario (id, nickname, nombre_completo, contrasenia, nickname_hash) VALUES (2, "editor", 'Pepito', '123', null);
+
+CREATE TABLE jugador (
+    id INT PRIMARY KEY,
+    puntaje_alcanzado INT DEFAULT 0,
+    anio_nacimiento DATE NOT NULL,
     fecha_registro date NOT NULL,
     foto_perfil VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     genero VARCHAR(100) NOT NULL,
     pais VARCHAR(100), -- NOT NULL,
     ciudad VARCHAR(100), -- NOT NULL
-    nickname_hash VARCHAR(250), -- NOT NULL,
     cuenta_activada TINYINT DEFAULT 0,
-    UNIQUE (nickname)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-CREATE TABLE jugador (
-    id INT PRIMARY KEY,
-    puntaje_alcanzado INT DEFAULT 0,
+    nickname_hash VARCHAR(250), -- NOT NULL,
     qr VARCHAR(100),
     cantidad_jugada INT DEFAULT 0,
     cantidad_aciertos INT DEFAULT 0,
@@ -88,15 +92,21 @@ CREATE TABLE jugador (
 
 CREATE TABLE administrador (
     id INT PRIMARY KEY,
-    nombre_completo VARCHAR(100)
-    FOREIGN KEY (id) REFERENCES usuario(id)
+    nickname VARCHAR(100),
+    FOREIGN KEY (id) REFERENCES usuario(id),
+    FOREIGN KEY (nickname) REFERENCES usuario(nickname)
 );
 
 CREATE TABLE editor (
     id INT PRIMARY KEY,
-    nombre_completo VARCHAR(100)
-    FOREIGN KEY (id) REFERENCES usuario(id)
+    nickname VARCHAR(100),
+    FOREIGN KEY (id) REFERENCES usuario(id),
+    FOREIGN KEY (nickname) REFERENCES usuario(nickname)
 );
+
+INSERT INTO administrador (id, nickname) VALUES (1,"admin");
+
+INSERT INTO editor (id, nickname) VALUES (2,"editor");
 
 CREATE TABLE partida (
     id_partida INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -151,10 +161,6 @@ COMMIT;*/
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-INSERT INTO administrador (nombre_completo) VALUES ("administrador");
-
-INSERT INTO editor (nombre_completo) VALUES ("editor");
 
 -- Pregunta 1
 INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (1, '¿Cuál es la capital de Australia?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
