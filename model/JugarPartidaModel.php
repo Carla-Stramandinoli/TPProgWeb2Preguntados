@@ -136,8 +136,13 @@ class JugarPartidaModel{
 
     public function almacenarPreguntaDePartidaEnTablaCompuesta($id_partida, $id)
     {
-        $this->database->execute("INSERT INTO compuesta (id_partida, id_pregunta)
-                                    VALUES ($id_partida, $id)");
+        // Verificamos si ya existe la relación
+        $resultado = $this->database->query("SELECT 1 FROM compuesta WHERE id_partida = $id_partida AND id_pregunta = $id");
+
+        // Si no existe, insertamos
+        if (empty($resultado)) {
+            $this->database->execute("INSERT INTO compuesta (id_partida, id_pregunta) VALUES ($id_partida, $id)");
+        }
     }
 
     public function almacenarPreguntasContestadasEnTablaContesta($idJugador, $id)
@@ -185,6 +190,12 @@ class JugarPartidaModel{
                                                 FROM jugador
                                                 WHERE id = '$idJugador'");
         return isset($resultado[0]['DIFICULTAD']) ? $resultado[0]['DIFICULTAD'] : false;
+    }
+
+    public function obtenerRachaMasLargaJugador($idJugador)
+    {
+        $resultado = $this->database->query("SELECT MAX(resultado) AS mejor_resultado FROM partida WHERE id_jugador='$idJugador'");
+        return isset($resultado[0]['mejor_resultado']) ? ($resultado[0]['mejor_resultado']) : false;
     }
 
 }

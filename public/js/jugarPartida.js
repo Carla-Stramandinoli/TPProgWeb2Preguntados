@@ -3,6 +3,9 @@ const categorias = [
     "Deportes", "Entretenimiento", "Arte"
 ];
 
+localStorage.setItem("tiempoRestante", 10);
+localStorage.removeItem("redirigiendo");
+
 
 const colores = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"];
 const canvas = document.getElementById("ruleta");
