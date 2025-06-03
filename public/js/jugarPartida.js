@@ -3,18 +3,25 @@ const categorias = [
     "Deportes", "Entretenimiento", "Arte"
 ];
 
+localStorage.setItem("tiempoRestante", 10);
+localStorage.removeItem("redirigiendo");
+
 
 const colores = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"];
 const canvas = document.getElementById("ruleta");
 const ctx = canvas.getContext("2d");
 const radius = canvas.width / 2;
 
-function dibujarRuleta() {
+let ruletaGirando = false;
+
+function dibujarRuleta(angulo = 0) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // limpiar canvas
+
     const angle = 2 * Math.PI / categorias.length;
 
     for (let i = 0; i < categorias.length; i++) {
-        const start = i * angle;
-        const end = (i + 1) * angle;
+        const start = i * angle + angulo;
+        const end = (i + 1) * angle + angulo;
 
         // Fondo
         ctx.beginPath();
@@ -36,28 +43,33 @@ function dibujarRuleta() {
     }
 }
 
-dibujarRuleta();
+dibujarRuleta(0);
 
-function enviarCategoria(categoria) {
+function redirigir() {
 
     setTimeout(() => {
-        window.location.href = `/jugarPartida/categoria?cat=${encodeURIComponent(categoria)}`;
-    }, 500); // 500 milisegundos = 0.5 segundos
+        window.location.href = `/jugarPartida/categoria`;
+    }, 400); // 500 milisegundos = 0.5 segundos
 }
 
 let anguloActual = 0;
 
 function girar() {
-
-    const vueltas = Math.floor(Math.random() * 3) + 6; // entre 3 y 5 vueltas
+    const vueltas = 6;
     const anguloPorCategoria = 360 / categorias.length;
-    const seccionElegida = Math.floor(Math.random() * categorias.length);
-    const anguloFinal = seccionElegida * anguloPorCategoria;
+    const seccionElegida = categorias.indexOf(categoriaElegidaDesdeBack);
 
-    const total = (360 * vueltas) + anguloFinal;
+    // 🧠 Centro del sector elegido (en grados)
+    const centroCategoria = (seccionElegida + 0.5) * anguloPorCategoria;
 
-    const duracion = 2500; // duración en ms
+    // 📍 Queremos que el centro de la categoría quede en 270° (la flecha)
+    let anguloObjetivo = 270 - centroCategoria;
 
+    // Asegurar que esté en rango [0, 360)
+    if (anguloObjetivo < 0) anguloObjetivo += 360;
+
+    const total = (360 * vueltas) + anguloObjetivo;
+    const duracion = 2000;
     const inicio = performance.now();
 
     function animarRuleta(timestamp) {
@@ -67,25 +79,35 @@ function girar() {
         const giro = total * easeOutCubic(progreso);
         anguloActual = giro % 360;
 
-        canvas.style.transform = `rotate(${anguloActual}deg)`;
+        const radianes = (anguloActual * Math.PI) / 180;
+        dibujarRuleta(radianes);
 
         if (progreso < 1) {
             requestAnimationFrame(animarRuleta);
         } else {
-            const anguloFlecha = 270; // posición visual de la flecha
-            const gradosBajoLaFlecha = (anguloFlecha - anguloActual + 360) % 360;
-            const index = Math.floor(gradosBajoLaFlecha / anguloPorCategoria);
-
-            const categoriaGanadora = categorias[index];
-
+            const categoriaGanadora = categorias[seccionElegida];
             document.getElementById("resultado").innerText = `¡Salió: ${categoriaGanadora}!`;
-            enviarCategoria(categoriaGanadora);
+            redirigir();
+            ruletaGirando = false;
         }
     }
 
     requestAnimationFrame(animarRuleta);
 
 }
+
+const botonGirar = document.getElementById("boton-girar");
+
+
+
+botonGirar.addEventListener("click", () => {
+    if (ruletaGirando) return;
+
+    ruletaGirando = true;
+    botonGirar.innerText = "Parar";
+    girar();
+});
+
 
 
 // Easing para animación más natural
