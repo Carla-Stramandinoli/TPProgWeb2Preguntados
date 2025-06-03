@@ -65,7 +65,7 @@ class IngresoModel
     {
         $idUsuario = $this->obtenerUsuarioParaJugador($hash);
         if ($idUsuario){
-            $this->database->execute("INSERT INTO jugador (id, puntaje_alcanzado, qr, id_nivel) VALUES ($idUsuario, null, null, 1)");
+            $this->database->execute("INSERT INTO jugador (id, puntaje_alcanzado, qr) VALUES ($idUsuario, null, null)");
         }
     }
 
