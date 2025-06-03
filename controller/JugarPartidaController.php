@@ -76,9 +76,10 @@ class JugarPartidaController{
     {
         $puntos = $_SESSION["puntos"];
         unset($_SESSION['pregunta_actual']);
-
+        $racha = $this->model->obtenerRachaMasLargaJugador($_SESSION["usuarioId"]);
         $this-> view->render("perdiste" ,[
             "puntos" => $puntos,
+            "racha" => $racha,
             "showLogout" => true
         ]);
     }
@@ -100,6 +101,8 @@ class JugarPartidaController{
 
         $puntos = $_SESSION["puntos"];
         $tiempo_actual = time();
+        $racha = $this->model->obtenerRachaMasLargaJugador($_SESSION["usuarioId"]);
+
         if ($resultado==1 && $tiempo_actual - $_SESSION['inicio_pregunta'] <10){
 
             unset($_SESSION['inicio_pregunta']);
@@ -117,12 +120,15 @@ class JugarPartidaController{
            $this-> view->render("jugarPartida" ,[
                "puntos" => $puntos,
                "showLogout" => true,
+               "racha" => $racha,
                "partidaEnCurso" => true,
                "categoria"=> $categoria]);
         } else{
             unset($_SESSION['inicio_pregunta']);
+
             $this-> view->render("perdiste" ,[
                 "puntos" => $puntos,
+                "racha" => $racha,
                 "showLogout" => true]);
         }
     }
