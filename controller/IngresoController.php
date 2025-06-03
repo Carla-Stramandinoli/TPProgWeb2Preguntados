@@ -40,9 +40,9 @@ class IngresoController
                 $idUsuario = $usuario[0]['id'];
 
                 if (!empty($this->model->obtenerIdAdmin($idUsuario))){
-                    $this->redirectTo('/');
+                    $this->redirectTo('/administrador/mostrar');
                 } elseif (!empty($this->model->obtenerIdEditor($idUsuario))){
-                    $this->redirectTo('/');
+                    $this->redirectTo('/editor/mostrar');
                 }
 
                 if($usuario[0]['cuenta_activada'] == 0) {
@@ -132,7 +132,7 @@ class IngresoController
         $this->redirectTo("/ingreso/login");
     }
 
-    private function redirectTo($str)
+    public function redirectTo($str)
     {
         header("location:" . $str);
         exit();

@@ -94,6 +94,7 @@ CREATE TABLE administrador (
 
 CREATE TABLE editor (
     id INT PRIMARY KEY,
+    nombre_completo VARCHAR(100)
     FOREIGN KEY (id) REFERENCES usuario(id)
 );
 
@@ -150,6 +151,10 @@ COMMIT;*/
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO administrador (nombre_completo) VALUES ("administrador");
+
+INSERT INTO editor (nombre_completo) VALUES ("editor");
 
 -- Pregunta 1
 INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (1, '¿Cuál es la capital de Australia?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
