@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d3c63534-2af5-459f-a625-42942ec8932d" name="Changes" comment="Ya se puede jugar una partida entera, y perdura los datos con las sesiones">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configuration/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/configuration/config.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/JugarPartidaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/JugarPartidaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/JugarPartidaModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/JugarPartidaModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/jugarPartida.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/jugarPartida.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/pregunta.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/pregunta.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/jugarPartidaView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/jugarPartidaView.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/PerfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/PerfilController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/PerfilModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PerfilModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/perfilView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/perfilView.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +69,7 @@
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tinto&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;nico&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/model&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
