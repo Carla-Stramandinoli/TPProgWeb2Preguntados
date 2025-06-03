@@ -2,10 +2,8 @@
 
 class PerfilController
 {
-
     private $view;
     private $model;
-
 
     public function __construct($model ,$view)
     {
@@ -16,7 +14,6 @@ class PerfilController
     public function mostrar()
     {
         if(!isset($_SESSION['nickname'])) $this->redirectTo('/');
-
         $datosUsuario = $this->model->obtenerDatosUsuario($_SESSION["usuarioId"]);
         $this->view->render("perfil", [ "datosUsuario" => $datosUsuario, "showLogout" => true]);
     }

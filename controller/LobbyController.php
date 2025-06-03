@@ -3,17 +3,20 @@
 class LobbyController
 {
     private $view;
+    private $model;
 
-    public function __construct($view)
+
+    public function __construct($model ,$view)
     {
+        $this->model = $model;
         $this->view = $view;
+
     }
 
     public function mostrar()
     {
-        (isset($_SESSION['nickname']))
-            ? $this->view->render("lobby", ["showLogout" => true])
-            : $this->redirectTo('/');
+        $datosUsuarioLobby = $this->model->obtenerDatosUsuarioLobby($_SESSION["usuarioId"]);
+        $this->view->render("lobby", [ "datosUsuario" => $datosUsuarioLobby,  "showLogout" => true] );
     }
 
     private function redirectTo($str)

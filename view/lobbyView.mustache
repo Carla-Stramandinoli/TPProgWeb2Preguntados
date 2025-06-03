@@ -1,8 +1,93 @@
-<main class="container-fluid flex-fill">
-    <div class="d-flex flex-column align-items-center">
-        <h2>Lobby</h2>
-        <h3>Proximamente!</h3>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lobby - Preguntados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .user-info {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        .buttons {
+            margin-bottom: 2rem;
+        }
+        .buttons button {
+            margin-right: 1rem;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+        }
+        .partidas {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .partida {
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.5rem;
+        }
+        .partida:last-child {
+            border-bottom: none;
+        }
+        .jugador-link {
+            color: #3498db;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .jugador-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+{{#datosUsuario}}
+<h1>Hola <strong> {{nickname}} </strong></h1>
+
+<div class="user-info">
+    Jugador: <strong>{{nombre_completo}}</strong> <br>
+    Puntaje total: <strong>1250 puntos</strong>
+</div>
+
+<div class="buttons">
+    <button onclick="crearPartida()">➕ Crear nueva partida</button>
+    <button onclick="verRanking()">📊 Ver ranking</button>
+</div>
+
+<div class="partidas">
+    <h2>Historial de partidas</h2>
+
+    <div class="partida">
+        Contra <a href="perfil.html?id=2" class="jugador-link">María Gómez</a> – <strong>Ganaste</strong>
     </div>
-</main>
 
+    <div class="partida">
+        Contra <a href="perfil.html?id=3" class="jugador-link">Carlos Ruiz</a> – <strong>Perdiste</strong>
+    </div>
 
+    <div class="partida">
+        Contra <a href="perfil.html?id=4" class="jugador-link">Ana Torres</a> – <strong>Empate</strong>
+    </div>
+
+</div>
+{{/datosUsuario}}
+<script>
+    function crearPartida() {
+        window.location.href = "crearPartida.php";
+    }
+
+    function verRanking() {
+        window.location.href = "ranking.php";
+    }
+</script>
+
+</body>
+</html>

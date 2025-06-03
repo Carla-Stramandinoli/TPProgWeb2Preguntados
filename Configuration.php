@@ -7,7 +7,7 @@ require_once("controller/LobbyController.php");
 require_once("controller/IngresoController.php");
 require_once("controller/PerfilController.php");
 require_once ("controller/JugarPartidaController.php");
-
+require_once ("model/LobbyModel.php");
 require_once("model/IngresoModel.php");
 require_once("model/PerfilModel.php");
 require_once ("model/JugarPartidaModel.php");
@@ -35,7 +35,7 @@ class Configuration
 
     public function getLobbyController()
     {
-        return new LobbyController($this->getViewer());
+        return new LobbyController(new LobbyModel ($this->getDatabase()),$this->getViewer());
     }
 
     public function getIngresoController(){
