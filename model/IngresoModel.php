@@ -114,4 +114,17 @@ class IngresoModel
         $usuario = $this->database->query("SELECT contrasenia FROM usuario WHERE nickname = '$nickname'");
         return !empty($usuario) && password_verify($contrasenia, $usuario[0]["contrasenia"]);
     }
+
+    private function obtenerIdAdmin($idUsuario)
+    {
+        $resultado = $this->database->query("SELECT id FROM admin WHERE id = '$idUsuario'");
+        return isset($resultado[0]) ? $resultado[0] : false;
+    }
+
+    private function obtenerIdEditor($idUsuario)
+    {
+        $resultado = $this->database->query("SELECT id FROM editor WHERE id = '$idUsuario'");
+        return isset($resultado[0]) ? $resultado[0] : false;
+    }
+
 }

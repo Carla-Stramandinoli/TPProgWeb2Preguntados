@@ -86,6 +86,17 @@ CREATE TABLE jugador (
     FOREIGN KEY (id) REFERENCES usuario(id)
 );
 
+CREATE TABLE administrador (
+    id INT PRIMARY KEY,
+    nombre_completo VARCHAR(100)
+    FOREIGN KEY (id) REFERENCES usuario(id)
+);
+
+CREATE TABLE editor (
+    id INT PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES usuario(id)
+);
+
 CREATE TABLE partida (
     id_partida INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     fecha_partida DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,

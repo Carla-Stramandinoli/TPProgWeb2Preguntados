@@ -37,6 +37,14 @@ class IngresoController
 
 
             if(!empty($usuario[0])){
+                $idUsuario = $usuario[0]['id'];
+
+                if (!empty($this->model->obtenerIdAdmin($idUsuario))){
+                    $this->redirectTo('/');
+                } elseif (!empty($this->model->obtenerIdEditor($idUsuario))){
+                    $this->redirectTo('/');
+                }
+
                 if($usuario[0]['cuenta_activada'] == 0) {
                     $msjError = "El usuario esta inactivo, por favor verifique su casilla de correo.";
                     $this->redirectTo("/ingreso/login?msjError=" . urlencode($msjError));
