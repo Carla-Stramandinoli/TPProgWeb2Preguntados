@@ -119,9 +119,11 @@ class JugarPartidaController{
                "showLogout" => true,
                "partidaEnCurso" => true,
                "categoria"=> $categoria]);
-        } else{  $this-> view->render("perdiste" ,[
-        "puntos" => $puntos,
-        "showLogout" => true]);
+        } else{
+            unset($_SESSION['inicio_pregunta']);
+            $this-> view->render("perdiste" ,[
+                "puntos" => $puntos,
+                "showLogout" => true]);
         }
     }
 }
