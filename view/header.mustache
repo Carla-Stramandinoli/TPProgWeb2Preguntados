@@ -22,10 +22,12 @@
     </div>
     <div id="options-nav" class="col-12 col-md-8 d-flex align-items-center justify-content-center justify-content-md-end gap-4 gap-md-5">
         {{#showLogout}}
+            {{^noEsJugador}}
             <a href="/lobby/mostrar" class="link-nav text-decoration-none fs-4 text-white">Lobby</a>
             <a href="/jugarPartida/mostrar" class="link-nav text-decoration-none fs-4 text-white">Jugar partida</a>
             <a href="/perfil/mostrar" class="link-nav text-decoration-none fs-4 text-white">Perfil</a>
-            <a href="/perfil/cerrarSesion" class="btn btn-dark me-md-3" type="submit">Cerrar sesión</a>
+            {{/noEsJugador}}
+            <a href="/cerrarSesion/logout" class="btn btn-dark me-md-3" type="submit">Cerrar sesión</a>
             <!--poner parametros para que se vean los botones solo cuando deben dependiendo el rol-->
         {{/showLogout}}
     </div>

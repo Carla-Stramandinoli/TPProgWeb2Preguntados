@@ -19,7 +19,7 @@ class PerfilModel
     public function almacenarPuntajeAlcanzado($id_jugador)
     {
         $resultadoQuery = $this->database->query("SELECT SUM(resultado) as total FROM partida WHERE id_jugador='$id_jugador'");
-        $puntajeTotal = isset($resultadoQuery[0]['total']) ? $resultadoQuery[0]['total'] : false;
+        $puntajeTotal = isset($resultadoQuery[0]['total']) ? $resultadoQuery[0]['total'] : 0;
         $this->database->execute("UPDATE jugador
                                 SET puntaje_alcanzado='$puntajeTotal'
                                 WHERE id='$id_jugador'");
