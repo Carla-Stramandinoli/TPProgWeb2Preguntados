@@ -25,10 +25,20 @@ class PerfilModel
                                 WHERE id='$id_jugador'");
     }
 
-    public function obtenerPartidasYPuntajes($id_jugador)
+    public function obtenerPuntajesDePartidasDelJugador($id_jugador)
     {
-        return $this->database->query("SELECT id_partida, resultado 
+        return $this->database->query("SELECT resultado 
                                         FROM partida 
                                         WHERE id_jugador='$id_jugador'");
+    }
+
+    public function agregarIndicesAPartidasYPuntajes($partidasYPuntajes){
+        $partidasYPuntajesConIndices = array();
+        $indice= 1;
+        foreach ($partidasYPuntajes as $registro) {
+            $registro['indice'] = $indice++;
+            $partidasYPuntajesConIndices[] = $registro;
+        }
+        return $partidasYPuntajesConIndices;
     }
 }
