@@ -113,10 +113,8 @@ class JugarPartidaModel{
 
     public function elegirCategoriaRandom()
     {
-        $categorias = ["Deportes"];
-        $indiceElegido = array_rand($categorias);
-        $categoria = $categorias[$indiceElegido];
-        return $categoria;
+        $categoria = $this->database->query("SELECT descripcion FROM categoria ORDER BY RAND() LIMIT 1");
+        return $categoria[0]['descripcion'];
     }
 
     public function crearInstanciaDePartida($id)
