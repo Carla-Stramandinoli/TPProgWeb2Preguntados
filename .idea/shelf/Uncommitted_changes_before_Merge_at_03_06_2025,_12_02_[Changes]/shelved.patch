@@ -1,0 +1,150 @@
+Index: view/perfilView.mustache
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{{#datosUsuario}}\n    <div class=\"container-fluid min-vh-100 bg-light py-4 contenedor-perfil\">\n        <!-- HEADER USUARIO -->\n        <div class=\"row g-3 mb-4 align-items-center\">\n            <div class=\"col-md-6\">\n                <div class=\"card shadow-sm border-0\">\n                    <div class=\"card-body\">\n                        <h5 class=\"card-title mb-0 text-primary fw-bold\">{{nickname}}</h5>\n                    </div>\n                </div>\n            </div>\n            <div class=\"col-md-4 offset-md-1\">\n                <div class=\"card shadow-sm border-0 bg-success-subtle\">\n                    <div class=\"card-body text-center\">\n                        <h6 class=\"mb-0 text-success fw-semibold\">Puntaje total:</h6>\n                        <span class=\"display-6 fw-bold text-success\">{{puntaje_alcanzado}}</span>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"row mb-5\">\n            <div class=\"col-md-6 border-end p-4\">\n                <div class=\"row align-items-stretch\" style=\"min-height: 200px;\">\n                    <div class=\"col-md-8 d-flex flex-column justify-content-between\">\n                        <div class=\"form-control mb-2 bg-white shadow-sm\">{{nombre_completo}}</div>\n                        <div class=\"form-control mb-2 bg-white shadow-sm\">\n                            <strong>Usuario desde:</strong> {{fecha_registro}}\n                        </div>\n                        <div class=\"form-control mb-2 bg-white shadow-sm\">{{email}}</div>\n                    </div>\n                    <div class=\"col-md-4 d-flex justify-content-center align-items-start\">\n                        <img src=\"/public/images/profiles/{{foto_perfil}}\"\n                             class=\"img-thumbnail rounded-3 shadow-sm\"\n                             style=\"height: 200px; width: auto; object-fit: cover;\"\n                             alt=\"Foto perfil\">\n                    </div>\n                </div>\n                <div style=\"max-width: 1000px; margin: auto\">\n                    <div class=\"ratio ratio-16x9 shadow-sm rounded-3 overflow-hidden border mt-4\">\n                        <iframe\n                                src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.3641581326856!2d-58.5628052!3d-34.670757599999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc62cc3ef7083%3A0x8867107f425fade5!2sUniversidad%20Nacional%20de%20La%20Matanza!5e0!3m2!1ses!2sar!4v1748119067840!5m2!1ses!2sar\"\n                                style=\"border:0;\"\n                                allowfullscreen=\"\"\n                                loading=\"lazy\"\n                                referrerpolicy=\"no-referrer-when-downgrade\">\n                        </iframe>\n                    </div>\n                    <br>\n                    <p><i class=\"bi bi-geo-alt-fill text-danger fs-3\"></i> {{pais}}, {{ciudad}}</p>\n                    <!-- Agregar que se muestre la direccion ingresada desde el mapa-->\n                </div>\n            </div>\n\n            <!-- Tabla historial de partidas -->\n            <!-- Despues traer los datos del jugador y mostrarlos dinamicamente con el mustache-->\n            <div class=\"col-md-6\">\n                <div class=\"card shadow-sm border-0\">\n                    <div class=\"card-body\">\n                        <h6 class=\"fw-bold mb-3 text-secondary\">Historial de partidas</h6>\n                        <table class=\"table table-striped table-bordered align-middle\">\n                            <thead class=\"table-light\">\n                            <tr>\n                                <th>Partida jugada</th>\n                                <th>Puntaje</th>\n                            </tr>\n                            </thead>\n                            <tbody>\n                            <tr>\n                                <td>1</td>\n                                <td>10</td>\n                            </tr>\n                            <tr>\n                                <td>2</td>\n                                <td>8</td>\n                            </tr>\n                            <tr>\n                                <td>3</td>\n                                <td>9</td>\n                            </tr>\n                            </tbody>\n                        </table>\n                    </div>\n                </div>\n                <!-- QR -->\n                <!--Generara QR propio para que al escanearlo lleve a donde corresponde-->\n                <div class=\"mt-4\">\n                    <div class=\"text-center\">\n                        <img src=\"/public/images/qr/qr-ejemplo.png\" width=\"250\" height=\"250\"\n                             class=\"img-thumbnail rounded-2 shadow-sm border border-secondary-subtle\" alt=\"QR ejemplo\">\n                        <p class=\"mt-2 text-muted\">Escaneá para más info</p>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"row\">\n\n        </div>\n    </div>\n{{/datosUsuario}}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/view/perfilView.mustache b/view/perfilView.mustache
+--- a/view/perfilView.mustache	(revision 4d15eec6542626ad47f3adf8ed37b7528a2596d7)
++++ b/view/perfilView.mustache	(date 1748962968667)
+@@ -59,6 +59,7 @@
+                     <div class="card-body">
+                         <h6 class="fw-bold mb-3 text-secondary">Historial de partidas</h6>
+                         <table class="table table-striped table-bordered align-middle">
++                            {{#resultadosPartida}}
+                             <thead class="table-light">
+                             <tr>
+                                 <th>Partida jugada</th>
+@@ -67,8 +68,8 @@
+                             </thead>
+                             <tbody>
+                             <tr>
+-                                <td>1</td>
+-                                <td>10</td>
++                                <td>2</td>
++                                <td>3</td>
+                             </tr>
+                             <tr>
+                                 <td>2</td>
+Index: configuration/config.ini
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[database]\nserver= localhost:3306\nuser = root\ndbname = preguntatres\npass=
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/configuration/config.ini b/configuration/config.ini
+--- a/configuration/config.ini	(revision 4d15eec6542626ad47f3adf8ed37b7528a2596d7)
++++ b/configuration/config.ini	(date 1748962968666)
+@@ -1,5 +1,5 @@
+ [database]
+-server= localhost:3306
++server= localhost:3307
+ user = root
+ dbname = preguntatres
+ pass=
+\ No newline at end of file
+Index: public/js/pregunta.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const reloj = document.getElementById(\"reloj\");\nlet tiempo = 10;\nsetInterval(temporizadorDiezSegundos, 1000);\nsetInterval(perdistePorTiempo, 1100);\ntemporizadorDiezSegundos();\nperdistePorTiempo();\nfunction perdistePorTiempo(){\n        setTimeout(() => {\n            window.location.href = `/jugarPartida/timeOut`;\n        }, 10500);\n\n}\nfunction temporizadorDiezSegundos(){\n\n\n\n    reloj.innerText = `Tiempo: ${tiempo}` ;\n\n    if (tiempo <= 0){\n        reloj.innerText = `perdiste papu`;\n    }\n    tiempo--;\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/public/js/pregunta.js b/public/js/pregunta.js
+--- a/public/js/pregunta.js	(revision 4d15eec6542626ad47f3adf8ed37b7528a2596d7)
++++ b/public/js/pregunta.js	(date 1748962968666)
+@@ -11,9 +11,6 @@
+ 
+ }
+ function temporizadorDiezSegundos(){
+-
+-
+-
+     reloj.innerText = `Tiempo: ${tiempo}` ;
+ 
+     if (tiempo <= 0){
+Index: view/preguntaView.mustache
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><div id=\"bg-{{categoria}}\" class=\"game-container py-5\">\n    <div class=\"container text-center text-white\">\n        <div class=\"row mb-4\">\n            <div class=\"col\">\n                <h4 class=\"info-box\">\uD83C\uDFAF Categoría: {{categoria}}</h4>\n            </div>\n            <div class=\"col\">\n                <h4 class=\"info-box\" id=\"reloj\">⏱\uFE0F</h4>\n            </div>\n            <div class=\"col\">\n                <h4 class=\"info-box\">\uD83C\uDFC6 Puntos: {{puntos}}</h4>\n            </div>\n            <div class=\"col\">\n                <button class=\"btn btn-danger rounded-pill\">⚠\uFE0F Reportar pregunta</button>\n            </div>\n        </div>\n\n        <div class=\"question-box bg-white text-dark p-4 rounded shadow mb-4\">\n            <h3 class=\"mb-3\">{{pregunta}}</h3>\n\n            <form method=\"post\" action=\"./validarResultado\">\n                <input type=\"hidden\" name=\"pregunta_id\" value=\"{{id}}\">\n                <div class=\"d-flex flex-column align-items-center gap-3\">\n                    {{#respuestas}}\n                        <button type=\"submit\" name=\"respuesta\" value=\"{{descripcion}}\" class=\"btn btn-answer\">\n                            {{descripcion}}\n                        </button>\n                    {{/respuestas}}\n                </div>\n            </form>\n        </div>\n    </div>\n</div>\n\n<script src=\"/public/js/pregunta.js\"></script>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/view/preguntaView.mustache b/view/preguntaView.mustache
+--- a/view/preguntaView.mustache	(revision 4d15eec6542626ad47f3adf8ed37b7528a2596d7)
++++ b/view/preguntaView.mustache	(date 1748962968667)
+@@ -31,5 +31,4 @@
+         </div>
+     </div>
+ </div>
+-
+ <script src="/public/js/pregunta.js"></script>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"d3c63534-2af5-459f-a625-42942ec8932d\" name=\"Changes\" comment=\"Ya se puede jugar una partida entera, y perdura los datos con las sesiones\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/controller/JugarPartidaController.php\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/controller/JugarPartidaController.php\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/model/IngresoModel.php\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/model/IngresoModel.php\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/model/JugarPartidaModel.php\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/model/JugarPartidaModel.php\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/sqlscript/preguntatres.sql\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/sqlscript/preguntatres.sql\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ComposerSettings\">\n    <execution />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"HTML File\" />\n        <option value=\"CSS File\" />\n        <option value=\"JavaScript File\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;MatiasDworzak&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/Carla-Stramandinoli/TPProgWeb2Preguntados.git&quot;,\n    &quot;accountId&quot;: &quot;5d3cec17-7597-4fcb-a38a-03c403d275e0&quot;\n  },\n  &quot;recentNewPullRequestHead&quot;: {\n    &quot;server&quot;: {\n      &quot;useHttp&quot;: false,\n      &quot;host&quot;: &quot;github.com&quot;,\n      &quot;port&quot;: null,\n      &quot;suffix&quot;: null\n    },\n    &quot;owner&quot;: &quot;Carla-Stramandinoli&quot;,\n    &quot;repository&quot;: &quot;TPProgWeb2Preguntados&quot;\n  }\n}</component>\n  <component name=\"PhpDebugGeneral\" listening_started=\"true\" />\n  <component name=\"ProjectColorInfo\">{\n  &quot;customColor&quot;: &quot;&quot;,\n  &quot;associatedIndex&quot;: 3\n}</component>\n  <component name=\"ProjectId\" id=\"2xYUvGD0UIG6K6Z1b8drqFdcQTS\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;nico&quot;,\n    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/model&quot;,\n    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  },\n  &quot;keyToStringList&quot;: {\n    &quot;DatabaseDriversLRU&quot;: [\n      &quot;mariadb&quot;\n    ]\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"C:\\xampp\\htdocs\\sqlscript\" />\n    </key>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PS-243.26053.13\" />\n        <option value=\"bundled-php-predefined-a98d8de5180a-1ec7b7818973-com.jetbrains.php.sharedIndexes-PS-243.26053.13\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"d3c63534-2af5-459f-a625-42942ec8932d\" name=\"Changes\" comment=\"\" />\n      <created>1748114730148</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1748114730148</updated>\n      <workItem from=\"1748114732091\" duration=\"32500000\" />\n      <workItem from=\"1748153128994\" duration=\"102000\" />\n      <workItem from=\"1748198741440\" duration=\"20376000\" />\n      <workItem from=\"1748222306723\" duration=\"11863000\" />\n      <workItem from=\"1748288578888\" duration=\"16405000\" />\n      <workItem from=\"1748549752662\" duration=\"3735000\" />\n      <workItem from=\"1748573339141\" duration=\"7563000\" />\n      <workItem from=\"1748583581742\" duration=\"6402000\" />\n      <workItem from=\"1748629603962\" duration=\"1577000\" />\n      <workItem from=\"1748635408554\" duration=\"483000\" />\n      <workItem from=\"1748639269272\" duration=\"783000\" />\n      <workItem from=\"1748666510257\" duration=\"1373000\" />\n      <workItem from=\"1748723615568\" duration=\"540000\" />\n      <workItem from=\"1748724579308\" duration=\"10405000\" />\n      <workItem from=\"1748754389406\" duration=\"1173000\" />\n      <workItem from=\"1748757458909\" duration=\"3979000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Ruleta agregada y pagina de jugar Partida\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1748470820345</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1748470820345</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Ruleta agregada y pagina de jugar Partida\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1748573468493</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1748573468493</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"Cree nuevas tablas en la base de datos, preguntas, respuestas y categorias. Sume la logica para que se cargen de forma random las preguntas, el metodo post con las respuestas y valide si la respuesta es correcta o incorrecta sin que se vea desde el front\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1748589520537</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1748589520537</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"Actualizar base de datos mediante a metodos cuando se juega una pregunta y cuando se responde bien\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1748639984215</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1748639984215</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"Ya se puede jugar una partida entera, y perdura los datos con las sesiones\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1748738464243</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1748738464243</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"6\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Ruleta agregada y pagina de jugar Partida\" />\n    <MESSAGE value=\"Cree nuevas tablas en la base de datos, preguntas, respuestas y categorias. Sume la logica para que se cargen de forma random las preguntas, el metodo post con las respuestas y valide si la respuesta es correcta o incorrecta sin que se vea desde el front\" />\n    <MESSAGE value=\"Actualizar base de datos mediante a metodos cuando se juega una pregunta y cuando se responde bien\" />\n    <MESSAGE value=\"Ya se puede jugar una partida entera, y perdura los datos con las sesiones\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Ya se puede jugar una partida entera, y perdura los datos con las sesiones\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4d15eec6542626ad47f3adf8ed37b7528a2596d7)
++++ b/.idea/workspace.xml	(date 1748962968666)
+@@ -6,10 +6,10 @@
+   <component name="ChangeListManager">
+     <list default="true" id="d3c63534-2af5-459f-a625-42942ec8932d" name="Changes" comment="Ya se puede jugar una partida entera, y perdura los datos con las sesiones">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/controller/JugarPartidaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/JugarPartidaController.php" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/model/IngresoModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/IngresoModel.php" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/model/JugarPartidaModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/JugarPartidaModel.php" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/sqlscript/preguntatres.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sqlscript/preguntatres.sql" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/configuration/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/configuration/config.ini" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/public/js/pregunta.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/pregunta.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/view/perfilView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/perfilView.mustache" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/view/preguntaView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/preguntaView.mustache" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -54,12 +54,12 @@
+   }
+ }</component>
+   <component name="PhpDebugGeneral" listening_started="true" />
++  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="php" />
+   <component name="ProjectColorInfo">{
+   &quot;customColor&quot;: &quot;&quot;,
+   &quot;associatedIndex&quot;: 3
+ }</component>
+   <component name="ProjectId" id="2xYUvGD0UIG6K6Z1b8drqFdcQTS" />
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+@@ -69,7 +69,7 @@
+     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;nico&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;carli&quot;,
+     &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/model&quot;,
+     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+@@ -94,8 +94,8 @@
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PS-243.26053.13" />
+-        <option value="bundled-php-predefined-a98d8de5180a-1ec7b7818973-com.jetbrains.php.sharedIndexes-PS-243.26053.13" />
++        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-PS-251.25410.148" />
++        <option value="bundled-php-predefined-a98d8de5180a-c5828cf854d9-com.jetbrains.php.sharedIndexes-PS-251.25410.148" />
+       </set>
+     </attachedChunks>
+   </component>
+@@ -123,6 +123,7 @@
+       <workItem from="1748724579308" duration="10405000" />
+       <workItem from="1748754389406" duration="1173000" />
+       <workItem from="1748757458909" duration="3979000" />
++      <workItem from="1748956940603" duration="1847000" />
+     </task>
+     <task id="LOCAL-00001" summary="Ruleta agregada y pagina de jugar Partida">
+       <option name="closed" value="true" />

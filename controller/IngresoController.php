@@ -37,6 +37,14 @@ class IngresoController
 
 
             if(!empty($usuario[0])){
+                $idUsuario = $usuario[0]['id'];
+
+                if (!empty($this->model->obtenerIdAdmin($idUsuario))){
+                    $this->redirectTo('/administrador/mostrar');
+                } elseif (!empty($this->model->obtenerIdEditor($idUsuario))){
+                    $this->redirectTo('/editor/mostrar');
+                }
+
                 if($usuario[0]['cuenta_activada'] == 0) {
                     $msjError = "El usuario esta inactivo, por favor verifique su casilla de correo.";
                     $this->redirectTo("/ingreso/login?msjError=" . urlencode($msjError));
@@ -116,15 +124,18 @@ class IngresoController
     public function validarCuenta(){
         $hash = isset($_POST['hash']) ? trim($_POST['hash']) : '';
 
-        if ($this->model->existeUsuarioConHash($hash)){
-            $this->model->registrarJugador($hash);
-            $this->model->activarUsuario($hash);
+        $resultado = $this->model->existeUsuarioConHash($hash);
+        $idJugador = $this->model->obtenerUsuarioParaJugador($hash);
+
+        if ($resultado){
+            $this->model->activarJugador($idJugador);
+            $this->redirectTo("/ingreso/login");
         }
 
-        $this->redirectTo("/ingreso/login");
+        $this->redirectTo("/ingreso/register");
     }
 
-    private function redirectTo($str)
+    public function redirectTo($str)
     {
         header("location:" . $str);
         exit();

@@ -20,7 +20,7 @@ const intervaloTemporizador = setInterval(temporizadorDiezSegundos, 1000);
 function temporizadorDiezSegundos() {
     reloj.innerText = `Tiempo: ${tiempo}`;
     if (tiempo <= 0) {
-        reloj.innerText = `Perdiste papu`;
+        reloj.innerText = `Perdiste :C`;
 
         clearInterval(intervaloTemporizador);
 

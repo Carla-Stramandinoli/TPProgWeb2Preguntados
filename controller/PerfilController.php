@@ -21,9 +21,12 @@ class PerfilController
 
         $datosUsuario = $this->model->obtenerDatosUsuario($_SESSION["usuarioId"]);
 
-        $partidasYPuntajesUsuarios = $this->model->obtenerPartidasYPuntajes($_SESSION["usuarioId"]);
+        $puntajesDePartidasDelJugador = $this->model->obtenerPuntajesDePartidasDelJugador($_SESSION["usuarioId"]);
 
-        $this->view->render("perfil", [ "datosUsuario" => $datosUsuario, "partidasYPuntajesUsuarios" => $partidasYPuntajesUsuarios, "showLogout" => true ]);
+        $puntajesDePartidaConIndices = $this->model->agregarIndicesAPartidasYPuntajes( $puntajesDePartidasDelJugador);
+
+
+        $this->view->render("perfil", [ "datosUsuario" => $datosUsuario, "partidasYPuntajesUsuario" => $puntajesDePartidaConIndices, "showLogout" => true ]);
     }
 
     private function redirectTo($str)

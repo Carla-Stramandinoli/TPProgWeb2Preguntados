@@ -39,7 +39,7 @@ class JugarPartidaModel{
                                             FROM pregunta 
                                             JOIN categoria ON pregunta.id_categoria = categoria.id
                                             WHERE categoria.descripcion = '$descripcionCategoria'
-                                                AND pregunta.cantidad_jugada > 2 /*Cambiar luego de testeo*/
+                                                AND pregunta.cantidad_jugada > 10 
                                                 AND (pregunta.cantidad_aciertos / pregunta.cantidad_jugada * 100) $stringBetween
                                                 AND pregunta.id NOT IN (
                                                     SELECT id_pregunta FROM contesta WHERE id_jugador = '$idJugador'
@@ -59,10 +59,12 @@ class JugarPartidaModel{
 
         $cantidadPreguntasRespondidasJugador = $this->database->query("SELECT cantidad_jugada FROM jugador WHERE id = '$idJugador'");
 
-        if ($cantidadPreguntasRespondidasJugador > 10){
+        if (isset($cantidadPreguntasRespondidasJugador[0]['cantidad_jugada'])
+            && $cantidadPreguntasRespondidasJugador[0]['cantidad_jugada'] > 10){
 
             $resultado = $this->obtenerPreguntasFiltradasNoRespondidasPorUsuario($descripcionCategoria, $idJugador);
 
+            //return isset($resultado[0]['enunciado']) ? $resultado[0]['enunciado'] : false;
             if ($resultado) {
                 return $resultado;
             }
@@ -111,10 +113,8 @@ class JugarPartidaModel{
 
     public function elegirCategoriaRandom()
     {
-        $categorias = ["Historia", "Ciencia", "Geografía", "Deportes", "Entretenimiento", "Arte"];
-        $indiceElegido = array_rand($categorias);
-        $categoria = $categorias[$indiceElegido];
-        return $categoria;
+        $categoria = $this->database->query("SELECT descripcion FROM categoria ORDER BY RAND() LIMIT 1");
+        return $categoria[0]['descripcion'];
     }
 
     public function crearInstanciaDePartida($id)
@@ -132,17 +132,6 @@ class JugarPartidaModel{
     {
         $resultado = $this->database->query("SELECT id_partida FROM partida WHERE id_jugador = $id ORDER BY fecha_partida DESC LIMIT 1");
         return isset($resultado[0]['id_partida']) ? $resultado[0]['id_partida'] : false;
-    }
-
-    public function almacenarPreguntaDePartidaEnTablaCompuesta($id_partida, $id)
-    {
-        // Verificamos si ya existe la relación
-        $resultado = $this->database->query("SELECT 1 FROM compuesta WHERE id_partida = $id_partida AND id_pregunta = $id");
-
-        // Si no existe, insertamos
-        if (empty($resultado)) {
-            $this->database->execute("INSERT INTO compuesta (id_partida, id_pregunta) VALUES ($id_partida, $id)");
-        }
     }
 
     public function almacenarPreguntasContestadasEnTablaContesta($idJugador, $id)
@@ -179,6 +168,7 @@ class JugarPartidaModel{
     }
 
     //Cantidad total de respuestas correctas que hizo un usuario
+
     public function actualizarCantidadTotalPreguntasCorrectasJugador($idJugador)
     {
         $this->database->execute("UPDATE jugador SET cantidad_aciertos = cantidad_aciertos + 1 WHERE id = $idJugador");
@@ -197,5 +187,7 @@ class JugarPartidaModel{
         $resultado = $this->database->query("SELECT MAX(resultado) AS mejor_resultado FROM partida WHERE id_jugador='$idJugador'");
         return isset($resultado[0]['mejor_resultado']) ? ($resultado[0]['mejor_resultado']) : false;
     }
+
+
 
 }

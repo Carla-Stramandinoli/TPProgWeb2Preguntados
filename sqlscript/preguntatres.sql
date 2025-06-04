@@ -64,27 +64,49 @@ CREATE TABLE usuario (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nickname VARCHAR(100) NOT NULL,
     nombre_completo VARCHAR(100) NOT NULL,
-    anio_nacimiento DATE NOT NULL,
     contrasenia VARCHAR(100) NOT NULL,
+    UNIQUE (nickname)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO usuario (id, nickname, nombre_completo, contrasenia) VALUES (1, 'admin', 'Juan Perez', '123');
+
+INSERT INTO usuario (id, nickname, nombre_completo, contrasenia) VALUES (2, 'editor', 'Pepito', '123');
+
+CREATE TABLE jugador (
+    id INT PRIMARY KEY,
+    puntaje_alcanzado INT DEFAULT 0,
+    anio_nacimiento DATE NOT NULL,
     fecha_registro date NOT NULL,
     foto_perfil VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     genero VARCHAR(100) NOT NULL,
     pais VARCHAR(100), -- NOT NULL,
     ciudad VARCHAR(100), -- NOT NULL
-    nickname_hash VARCHAR(250), -- NOT NULL,
     cuenta_activada TINYINT DEFAULT 0,
-    UNIQUE (nickname)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-CREATE TABLE jugador (
-    id INT PRIMARY KEY,
-    puntaje_alcanzado INT DEFAULT 0,
+    nickname_hash VARCHAR(250), -- NOT NULL,
     qr VARCHAR(100),
     cantidad_jugada INT DEFAULT 0,
     cantidad_aciertos INT DEFAULT 0,
     FOREIGN KEY (id) REFERENCES usuario(id)
 );
+
+CREATE TABLE administrador (
+    id INT PRIMARY KEY,
+    nickname VARCHAR(100),
+    FOREIGN KEY (id) REFERENCES usuario(id),
+    FOREIGN KEY (nickname) REFERENCES usuario(nickname)
+);
+
+CREATE TABLE editor (
+    id INT PRIMARY KEY,
+    nickname VARCHAR(100),
+    FOREIGN KEY (id) REFERENCES usuario(id),
+    FOREIGN KEY (nickname) REFERENCES usuario(nickname)
+);
+
+INSERT INTO administrador (id, nickname) VALUES (1,'admin');
+
+INSERT INTO editor (id, nickname) VALUES (2,'editor');
 
 CREATE TABLE partida (
     id_partida INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -140,132 +162,729 @@ COMMIT;*/
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
--- Pregunta 1
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (1, '¿Cuál es la capital de Australia?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (1, 'Canberra', 1, 1);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (2, 'Sídney', 0, 1);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (3, 'Melbourne', 0, 1);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (4, 'Brisbane', 0, 1);
+-- Geografia
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (1, '¿Cuál es la capital de Australia?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (1, 'Canberra', 1, 1),
+                                                                      (2, 'Sídney', 0, 1),
+                                                                      (3, 'Melbourne', 0, 1),
+                                                                      (4, 'Brisbane', 0, 1);
 
--- Pregunta 2
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (2, '¿En qué continente se encuentra el desierto del Sahara?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (5, 'África', 1, 2);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (6, 'Asia', 0, 2);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (7, 'América', 0, 2);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (8, 'Europa', 0, 2);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (2, '¿Cuál es el río más largo del mundo?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (5, 'Nilo', 1, 2),
+                                                                      (6, 'Amazonas', 0, 2),
+                                                                      (7, 'Yangtsé', 0, 2),
+                                                                      (8, 'Misisipi', 0, 2);
 
--- Pregunta 3
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (3, '¿Qué río es el más largo del mundo?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (9, 'Amazonas', 1, 3);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (10, 'Nilo', 0, 3);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (11, 'Yangtsé', 0, 3);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (12, 'Misisipi', 0, 3);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (3, '¿En qué continente se encuentra Kazajistán?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (9, 'Asia', 1, 3),
+                                                                      (10, 'Europa', 0, 3),
+                                                                      (11, 'África', 0, 3),
+                                                                      (12, 'Oceanía', 0, 3);
 
--- Pregunta 4
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (4, '¿En qué año cayó el Muro de Berlín?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (13, '1989', 1, 4);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (14, '1990', 0, 4);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (15, '1985', 0, 4);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (16, '1979', 0, 4);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (4, '¿Qué país tiene la mayor cantidad de islas en el mundo?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (13, 'Suecia', 1, 4),
+                                                                      (14, 'Indonesia', 0, 4),
+                                                                      (15, 'Filipinas', 0, 4),
+                                                                      (16, 'Grecia', 0, 4);
 
--- Pregunta 5
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (5, '¿Quién fue el primer presidente de Estados Unidos?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (17, 'George Washington', 1, 5);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (18, 'Thomas Jefferson', 0, 5);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (19, 'Abraham Lincoln', 0, 5);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (20, 'John Adams', 0, 5);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (5, '¿Qué cordillera separa Europa de Asia?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (17, 'Montes Urales', 1, 5),
+                                                                      (18, 'Alpes', 0, 5),
+                                                                      (19, 'Cáucaso', 0, 5),
+                                                                      (20, 'Himalayas', 0, 5);
 
--- Pregunta 6
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (6, '¿Qué civilización construyó las pirámides de Egipto?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (21, 'Egipcia', 1, 6);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (22, 'Romana', 0, 6);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (23, 'Maya', 0, 6);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (24, 'Griega', 0, 6);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (6, '¿Cuál es el país más pequeño del mundo?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (21, 'Ciudad del Vaticano', 1, 6),
+                                                                      (22, 'Mónaco', 0, 6),
+                                                                      (23, 'San Marino', 0, 6),
+                                                                      (24, 'Liechtenstein', 0, 6);
 
--- Pregunta 7
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (7, '¿Quién pintó "La noche estrellada"?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (25, 'Vincent van Gogh', 1, 7);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (26, 'Pablo Picasso', 0, 7);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (27, 'Claude Monet', 0, 7);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (28, 'Salvador Dalí', 0, 7);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (7, '¿Qué país tiene más fronteras terrestres?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (25, 'China', 1, 7),
+                                                                      (26, 'Rusia', 0, 7),
+                                                                      (27, 'Brasil', 0, 7),
+                                                                      (28, 'Alemania', 0, 7);
 
--- Pregunta 8
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (8, '¿En qué país nació Leonardo da Vinci?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (29, 'Italia', 1, 8);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (30, 'Francia', 0, 8);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (31, 'España', 0, 8);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (32, 'Países Bajos', 0, 8);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (8, '¿Dónde se encuentra el desierto del Sahara?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (29, 'África', 1, 8),
+                                                                      (30, 'Asia', 0, 8),
+                                                                      (31, 'América del Sur', 0, 8),
+                                                                      (32, 'Oceanía', 0, 8);
 
--- Pregunta 9
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (9, '¿Qué técnica usó Miguel Ángel en la Capilla Sixtina?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (33, 'Fresco', 1, 9);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (34, 'Óleo', 0, 9);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (35, 'Acuarela', 0, 9);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (36, 'Tinta', 0, 9);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (9, '¿Cuál es el país más grande del mundo en superficie?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (33, 'Rusia', 1, 9),
+                                                                      (34, 'Canadá', 0, 9),
+                                                                      (35, 'China', 0, 9),
+                                                                      (36, 'Estados Unidos', 0, 9);
 
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (10, '¿Qué océano baña la costa este de Estados Unidos?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (37, 'Océano Atlántico', 1, 10),
+                                                                      (38, 'Océano Pacífico', 0, 10),
+                                                                      (39, 'Océano Ártico', 0, 10),
+                                                                      (40, 'Océano Índico', 0, 10);
 
--- Pregunta 10
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (10, '¿Quién interpretó a Harry Potter en las películas?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (37, 'Daniel Radcliffe', 1, 10);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (38, 'Elijah Wood', 0, 10);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (39, 'Rupert Grint', 0, 10);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (40, 'Tom Felton', 0, 10);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (11, '¿Cuál es la montaña más alta del mundo?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (41, 'Monte Everest', 1, 11),
+                                                                      (42, 'K2', 0, 11),
+                                                                      (43, 'Kangchenjunga', 0, 11),
+                                                                      (44, 'Aconcagua', 0, 11);
 
--- Pregunta 11
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (11, '¿Qué serie popular tiene un trono hecho de espadas?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (41, 'Game of Thrones', 1, 11);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (42, 'Vikings', 0, 11);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (43, 'The Witcher', 0, 11);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (44, 'The Crown', 0, 11);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (12, '¿Cuál es la capital de Canadá?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (45, 'Ottawa', 1, 12),
+                                                                      (46, 'Toronto', 0, 12),
+                                                                      (47, 'Vancouver', 0, 12),
+                                                                      (48, 'Montreal', 0, 12);
 
--- Pregunta 12
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (12, '¿Cuál es el nombre del personaje principal en "Breaking Bad"?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (45, 'Walter White', 1, 12);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (46, 'Jesse Pinkman', 0, 12);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (47, 'Hank Schrader', 0, 12);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (48, 'Saul Goodman', 0, 12);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (13, '¿Qué mar separa Europa de África?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (49, 'Mar Mediterráneo', 1, 13),
+                                                                      (50, 'Mar Rojo', 0, 13),
+                                                                      (51, 'Mar Negro', 0, 13),
+                                                                      (52, 'Mar Caspio', 0, 13);
 
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (14, '¿En qué país se encuentra el Kilimanjaro?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (53, 'Tanzania', 1, 14),
+                                                                      (54, 'Kenia', 0, 14),
+                                                                      (55, 'Etiopía', 0, 14),
+                                                                      (56, 'Uganda', 0, 14);
 
--- Pregunta 13
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (13, '¿Cuál es el símbolo químico del agua?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (49, 'H2O', 1, 13);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (50, 'O2', 0, 13);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (51, 'CO2', 0, 13);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (52, 'NaCl', 0, 13);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (15, '¿Qué país tiene forma de bota?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (57, 'Italia', 1, 15),
+                                                                      (58, 'España', 0, 15),
+                                                                      (59, 'Grecia', 0, 15),
+                                                                      (60, 'Francia', 0, 15);
 
--- Pregunta 14
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (14, '¿Cuál es el planeta más grande del sistema solar?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (53, 'Júpiter', 1, 14);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (54, 'Saturno', 0, 14);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (55, 'Neptuno', 0, 14);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (56, 'Tierra', 0, 14);
+-- Historia
 
--- Pregunta 15
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (15, '¿Qué científico propuso la teoría de la relatividad?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (57, 'Albert Einstein', 1, 15);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (58, 'Isaac Newton', 0, 15);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (59, 'Galileo Galilei', 0, 15);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (60, 'Nikola Tesla', 0, 15);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (16, '¿En qué año comenzó la Segunda Guerra Mundial?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (61, '1939', 1, 16),
+                                                                      (62, '1941', 0, 16),
+                                                                      (63, '1936', 0, 16),
+                                                                      (64, '1945', 0, 16);
 
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (17, '¿Quién fue el primer presidente de Estados Unidos?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (65, 'George Washington', 1, 17),
+                                                                      (66, 'Thomas Jefferson', 0, 17),
+                                                                      (67, 'Abraham Lincoln', 0, 17),
+                                                                      (68, 'Benjamin Franklin', 0, 17);
 
--- Pregunta 16
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (16, '¿Cuántos jugadores hay en un equipo de fútbol?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (61, '11', 1, 16);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (62, '10', 0, 16);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (63, '12', 0, 16);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (64, '9', 0, 16);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (18, '¿Qué civilización construyó Machu Picchu?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (69, 'Los incas', 1, 18),
+                                                                      (70, 'Los aztecas', 0, 18),
+                                                                      (71, 'Los mayas', 0, 18),
+                                                                      (72, 'Los olmecas', 0, 18);
 
--- Pregunta 17
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (17, '¿Qué país ganó el Mundial de Fútbol 2022?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (65, 'Argentina', 1, 17);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (66, 'Francia', 0, 17);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (67, 'Brasil', 0, 17);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (68, 'Alemania', 0, 17);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (19, '¿En qué año cayó el Muro de Berlín?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (73, '1989', 1, 19),
+                                                                      (74, '1991', 0, 19),
+                                                                      (75, '1985', 0, 19),
+                                                                      (76, '1990', 0, 19);
 
--- Pregunta 18
-INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (18, '¿En qué deporte se usa una raqueta y una red en cancha rectangular?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (69, 'Tenis', 1, 18);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (70, 'Bádminton', 0, 18);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (71, 'Ping pong', 0, 18);
-INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (72, 'Squash', 0, 18);
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (20, '¿Quién lideró la Revolución Cubana?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (77, 'Fidel Castro', 1, 20),
+                                                                      (78, 'Che Guevara', 0, 20),
+                                                                      (79, 'Camilo Cienfuegos', 0, 20),
+                                                                      (80, 'Raúl Castro', 0, 20);
 
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (21, '¿Qué evento marcó el inicio de la Edad Media?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (81, 'La caída del Imperio Romano de Occidente', 1, 21),
+                                                                      (82, 'La coronación de Carlomagno', 0, 21),
+                                                                      (83, 'La invasión de los bárbaros', 0, 21),
+                                                                      (84, 'El descubrimiento de América', 0, 21);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (22, '¿Qué país fue el principal colonizador de Brasil?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (85, 'Portugal', 1, 22),
+                                                                      (86, 'España', 0, 22),
+                                                                      (87, 'Francia', 0, 22),
+                                                                      (88, 'Países Bajos', 0, 22);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (23, '¿Quién escribió "El Príncipe"?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (89, 'Nicolás Maquiavelo', 1, 23),
+                                                                      (90, 'Thomas Hobbes', 0, 23),
+                                                                      (91, 'Platón', 0, 23),
+                                                                      (92, 'Aristóteles', 0, 23);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (24, '¿En qué país ocurrió la Revolución Francesa?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (93, 'Francia', 1, 24),
+                                                                      (94, 'Italia', 0, 24),
+                                                                      (95, 'Alemania', 0, 24),
+                                                                      (96, 'Inglaterra', 0, 24);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (25, '¿Qué líder militar fue derrotado en Waterloo?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (97, 'Napoleón Bonaparte', 1, 25),
+                                                                      (98, 'Julio César', 0, 25),
+                                                                      (99, 'Alejandro Magno', 0, 25),
+                                                                      (100, 'Winston Churchill', 0, 25);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (26, '¿Qué país utilizó por primera vez armas nucleares en guerra?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (101, 'Estados Unidos', 1, 26),
+                                                                      (102, 'Alemania', 0, 26),
+                                                                      (103, 'Japón', 0, 26),
+                                                                      (104, 'Unión Soviética', 0, 26);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (27, '¿Cuál fue la primera civilización conocida?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (105, 'Sumerios', 1, 27),
+                                                                      (106, 'Egipcios', 0, 27),
+                                                                      (107, 'Griegos', 0, 27),
+                                                                      (108, 'Persas', 0, 27);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (28, '¿Quién fue el autor del Comunismo en el siglo XIX?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (109, 'Karl Marx', 1, 28),
+                                                                      (110, 'Vladimir Lenin', 0, 28),
+                                                                      (111, 'Joseph Stalin', 0, 28),
+                                                                      (112, 'Friedrich Engels', 0, 28);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (29, '¿En qué año llegó Cristóbal Colón a América?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (113, '1492', 1, 29),
+                                                                      (114, '1500', 0, 29),
+                                                                      (115, '1475', 0, 29),
+                                                                      (116, '1519', 0, 29);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (30, '¿Qué tratado puso fin a la Primera Guerra Mundial?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (117, 'Tratado de Versalles', 1, 30),
+                                                                      (118, 'Tratado de París', 0, 30),
+                                                                      (119, 'Tratado de Utrecht', 0, 30),
+                                                                      (120, 'Tratado de Gante', 0, 30);
+
+-- Arte
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (31, '¿Quién pintó "La noche estrellada"?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (121, 'Vincent van Gogh', 1, 31),
+                                                                      (122, 'Claude Monet', 0, 31),
+                                                                      (123, 'Pablo Picasso', 0, 31),
+                                                                      (124, 'Salvador Dalí', 0, 31);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (32, '¿Qué escultor renacentista creó la escultura de David?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (125, 'Miguel Ángel', 1, 32),
+                                                                      (126, 'Donatello', 0, 32),
+                                                                      (127, 'Bernini', 0, 32),
+                                                                      (128, 'Leonardo da Vinci', 0, 32);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (33, '¿Qué famoso pintor español es conocido por el "Guernica"?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (129, 'Pablo Picasso', 1, 33),
+                                                                      (130, 'Joan Miró', 0, 33),
+                                                                      (131, 'Diego Velázquez', 0, 33),
+                                                                      (132, 'Francisco Goya', 0, 33);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (34, '¿Cuál es la técnica utilizada en la pintura mural de la Capilla Sixtina?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (133, 'Fresco', 1, 34),
+                                                                      (134, 'Óleo', 0, 34),
+                                                                      (135, 'Acuarela', 0, 34),
+                                                                      (136, 'Temple', 0, 34);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (35, '¿Quién pintó "La joven de la perla"?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (137, 'Johannes Vermeer', 1, 35),
+                                                                      (138, 'Rembrandt', 0, 35),
+                                                                      (139, 'Velázquez', 0, 35),
+                                                                      (140, 'Rubens', 0, 35);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (36, '¿A qué movimiento artístico pertenece Salvador Dalí?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (141, 'Surrealismo', 1, 36),
+                                                                      (142, 'Impresionismo', 0, 36),
+                                                                      (143, 'Cubismo', 0, 36),
+                                                                      (144, 'Expresionismo', 0, 36);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (37, '¿Qué pintor es conocido por su serie de nenúfares?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (145, 'Claude Monet', 1, 37),
+                                                                      (146, 'Édouard Manet', 0, 37),
+                                                                      (147, 'Henri Matisse', 0, 37),
+                                                                      (148, 'Paul Cézanne', 0, 37);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (38, '¿Qué artista pintó el techo de la Capilla Sixtina?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (149, 'Miguel Ángel', 1, 38),
+                                                                      (150, 'Rafael', 0, 38),
+                                                                      (151, 'Caravaggio', 0, 38),
+                                                                      (152, 'Leonardo da Vinci', 0, 38);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (39, '¿Qué obra representa a un hombre gritando bajo un cielo ondulado?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (153, 'El Grito', 1, 39),
+                                                                      (154, 'La Persistencia de la Memoria', 0, 39),
+                                                                      (155, 'El Jardín de las Delicias', 0, 39),
+                                                                      (156, 'La Libertad guiando al pueblo', 0, 39);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (40, '¿Quién pintó "Las Meninas"?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (157, 'Diego Velázquez', 1, 40),
+                                                                      (158, 'Francisco de Goya', 0, 40),
+                                                                      (159, 'El Greco', 0, 40),
+                                                                      (160, 'Murillo', 0, 40);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (41, '¿Qué artista desarrolló el concepto de "arte pop"?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (161, 'Andy Warhol', 1, 41),
+                                                                      (162, 'Roy Lichtenstein', 0, 41),
+                                                                      (163, 'Keith Haring', 0, 41),
+                                                                      (164, 'Basquiat', 0, 41);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (42, '¿Cuál de estos artistas NO pertenece al Renacimiento?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (165, 'Caravaggio', 1, 42),
+                                                                      (166, 'Leonardo da Vinci', 0, 42),
+                                                                      (167, 'Rafael', 0, 42),
+                                                                      (168, 'Donatello', 0, 42);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (43, '¿Qué artista es famoso por sus relojes derretidos?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (169, 'Salvador Dalí', 1, 43),
+                                                                      (170, 'René Magritte', 0, 43),
+                                                                      (171, 'Max Ernst', 0, 43),
+                                                                      (172, 'Giorgio de Chirico', 0, 43);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (44, '¿Qué pintor italiano es conocido por "La Última Cena"?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (173, 'Leonardo da Vinci', 1, 44),
+                                                                      (174, 'Rafael', 0, 44),
+                                                                      (175, 'Botticelli', 0, 44),
+                                                                      (176, 'Tiziano', 0, 44);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (45, '¿Qué técnica artística utiliza pigmentos mezclados con cera caliente?', 0, 0, CURRENT_TIMESTAMP, 0, 3);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (177, 'Encáustica', 1, 45),
+                                                                      (178, 'Fresco', 0, 45),
+                                                                      (179, 'Óleo', 0, 45),
+                                                                      (180, 'Acuarela', 0, 45);
+
+-- Entretenimiento
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (46, '¿Cuál es el nombre del mago protagonista en la saga escrita por J.K. Rowling?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (181, 'Harry Potter', 1, 46),
+                                                                      (182, 'Merlín', 0, 46),
+                                                                      (183, 'Gandalf', 0, 46),
+                                                                      (184, 'Albus Dumbledore', 0, 46);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (47, '¿En qué serie aparece el personaje Walter White?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (185, 'Breaking Bad', 1, 47),
+                                                                      (186, 'Better Call Saul', 0, 47),
+                                                                      (187, 'Narcos', 0, 47),
+                                                                      (188, 'The Wire', 0, 47);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (48, '¿Qué película ganó el Oscar a Mejor Película en 1994?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (189, 'Forrest Gump', 1, 48),
+                                                                      (190, 'Pulp Fiction', 0, 48),
+                                                                      (191, 'Cadena Perpetua', 0, 48),
+                                                                      (192, 'Cuatro bodas y un funeral', 0, 48);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (49, '¿Qué banda compuso el álbum "The Dark Side of the Moon"?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (193, 'Pink Floyd', 1, 49),
+                                                                      (194, 'The Beatles', 0, 49),
+                                                                      (195, 'Led Zeppelin', 0, 49),
+                                                                      (196, 'Queen', 0, 49);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (50, '¿Cuál es el nombre de la princesa en "La Bella Durmiente"?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (197, 'Aurora', 1, 50),
+                                                                      (198, 'Ariel', 0, 50),
+                                                                      (199, 'Bella', 0, 50),
+                                                                      (200, 'Jazmín', 0, 50);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (51, '¿Qué actor interpretó a Jack en "Titanic"?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (201, 'Leonardo DiCaprio', 1, 51),
+                                                                      (202, 'Brad Pitt', 0, 51),
+                                                                      (203, 'Matt Damon', 0, 51),
+                                                                      (204, 'Johnny Depp', 0, 51);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (52, '¿Cuál es el nombre del dragón en "Shrek"?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (205, 'No tiene un nombre específico', 1, 52),
+                                                                      (206, 'Fuego', 0, 52),
+                                                                      (207, 'Draca', 0, 52),
+                                                                      (208, 'Ruby', 0, 52);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (53, '¿Qué videojuego popular incluye personajes como Mario, Luigi y Bowser?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (209, 'Super Mario Bros.', 1, 53),
+                                                                      (210, 'Zelda', 0, 53),
+                                                                      (211, 'Sonic', 0, 53),
+                                                                      (212, 'Minecraft', 0, 53);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (54, '¿Quién canta la canción "Rolling in the Deep"?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (213, 'Adele', 1, 54),
+                                                                      (214, 'Taylor Swift', 0, 54),
+                                                                      (215, 'Rihanna', 0, 54),
+                                                                      (216, 'Lady Gaga', 0, 54);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (55, '¿En qué ciudad se desarrolla la serie "Friends"?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (217, 'Nueva York', 1, 55),
+                                                                      (218, 'Los Ángeles', 0, 55),
+                                                                      (219, 'Chicago', 0, 55),
+                                                                      (220, 'Boston', 0, 55);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (56, '¿Qué actor interpretó a Tony Stark en el Universo Cinematográfico de Marvel?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (221, 'Robert Downey Jr.', 1, 56),
+                                                                      (222, 'Chris Evans', 0, 56),
+                                                                      (223, 'Mark Ruffalo', 0, 56),
+                                                                      (224, 'Chris Hemsworth', 0, 56);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (57, '¿Qué película de Disney fue la primera en ser completamente animada?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (225, 'Blancanieves y los siete enanitos', 1, 57),
+                                                                      (226, 'Pinocho', 0, 57),
+                                                                      (227, 'Dumbo', 0, 57),
+                                                                      (228, 'Bambi', 0, 57);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (58, '¿Cuál es el nombre del parque temático de Disney en París?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (229, 'Disneyland Paris', 1, 58),
+                                                                      (230, 'EuroDisney', 0, 58),
+                                                                      (231, 'Disney World Europe', 0, 58),
+                                                                      (232, 'Disney Europa', 0, 58);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (59, '¿Qué película popular cuenta la historia de un tiburón blanco que ataca una playa?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (233, 'Tiburón (Jaws)', 1, 59),
+                                                                      (234, 'Deep Blue Sea', 0, 59),
+                                                                      (235, 'Megalodón', 0, 59),
+                                                                      (236, 'Sharknado', 0, 59);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (60, '¿Qué director de cine es conocido por películas como "Inception" y "Interstellar"?', 0, 0, CURRENT_TIMESTAMP, 0, 4);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (237, 'Christopher Nolan', 1, 60),
+                                                                      (238, 'Steven Spielberg', 0, 60),
+                                                                      (239, 'James Cameron', 0, 60),
+                                                                      (240, 'Martin Scorsese', 0, 60);
+
+-- Ciencia
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (61, '¿Cuál es el elemento más abundante en la atmósfera terrestre?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (241, 'Nitrógeno', 1, 61),
+                                                                      (242, 'Oxígeno', 0, 61),
+                                                                      (243, 'Dióxido de carbono', 0, 61),
+                                                                      (244, 'Hidrógeno', 0, 61);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (62, '¿Quién propuso la teoría de la relatividad?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (245, 'Albert Einstein', 1, 62),
+                                                                      (246, 'Isaac Newton', 0, 62),
+                                                                      (247, 'Nikola Tesla', 0, 62),
+                                                                      (248, 'Stephen Hawking', 0, 62);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (63, '¿Qué tipo de célula no tiene núcleo?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (249, 'Procariota', 1, 63),
+                                                                      (250, 'Eucariota', 0, 63),
+                                                                      (251, 'Célula madre', 0, 63),
+                                                                      (252, 'Célula animal', 0, 63);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (64, '¿Cuál es la fórmula química del agua?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (253, 'H2O', 1, 64),
+                                                                      (254, 'CO2', 0, 64),
+                                                                      (255, 'O2H', 0, 64),
+                                                                      (256, 'H2O2', 0, 64);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (65, '¿Qué planeta es el más cercano al Sol?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (257, 'Mercurio', 1, 65),
+                                                                      (258, 'Venus', 0, 65),
+                                                                      (259, 'Tierra', 0, 65),
+                                                                      (260, 'Marte', 0, 65);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (66, '¿Cuál es la unidad básica de la vida?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (261, 'La célula', 1, 66),
+                                                                      (262, 'El átomo', 0, 66),
+                                                                      (263, 'El gen', 0, 66),
+                                                                      (264, 'La molécula', 0, 66);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (67, '¿Qué órgano humano produce insulina?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (265, 'Páncreas', 1, 67),
+                                                                      (266, 'Hígado', 0, 67),
+                                                                      (267, 'Estómago', 0, 67),
+                                                                      (268, 'Riñón', 0, 67);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (68, '¿Qué gas utilizan las plantas en la fotosíntesis?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (269, 'Dióxido de carbono', 1, 68),
+                                                                      (270, 'Oxígeno', 0, 68),
+                                                                      (271, 'Nitrógeno', 0, 68),
+                                                                      (272, 'Hidrógeno', 0, 68);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (69, '¿Qué científico formuló las leyes del movimiento?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (273, 'Isaac Newton', 1, 69),
+                                                                      (274, 'Albert Einstein', 0, 69),
+                                                                      (275, 'Galileo Galilei', 0, 69),
+                                                                      (276, 'Aristóteles', 0, 69);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (70, '¿Qué planeta tiene el mayor número de lunas conocidas?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (277, 'Saturno', 1, 70),
+                                                                      (278, 'Júpiter', 0, 70),
+                                                                      (279, 'Urano', 0, 70),
+                                                                      (280, 'Neptuno', 0, 70);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (71, '¿Qué nombre recibe el proceso mediante el cual un sólido pasa directamente a estado gaseoso?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (281, 'Sublimación', 1, 71),
+                                                                      (282, 'Evaporación', 0, 71),
+                                                                      (283, 'Condensación', 0, 71),
+                                                                      (284, 'Fusión', 0, 71);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (72, '¿Cuál es el número atómico del carbono?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (285, '6', 1, 72),
+                                                                      (286, '12', 0, 72),
+                                                                      (287, '14', 0, 72),
+                                                                      (288, '8', 0, 72);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (73, '¿Qué parte del ojo humano controla la cantidad de luz que entra?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (289, 'La pupila', 1, 73),
+                                                                      (290, 'La retina', 0, 73),
+                                                                      (291, 'El cristalino', 0, 73),
+                                                                      (292, 'La córnea', 0, 73);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (74, '¿Cómo se llama el proceso por el cual una célula se divide en dos células hijas idénticas?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (293, 'Mitosis', 1, 74),
+                                                                      (294, 'Meiosis', 0, 74),
+                                                                      (295, 'Fagocitosis', 0, 74),
+                                                                      (296, 'Fermentación', 0, 74);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (75, '¿Qué tipo de energía se obtiene a partir del calor interno de la Tierra?', 0, 0, CURRENT_TIMESTAMP, 0, 5);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (297, 'Geotérmica', 1, 75),
+                                                                      (298, 'Solar', 0, 75),
+                                                                      (299, 'Eólica', 0, 75),
+                                                                       (300, 'Hidráulica', 0, 75);
+
+-- Deportes
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (76, '¿En qué deporte se utiliza un disco llamado puck?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (301, 'Hockey sobre hielo', 1, 76),
+                                                                      (302, 'Fútbol americano', 0, 76),
+                                                                      (303, 'Baloncesto', 0, 76),
+                                                                      (304, 'Rugby', 0, 76);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (77, '¿Cuántos jugadores hay en un equipo de fútbol en cancha?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (305, '11', 1, 77),
+                                                                      (306, '9', 0, 77),
+                                                                      (307, '10', 0, 77),
+                                                                      (308, '12', 0, 77);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (78, '¿En qué país se originaron los Juegos Olímpicos modernos?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (309, 'Grecia', 1, 78),
+                                                                      (310, 'Italia', 0, 78),
+                                                                      (311, 'Estados Unidos', 0, 78),
+                                                                      (312, 'Francia', 0, 78);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (79, '¿Cuántos sets se juegan en un partido de tenis masculino en Grand Slam?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (313, '5', 1, 79),
+                                                                      (314, '3', 0, 79),
+                                                                      (315, '7', 0, 79),
+                                                                      (316, '4', 0, 79);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (80, '¿Cuál es el deporte conocido como "el rey de los deportes"?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (317, 'Fútbol', 1, 80),
+                                                                      (318, 'Baloncesto', 0, 80),
+                                                                      (319, 'Béisbol', 0, 80),
+                                                                      (320, 'Boxeo', 0, 80);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (81, '¿En qué deporte se utiliza un "tee"?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (321, 'Golf', 1, 81),
+                                                                      (322, 'Cricket', 0, 81),
+                                                                      (323, 'Fútbol americano', 0, 81),
+                                                                      (324, 'Béisbol', 0, 81);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (82, '¿Quién es conocido como "El rey del boxeo"?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (325, 'Muhammad Ali', 1, 82),
+                                                                      (326, 'Mike Tyson', 0, 82),
+                                                                      (327, 'Floyd Mayweather', 0, 82),
+                                                                      (328, 'Sugar Ray Robinson', 0, 82);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (83, '¿En qué ciudad se celebraron los Juegos Olímpicos de 2016?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (329, 'Río de Janeiro', 1, 83),
+                                                                      (330, 'Londres', 0, 83),
+                                                                      (331, 'Tokio', 0, 83),
+                                                                      (332, 'Beijing', 0, 83);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (84, '¿Cuál es el país con más títulos mundiales de fútbol?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (333, 'Brasil', 1, 84),
+                                                                      (334, 'Alemania', 0, 84),
+                                                                      (335, 'Italia', 0, 84),
+                                                                      (336, 'Argentina', 0, 84);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (85, '¿En qué deporte se usa una raqueta y una pelota amarilla pequeña?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (337, 'Tenis', 1, 85),
+                                                                      (338, 'Bádminton', 0, 85),
+                                                                      (339, 'Squash', 0, 85),
+                                                                      (340, 'Ping pong', 0, 85);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (86, '¿Qué país es conocido por la tradición del sumo?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (341, 'Japón', 1, 86),
+                                                                      (342, 'China', 0, 86),
+                                                                      (343, 'Corea del Sur', 0, 86),
+                                                                      (344, 'Mongolia', 0, 86);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (87, '¿Cuántos puntos vale un touchdown en fútbol americano?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (345, '6', 1, 87),
+                                                                      (346, '3', 0, 87),
+                                                                      (347, '7', 0, 87),
+                                                                      (348, '1', 0, 87);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (88, '¿En qué deporte es famoso el trofeo "Wimbledon"?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (349, 'Tenis', 1, 88),
+                                                                      (350, 'Golf', 0, 88),
+                                                                      (351, 'Cricket', 0, 88),
+                                                                      (352, 'Baloncesto', 0, 88);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (89, '¿En qué deporte se utiliza un casco con una visera y guantes especiales?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (353, 'Fútbol americano', 1, 89),
+                                                                      (354, 'Béisbol', 0, 89),
+                                                                      (355, 'Hockey sobre hielo', 0, 89),
+                                                                      (356, 'Lacrosse', 0, 89);
+
+INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+VALUES (90, '¿Cuál es el nombre del torneo anual más importante de rugby?', 0, 0, CURRENT_TIMESTAMP, 0, 6);
+INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES
+                                                                      (357, 'Copa Mundial de Rugby', 1, 90),
+                                                                      (358, 'Six Nations', 0, 90),
+                                                                      (359, 'Super Rugby', 0, 90),
+                                                                      (360, 'The Rugby Championship', 0, 90);
