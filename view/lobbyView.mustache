@@ -1,93 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Lobby - Preguntados</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 2rem;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        .user-info {
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-        .buttons {
-            margin-bottom: 2rem;
-        }
-        .buttons button {
-            margin-right: 1rem;
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-        }
-        .partidas {
-            background-color: #fff;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-        }
-        .partida {
-            margin-bottom: 0.75rem;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 0.5rem;
-        }
-        .partida:last-child {
-            border-bottom: none;
-        }
-        .jugador-link {
-            color: #3498db;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .jugador-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
-<body>
-{{#datosUsuario}}
-<h1>Hola <strong> {{nickname}} </strong></h1>
+<body class="bg-light">
 
-<div class="user-info">
-    Jugador: <strong>{{nombre_completo}}</strong> <br>
-    Puntaje total: <strong>1250 puntos</strong>
+<div class="container py-4">
+    {{#datosUsuario}}
+        <div class="text-center mb-4">
+            <h1>Hola <strong>{{nickname}}</strong></h1>
+            <p class="lead">Jugador: <strong>{{nombre_completo}}</strong></p>
+            <p>Puntaje total: <strong>{{puntaje_alcanzado}}</strong></p>
+        </div>
+
+        <div class="d-flex justify-content-center gap-3 mb-4">
+            <button onclick="crearPartida()" class="btn btn-primary">➕ Crear nueva partida</button>
+            <button onclick="verRanking()" class="btn btn-success">📊 Ver ranking</button>
+            <button onclick="crearPreguntas()" class="btn btn-warning text-white">📝 Crear preguntas nuevas</button>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2 class="mb-0">🏆 Posición en el Ranking Global</h2>
+            </div>
+            <div class="card-body">
+                <p>Puesto: <strong>{{puestoRanking}}</strong></p>
+                <p>Puntaje total: <strong>{{puntaje_alcanzado}}</strong></p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">Historial de partidas</h2>
+            </div>
+            <div class="card-body">
+                {{#historialPartidas}}
+                    <div class="mb-3 border-bottom pb-2">
+                        Contra <a href="perfil.html?id={{id_oponente}}" class="link-primary">{{nombre_oponente}}</a> – <strong>{{resultado}}</strong>
+                    </div>
+                {{/historialPartidas}}
+
+                {{^historialPartidas}}
+                    <p>No tenés partidas jugadas aún.</p>
+                {{/historialPartidas}}
+            </div>
+        </div>
+    {{/datosUsuario}}
 </div>
 
-<div class="buttons">
-    <button onclick="crearPartida()">➕ Crear nueva partida</button>
-    <button onclick="verRanking()">📊 Ver ranking</button>
-</div>
-
-<div class="partidas">
-    <h2>Historial de partidas</h2>
-
-    <div class="partida">
-        Contra <a href="perfil.html?id=2" class="jugador-link">María Gómez</a> – <strong>Ganaste</strong>
-    </div>
-
-    <div class="partida">
-        Contra <a href="perfil.html?id=3" class="jugador-link">Carlos Ruiz</a> – <strong>Perdiste</strong>
-    </div>
-
-    <div class="partida">
-        Contra <a href="perfil.html?id=4" class="jugador-link">Ana Torres</a> – <strong>Empate</strong>
-    </div>
-
-</div>
-{{/datosUsuario}}
 <script>
     function crearPartida() {
         window.location.href = "crearPartida.php";
     }
-
     function verRanking() {
         window.location.href = "ranking.php";
     }
+    function crearPreguntas() {
+        window.location.href = "crearPregunta.php";
+    }
 </script>
+
+<!-- Bootstrap Bundle JS CDN (includes Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

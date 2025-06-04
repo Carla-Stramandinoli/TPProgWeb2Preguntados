@@ -16,8 +16,12 @@ class LobbyController
     public function mostrar()
     {
         $datosUsuarioLobby = $this->model->obtenerDatosUsuarioLobby($_SESSION["usuarioId"]);
-        $this->view->render("lobby", [ "datosUsuario" => $datosUsuarioLobby,  "showLogout" => true] );
+        $ranking = $this->model->obtenerRankingGlobalOrdenado($datosUsuarioLobby);
+        $puestoEnElRanking = $this ->model -> calcularPosicionEnElRankig ($datosUsuarioLobby, $ranking );
+        $this->view->render("lobby", [ "datosUsuario" => $datosUsuarioLobby, "puestoRanking" => $puestoEnElRanking,  "showLogout" => true] );
     }
+
+
 
     private function redirectTo($str)
     {
