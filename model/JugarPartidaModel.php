@@ -134,20 +134,6 @@ class JugarPartidaModel{
         return isset($resultado[0]['id_partida']) ? $resultado[0]['id_partida'] : false;
     }
 
-    public function almacenarPreguntaDePartidaEnTablaCompuesta($id_partida, $id)
-    {
-//        // Verificamos si ya existe la relación
-//        $resultado = $this->database->query("SELECT 1 FROM compuesta WHERE id_partida = $id_partida AND id_pregunta = $id");
-//
-//        // Si no existe, insertamos
-//        if (empty($resultado)) {
-//            $this->database->execute("INSERT INTO compuesta (id_partida, id_pregunta) VALUES ($id_partida, $id)");
-//        }
-
-        $this->database->execute("INSERT INTO compuesta (id_partida, id_pregunta)
-                                    VALUES ($id_partida, $id)");
-    }
-
     public function almacenarPreguntasContestadasEnTablaContesta($idJugador, $id)
     {
         $this->database->execute("INSERT INTO contesta (id_jugador, id_pregunta)

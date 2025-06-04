@@ -16,6 +16,7 @@ class JugarPartidaController{
         $categoria = $this->model->elegirCategoriaRandom();
         $_SESSION["categoria_actual"] = $categoria;
         $this->model->crearInstanciaDePartida($_SESSION["usuarioId"]);
+        unset($_SESSION['pregunta_actual']);
 
         $this-> view->render("jugarPartida" ,["showLogout" => true, "primerInicio" => true, "categoria" =>$categoria]);
     }
@@ -24,10 +25,7 @@ class JugarPartidaController{
     {
 
         $descripcionCategoria = $_SESSION["categoria_actual"];
-        //$_SESSION["pregunta_actual"];
 
-        //$ids = $this->model->obtenerArrayDeIds($preguntas);
-        //$num = $ids[array_rand($ids)];
         if (!isset($_SESSION["puntos"])) {
             $_SESSION["puntos"] = 0;
         }
@@ -44,9 +42,7 @@ class JugarPartidaController{
         if (!isset($_SESSION["pregunta_actual"])){
             $pregunta = $this->model->obtenerEnunciadoPregunta($descripcionCategoria, $_SESSION["usuarioId"]);
             $idPregunta = $this->model->obtenerIdPregunta($pregunta);
-            $partidaActual = $this->model->obtenerPartidaPorJugador($_SESSION["usuarioId"]);
 
-            //$this->model->almacenarPreguntaDePartidaEnTablaCompuesta($partidaActual, $idPregunta);
             $this->model->almacenarPreguntasContestadasEnTablaContesta($_SESSION["usuarioId"], $idPregunta);
 
             $_SESSION["pregunta_actual"] = $pregunta;
@@ -79,9 +75,11 @@ class JugarPartidaController{
     {
         $puntos = $_SESSION["puntos"];
         unset($_SESSION['pregunta_actual']);
+        $racha = $this->model->obtenerRachaMasLargaJugador($_SESSION["usuarioId"]);
 
         $this-> view->render("perdiste" ,[
             "puntos" => $puntos,
+            "racha" => $racha,
             "showLogout" => true
         ]);
     }
