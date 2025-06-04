@@ -9,30 +9,18 @@ class IngresoModel
         $this->database = $database;
     }
 
-    /*$usuario = $this->database->query("SELECT * FROM usuario WHERE nickname = '$nickname'");
-        if($nickname == $usuario[0]['nickname'] && $usuario[0]['id'] == 1 || $usuario[0]['id'] == 2){
-            return !empty($usuario); //true
-        }*/
 
     public function obtenerUsuario($nickname, $contrasenia){
-        if ($this->validarUsuario($nickname, $contrasenia))
-            return $this->database->query("SELECT * FROM usuario JOIN jugador ON jugador.id = usuario.id WHERE nickname = '$nickname'");
-        else return [];
+        if (!$this->validarUsuario($nickname, $contrasenia)) return [];
 
-//            if ($nickname == "admin" || $nickname == "editor"){
-//                return $this->database->query("SELECT *
-//                                            FROM usuario
-//                                            WHERE nickname = '$nickname'");
-//            }
-//
-//            return $this->database->query("SELECT *
-//                                            FROM usuario
-//                                            JOIN jugador ON jugador.id = usuario.id
-//                                            WHERE usuario.nickname = '$nickname'");
-//
-//        } else {
-//            return [];
-//        }
+        $usuario = $this->database->query("SELECT * FROM usuario WHERE nickname = '$nickname'");
+
+        if ($usuario[0]['rol'] == 'jugador')
+            return $this->database->query("SELECT * FROM usuario 
+                                            JOIN jugador ON usuario.id = jugador.id 
+                                            WHERE nickname = '$nickname'");
+
+        else return $usuario;
     }
 
     public function obtenerUsuarioParaJugador($hash)
@@ -77,7 +65,6 @@ class IngresoModel
             // falta pasarle pais y ciudad cuando vemaos el mapa.
             $idUsuario = $this->obtenerIdUsuario($nickname);
 
-//            $datosJugador = [$idUsuario, $fechaNacimiento, $fechaActual, $imagenPerfilGuardada, $email, $genero, $nicknameHasheado];
             $this->registrarJugador($idUsuario, $fechaNacimiento, $fechaActual, $imagenPerfilGuardada, $email, $genero, $nicknameHasheado);
             return $resultado;
         }
@@ -98,8 +85,7 @@ class IngresoModel
 
     public function registrarJugador($idUsuario, $fechaNacimiento, $fechaActual, $imagenPerfilGuardada, $email, $genero, $nicknameHasheado)
     {
-//        $idUsuario = $this->obtenerUsuarioParaJugador($datosJugador['hash']);
-//        if ($idUsuario){
+
            return $this->database->execute("INSERT INTO jugador (id, anio_nacimiento, fecha_registro, foto_perfil, 
                                                 email, genero, nickname_hash, puntaje_alcanzado, qr, cantidad_jugada, cantidad_aciertos) 
                                             VALUES ($idUsuario, '$fechaNacimiento', '$fechaActual', '$imagenPerfilGuardada', 
@@ -152,9 +138,7 @@ class IngresoModel
     private function validarUsuario($nickname, $contrasenia)
     {
         $usuario = $this->database->query("SELECT * FROM usuario WHERE nickname = '$nickname'");
-//        if($nickname == $usuario[0]['nickname'] && $usuario[0]['id'] == 1 || $usuario[0]['id'] == 2){
-//            return !empty($usuario); //true
-//        }
+
         return !empty($usuario) && password_verify($contrasenia, $usuario[0]["contrasenia"]);
     }
 

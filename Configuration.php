@@ -10,6 +10,7 @@ require_once("controller/PerfilController.php");
 require_once ("controller/JugarPartidaController.php");
 require_once ("controller/EditorController.php");
 require_once ("controller/AdministradorController.php");
+require_once ("controller/CerrarSesionController.php");
 
 require_once("model/IngresoModel.php");
 require_once("model/PerfilModel.php");
@@ -64,6 +65,11 @@ class Configuration
     public function getAdministradorController()
     {
         return new AdministradorController(new AdministradorModel($this->getDatabase()) ,$this->getViewer());
+    }
+
+    public function getCerrarSesionController()
+    {
+        return new CerrarSesionController();
     }
 
     public function getRouter()

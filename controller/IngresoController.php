@@ -12,14 +12,12 @@ class IngresoController
     }
 
     public function login(){
-//        if(isset($_SESSION['nickname'])) $this->redirectTo('/');
         (isset($_GET['msjError'])) // verificar despues si se puede limpiar la ruta
             ? $this->view->render('login', ['msjError' => $_GET['msjError']])
             : $this->view->render('login');
     }
 
     public function register(){
-//        if(isset($_SESSION['nickname'])) $this->redirectTo('/');
         if (isset($_GET['msjError'])) $this->view->render('register', ['msjError' => $_GET['msjError']]);
         if (isset($_GET['msjExito'])) $this->view->render('register', ['msjExito' => $_GET['msjExito']]);
         if (!isset($_GET['msjExito']) && !isset($_GET['msjError'])) $this->view->render('register');
@@ -33,15 +31,8 @@ class IngresoController
 
 
             if(!empty($usuario[0])){
-                $idUsuario = $usuario[0]['id'];
 
-//                if (!empty($this->model->obtenerIdAdmin($idUsuario))){
-//                    $this->redirectTo('/administrador/mostrar');
-//                } elseif (!empty($this->model->obtenerIdEditor($idUsuario))){
-//                    $this->redirectTo('/editor/mostrar');
-//                }
-
-                if($usuario[0]['cuenta_activada'] == 0 && !($usuario[0]['rol'] ==  "administrador" ||  $usuario[0] == "editor")) {
+                if(!($usuario[0]['rol'] ==  "administrador" ||  $usuario[0]['rol'] == "editor") && $usuario[0]['cuenta_activada'] == 0) {
                     $msjError = "El usuario esta inactivo, por favor verifique su casilla de correo.";
                     $this->redirectTo("/ingreso/login?msjError=" . urlencode($msjError));
                 }
@@ -55,6 +46,7 @@ class IngresoController
 
         $msjError = "Usuario o contraseña incorrectos";
         $this->redirectTo("/ingreso/login?msjError=" . urlencode($msjError));
+
 
     }
 
