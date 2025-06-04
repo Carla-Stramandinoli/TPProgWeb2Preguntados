@@ -17,8 +17,13 @@ class PerfilController
     {
         if(!isset($_SESSION['nickname'])) $this->redirectTo('/');
 
+        $this->model->almacenarPuntajeAlcanzado($_SESSION["usuarioId"]);
+
         $datosUsuario = $this->model->obtenerDatosUsuario($_SESSION["usuarioId"]);
-        $this->view->render("perfil", [ "datosUsuario" => $datosUsuario, "showLogout" => true]);
+
+        $partidasYPuntajesUsuarios = $this->model->obtenerPartidasYPuntajes($_SESSION["usuarioId"]);
+
+        $this->view->render("perfil", [ "datosUsuario" => $datosUsuario, "partidasYPuntajesUsuarios" => $partidasYPuntajesUsuarios, "showLogout" => true ]);
     }
 
     private function redirectTo($str)

@@ -27,21 +27,110 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `usuario`
 --
 
-CREATE TABLE `usuario` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `nickname` varchar(100) NOT NULL,
-  `nombre_completo` varchar(100) NOT NULL,
-  `anio_nacimiento` date NOT NULL,
-  `contrasenia` varchar(100) NOT NULL,
-  `fecha_registro` date NOT NULL,
-  `foto_perfil` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `genero` varchar(100) NOT NULL,
-  `pais` varchar(100), -- NOT NULL,
-  `ciudad` varchar(100), -- NOT NULL
-  `nickname_hash` varchar(250), -- NOT NULL,
-  `cuenta_activada` TINYINT DEFAULT 0
+CREATE TABLE categoria (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descripcion VARCHAR(100) NOT NULL
+);
+
+INSERT INTO categoria (id, descripcion) VALUES (1, 'Geografía');
+INSERT INTO categoria (id, descripcion) VALUES (2, 'Historia');
+INSERT INTO categoria (id, descripcion) VALUES (3, 'Arte');
+INSERT INTO categoria (id, descripcion) VALUES (4, 'Entretenimiento');
+INSERT INTO categoria (id, descripcion) VALUES (5, 'Ciencia');
+INSERT INTO categoria (id, descripcion) VALUES (6, 'Deportes');
+
+
+CREATE TABLE pregunta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    enunciado TEXT NOT NULL,
+    cantidad_jugada INT DEFAULT 0,
+    cantidad_aciertos INT DEFAULT 0,
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    cantidad_reportes INT DEFAULT 0,
+    id_categoria INT NOT NULL,
+    FOREIGN KEY (id_categoria) REFERENCES categoria(id)
+);
+
+
+CREATE TABLE respuesta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descripcion TEXT NOT NULL,
+    es_correcta TINYINT(1) DEFAULT 0,
+    id_pregunta INT NOT NULL,
+    FOREIGN KEY (id_pregunta) REFERENCES pregunta(id) ON DELETE CASCADE
+);
+
+CREATE TABLE usuario (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nickname VARCHAR(100) NOT NULL,
+    nombre_completo VARCHAR(100) NOT NULL,
+    contrasenia VARCHAR(100) NOT NULL,
+    UNIQUE (nickname)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO usuario (id, nickname, nombre_completo, contrasenia) VALUES (1, 'admin', 'Juan Perez', '123');
+
+INSERT INTO usuario (id, nickname, nombre_completo, contrasenia) VALUES (2, 'editor', 'Pepito', '123');
+
+CREATE TABLE jugador (
+    id INT PRIMARY KEY,
+    puntaje_alcanzado INT DEFAULT 0,
+    anio_nacimiento DATE NOT NULL,
+    fecha_registro date NOT NULL,
+    foto_perfil VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    genero VARCHAR(100) NOT NULL,
+    pais VARCHAR(100), -- NOT NULL,
+    ciudad VARCHAR(100), -- NOT NULL
+    cuenta_activada TINYINT DEFAULT 0,
+    nickname_hash VARCHAR(250), -- NOT NULL,
+    qr VARCHAR(100),
+    cantidad_jugada INT DEFAULT 0,
+    cantidad_aciertos INT DEFAULT 0,
+    FOREIGN KEY (id) REFERENCES usuario(id)
+);
+
+CREATE TABLE administrador (
+    id INT PRIMARY KEY,
+    nickname VARCHAR(100),
+    FOREIGN KEY (id) REFERENCES usuario(id),
+    FOREIGN KEY (nickname) REFERENCES usuario(nickname)
+);
+
+CREATE TABLE editor (
+    id INT PRIMARY KEY,
+    nickname VARCHAR(100),
+    FOREIGN KEY (id) REFERENCES usuario(id),
+    FOREIGN KEY (nickname) REFERENCES usuario(nickname)
+);
+
+INSERT INTO administrador (id, nickname) VALUES (1,'admin');
+
+INSERT INTO editor (id, nickname) VALUES (2,'editor');
+
+CREATE TABLE partida (
+    id_partida INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    fecha_partida DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    resultado INT,
+    id_jugador INT NOT NULL,
+    FOREIGN KEY (id_jugador) REFERENCES jugador(id)
+);
+
+CREATE TABLE compuesta (
+    id_partida INT NOT NULL,
+    id_pregunta INT NOT NULL,
+    PRIMARY KEY (id_partida, id_pregunta),
+    FOREIGN KEY (id_partida) REFERENCES partida(id_partida),
+    FOREIGN KEY (id_pregunta) REFERENCES pregunta(id)
+);
+
+CREATE TABLE contesta (
+    id_jugador INT NOT NULL,
+    id_pregunta INT NOT NULL,
+    PRIMARY KEY (id_jugador, id_pregunta),
+    FOREIGN KEY (id_jugador) REFERENCES jugador(id),
+    FOREIGN KEY (id_pregunta) REFERENCES pregunta(id)
+);
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -54,9 +143,9 @@ CREATE TABLE `usuario` (
 --
 -- Indices de la tabla `usuario`
 --
-ALTER TABLE `usuario`
+/*ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nickname` (`nickname`);
+  ADD UNIQUE KEY `nickname` (`nickname`);*/
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -65,86 +154,55 @@ ALTER TABLE `usuario`
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
-ALTER TABLE `usuario`
+/*ALTER TABLE `usuario`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-COMMIT;
+COMMIT;*/
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-
-CREATE TABLE categoria (
-                           id INT AUTO_INCREMENT PRIMARY KEY,
-                           descripcion VARCHAR(100) NOT NULL
-);
-
-INSERT INTO categoria (id, descripcion) VALUES (1, 'Geografía');
-INSERT INTO categoria (id, descripcion) VALUES (2, 'Historia');
-INSERT INTO categoria (id, descripcion) VALUES (3, 'Arte');
-INSERT INTO categoria (id, descripcion) VALUES (4, 'Entretenimiento');
-INSERT INTO categoria (id, descripcion) VALUES (5, 'Ciencia');
-INSERT INTO categoria (id, descripcion) VALUES (6, 'Deportes');
-
-
-CREATE TABLE pregunta (
-                          id INT AUTO_INCREMENT PRIMARY KEY,
-                          enunciado TEXT NOT NULL,
-                          cantidad_jugada INT DEFAULT 0,
-                          cantidad_aciertos INT DEFAULT 0,
-                          fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-                          cantidad_reportes INT DEFAULT 0,
-                          id_categoria INT NOT NULL,
-                          FOREIGN KEY (id_categoria) REFERENCES categoria(id)
-);
-
-
-CREATE TABLE respuesta (
-                           id INT AUTO_INCREMENT PRIMARY KEY,
-                           descripcion TEXT NOT NULL,
-                           es_correcta TINYINT(1) DEFAULT 0,
-                           id_pregunta INT NOT NULL,
-                           FOREIGN KEY (id_pregunta) REFERENCES pregunta(id) ON DELETE CASCADE
-);
-
-
+-- Pregunta 1
 INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (1, '¿Cuál es la capital de Australia?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (1, 'Canberra', 1, 1);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (2, 'Sídney', 0, 1);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (3, 'Melbourne', 0, 1);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (4, 'Brisbane', 0, 1);
 
+-- Pregunta 2
 INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (2, '¿En qué continente se encuentra el desierto del Sahara?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (5, 'África', 1, 2);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (6, 'Asia', 0, 2);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (7, 'América', 0, 2);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (8, 'Europa', 0, 2);
 
+-- Pregunta 3
 INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (3, '¿Qué río es el más largo del mundo?', 0, 0, CURRENT_TIMESTAMP, 0, 1);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (9, 'Amazonas', 1, 3);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (10, 'Nilo', 0, 3);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (11, 'Yangtsé', 0, 3);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (12, 'Misisipi', 0, 3);
 
-
+-- Pregunta 4
 INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (4, '¿En qué año cayó el Muro de Berlín?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (13, '1989', 1, 4);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (14, '1990', 0, 4);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (15, '1985', 0, 4);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (16, '1979', 0, 4);
 
+-- Pregunta 5
 INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (5, '¿Quién fue el primer presidente de Estados Unidos?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (17, 'George Washington', 1, 5);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (18, 'Thomas Jefferson', 0, 5);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (19, 'Abraham Lincoln', 0, 5);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (20, 'John Adams', 0, 5);
 
+-- Pregunta 6
 INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (6, '¿Qué civilización construyó las pirámides de Egipto?', 0, 0, CURRENT_TIMESTAMP, 0, 2);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (21, 'Egipcia', 1, 6);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (22, 'Romana', 0, 6);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (23, 'Maya', 0, 6);
 INSERT INTO respuesta (id, descripcion, es_correcta, id_pregunta) VALUES (24, 'Griega', 0, 6);
-
 
 -- Pregunta 7
 INSERT INTO pregunta (id, enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria) VALUES (7, '¿Quién pintó "La noche estrellada"?', 0, 0, CURRENT_TIMESTAMP, 0, 3);

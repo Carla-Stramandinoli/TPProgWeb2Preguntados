@@ -1,7 +1,23 @@
-<h1> Juguemos una partida</h1>
+
 
 <div class="container text-center mt-5">
-    <h2>Ruleta de Preguntados</h2>
+    {{#primerInicio}}
+        <h2>Iniciar partida</h2>
+    {{/primerInicio}}
+    {{#partidaEnCurso}}
+        <div class="row mb-4  py-5">
+            <div class="col">
+                <h4 class="info-box bg-success">🏆 Trofeos Ganados: {{trofeos}}</h4>
+            </div>
+            <div class="col">
+                <h4 class="info-box bg-success"> Puntos: {{puntos}}</h4>
+            </div>
+            <div class="col">
+                <h4 class="info-box bg-success"> Racha mas larga: {{racha}}</h4>
+            </div>
+        </div>
+    {{/partidaEnCurso}}
+
 
     <div id="ruleta-container" class="position-relative mx-auto my-4" style="width: 300px; height: 300px;">
 
@@ -14,11 +30,13 @@
 
 
         <div class="position-absolute top-50 start-50 translate-middle">
-            <button class="btn btn-primary" onclick="girar()">Iniciar partida</button>
+            <button class="btn btn-primary" id="boton-girar" >Girar</button>
         </div>
     </div>
 
     <h4 id="resultado" class="mt-3"></h4>
 </div>
-
+<script>
+    const categoriaElegidaDesdeBack = "{{categoria}}";
+</script>
 <script src="/public/js/jugarPartida.js"></script>

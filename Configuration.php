@@ -7,10 +7,14 @@ require_once("controller/LobbyController.php");
 require_once("controller/IngresoController.php");
 require_once("controller/PerfilController.php");
 require_once ("controller/JugarPartidaController.php");
+require_once ("controller/EditorController.php");
+require_once ("controller/AdministradorController.php");
 
 require_once("model/IngresoModel.php");
 require_once("model/PerfilModel.php");
 require_once ("model/JugarPartidaModel.php");
+require_once ("model/EditorModel.php");
+require_once("model/AdministradorModel.php");
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
@@ -49,6 +53,16 @@ class Configuration
     public function getJugarPartidaController()
     {
         return new JugarPartidaController(new JugarPartidaModel($this->getDatabase()) ,$this->getViewer());
+    }
+
+    public function getEditorController()
+    {
+        return new EditorController(new EditorModel($this->getDatabase()) ,$this->getViewer());
+    }
+
+    public function getAdministradorController()
+    {
+        return new AdministradorController(new AdministradorModel($this->getDatabase()) ,$this->getViewer());
     }
 
     public function getRouter()
