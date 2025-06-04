@@ -35,10 +35,11 @@ class JugarPartidaController{
 
         if (isset($_SESSION["pregunta_actual"])){
             $pregunta = $_SESSION["pregunta_actual"];
+            $idPregunta = $this->model->obtenerIdPregunta($pregunta);
         } else {
             $pregunta = "";
         }
-        $idPregunta = $this->model->obtenerIdPregunta($pregunta);
+
 
         if (!isset($_SESSION["pregunta_actual"])){
             $pregunta = $this->model->obtenerEnunciadoPregunta($descripcionCategoria, $_SESSION["usuarioId"]);
@@ -70,16 +71,15 @@ class JugarPartidaController{
             "id" => $idPregunta,
             "respuestas" => $respuestas,
             "puntos" => $puntos,
-         "showLogout" => true] );
+            "showLogout" => true] );
     }
     public function timeOut()
     {
         $puntos = $_SESSION["puntos"];
         unset($_SESSION['pregunta_actual']);
-        $racha = $this->model->obtenerRachaMasLargaJugador($_SESSION["usuarioId"]);
+
         $this-> view->render("perdiste" ,[
             "puntos" => $puntos,
-            "racha" => $racha,
             "showLogout" => true
         ]);
     }
@@ -101,37 +101,30 @@ class JugarPartidaController{
 
         $puntos = $_SESSION["puntos"];
         $tiempo_actual = time();
-        $racha = $this->model->obtenerRachaMasLargaJugador($_SESSION["usuarioId"]);
-
         if ($resultado==1 && $tiempo_actual - $_SESSION['inicio_pregunta'] <10){
 
             unset($_SESSION['inicio_pregunta']);
 
-           //Verificar
-           $this->model->actualizarRespuestaExitosaPregunta($idPregunta);
+            //Verificar
+            $this->model->actualizarRespuestaExitosaPregunta($idPregunta);
 
-           //Este metodo tiene que actualizar la cantidad de preguntas que respondió bien un usuario
-           $this->model->actualizarCantidadTotalPreguntasCorrectasJugador($_SESSION["usuarioId"]);
+            //Este metodo tiene que actualizar la cantidad de preguntas que respondió bien un usuario
+            $this->model->actualizarCantidadTotalPreguntasCorrectasJugador($_SESSION["usuarioId"]);
 
-           $_SESSION["puntos"] += 1;
-           $puntos = $_SESSION["puntos"];
-           $categoria = $this->model->elegirCategoriaRandom();
-           $_SESSION["categoria_actual"] = $categoria;
-           $this-> view->render("jugarPartida" ,[
-               "puntos" => $puntos,
-               "showLogout" => true,
-               "racha" => $racha,
-               "partidaEnCurso" => true,
-               "categoria"=> $categoria]);
+            $_SESSION["puntos"] += 1;
+            $puntos = $_SESSION["puntos"];
+            $categoria = $this->model->elegirCategoriaRandom();
+            $_SESSION["categoria_actual"] = $categoria;
+            $this-> view->render("jugarPartida" ,[
+                "puntos" => $puntos,
+                "showLogout" => true,
+                "partidaEnCurso" => true,
+                "categoria"=> $categoria]);
         } else{
             unset($_SESSION['inicio_pregunta']);
-
             $this-> view->render("perdiste" ,[
                 "puntos" => $puntos,
-                "racha" => $racha,
                 "showLogout" => true]);
         }
     }
 }
-
-

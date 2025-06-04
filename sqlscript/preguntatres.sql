@@ -68,9 +68,9 @@ CREATE TABLE usuario (
     UNIQUE (nickname)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO usuario (id, nickname, nombre_completo, contrasenia, nickname_hash) VALUES (1, "admin", 'Juan Perez', '123', null);
+INSERT INTO usuario (id, nickname, nombre_completo, contrasenia) VALUES (1, 'admin', 'Juan Perez', '123');
 
-INSERT INTO usuario (id, nickname, nombre_completo, contrasenia, nickname_hash) VALUES (2, "editor", 'Pepito', '123', null);
+INSERT INTO usuario (id, nickname, nombre_completo, contrasenia) VALUES (2, 'editor', 'Pepito', '123');
 
 CREATE TABLE jugador (
     id INT PRIMARY KEY,
@@ -104,9 +104,9 @@ CREATE TABLE editor (
     FOREIGN KEY (nickname) REFERENCES usuario(nickname)
 );
 
-INSERT INTO administrador (id, nickname) VALUES (1,"admin");
+INSERT INTO administrador (id, nickname) VALUES (1,'admin');
 
-INSERT INTO editor (id, nickname) VALUES (2,"editor");
+INSERT INTO editor (id, nickname) VALUES (2,'editor');
 
 CREATE TABLE partida (
     id_partida INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

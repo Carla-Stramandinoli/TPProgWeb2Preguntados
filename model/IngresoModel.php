@@ -9,19 +9,39 @@ class IngresoModel
         $this->database = $database;
     }
 
+    /*$usuario = $this->database->query("SELECT * FROM usuario WHERE nickname = '$nickname'");
+        if($nickname == $usuario[0]['nickname'] && $usuario[0]['id'] == 1 || $usuario[0]['id'] == 2){
+            return !empty($usuario); //true
+        }*/
+
     public function obtenerUsuario($nickname, $contrasenia){
-        if ($this->validarUsuario($nickname, $contrasenia)) return $this->database->query("SELECT * FROM usuario WHERE nickname = '$nickname'");
-        else return [];
+        if ($this->validarUsuario($nickname, $contrasenia)) {
+
+            if ($nickname == "admin" || $nickname == "editor"){
+                return $this->database->query("SELECT * 
+                                            FROM usuario
+                                            WHERE nickname = '$nickname'");
+            }
+
+            return $this->database->query("SELECT * 
+                                            FROM usuario 
+                                            JOIN jugador ON jugador.id = usuario.id 
+                                            WHERE usuario.nickname = '$nickname'");
+
+        } else {
+            return [];
+        }
     }
 
     public function obtenerUsuarioParaJugador($hash)
     {
-        $resultado = $this->database->query("SELECT id FROM usuario WHERE nickname_hash = '$hash'");
+        $resultado = $this->database->query("SELECT id FROM jugador WHERE nickname_hash = '$hash'");
         return isset($resultado[0]['id']) ? $resultado[0]['id'] : false;
     }
 
-    public function existeUsuarioConHash($hash){
-        $usuario = $this->database->query("SELECT nickname_hash FROM usuario WHERE nickname_hash = '$hash'");
+    public function existeUsuarioConHash($hash): bool
+    {
+        $usuario = $this->database->query("SELECT nickname_hash FROM jugador WHERE nickname_hash = '$hash'");
         return !empty($usuario);
     }
 
@@ -78,12 +98,17 @@ class IngresoModel
     {
 //        $idUsuario = $this->obtenerUsuarioParaJugador($datosJugador['hash']);
 //        if ($idUsuario){
-           return $this->database->execute("INSERT INTO jugador (id, anio_nacimiento, fecha_registro, foto_perfil, email, genero, nickname_hash, puntaje_alcanzado, qr, cantidad_jugada, cantidad_aciertos) VALUES ($idUsuario, $fechaNacimiento, $fechaActual, $imagenPerfilGuardada, $email, $genero, $nicknameHasheado, 0, null, 0, 0)");
+           return $this->database->execute("INSERT INTO jugador (id, anio_nacimiento, fecha_registro, foto_perfil, 
+                                                email, genero, nickname_hash, puntaje_alcanzado, qr, cantidad_jugada, cantidad_aciertos) 
+                                            VALUES ($idUsuario, '$fechaNacimiento', '$fechaActual', '$imagenPerfilGuardada', 
+                                                    '$email', '$genero', '$nicknameHasheado', 0, null, 0, 0)");
 //        }
     }
 
-    public function activarJugador($hash){
-        $this->database->execute("UPDATE jugador SET cuenta_activada = 1, nickname_hash = NULL WHERE nickname_hash = '$hash'");
+    public function activarJugador($idJugador){
+        $this->database->execute("UPDATE jugador 
+                                    SET cuenta_activada = 1, nickname_hash = NULL 
+                                    WHERE id = '$idJugador'");
     }
 
     private function validarFormatoEmail($email)
@@ -125,8 +150,8 @@ class IngresoModel
     private function validarUsuario($nickname, $contrasenia)
     {
         $usuario = $this->database->query("SELECT * FROM usuario WHERE nickname = '$nickname'");
-        if($nickname == $usuario[0]['nickname'] && $usuario[0]['id'] = 1 || $usuario[0]['id'] = 2){
-            return !empty($usuario);
+        if($nickname == $usuario[0]['nickname'] && $usuario[0]['id'] == 1 || $usuario[0]['id'] == 2){
+            return !empty($usuario); //true
         }
         return !empty($usuario) && password_verify($contrasenia, $usuario[0]["contrasenia"]);
     }

@@ -124,11 +124,15 @@ class IngresoController
     public function validarCuenta(){
         $hash = isset($_POST['hash']) ? trim($_POST['hash']) : '';
 
-        if ($this->model->existeUsuarioConHash($hash)){
-            $this->model->activarJugador($hash);
+        $resultado = $this->model->existeUsuarioConHash($hash);
+        $idJugador = $this->model->obtenerUsuarioParaJugador($hash);
+
+        if ($resultado){
+            $this->model->activarJugador($idJugador);
+            $this->redirectTo("/ingreso/login");
         }
 
-        $this->redirectTo("/ingreso/login");
+        $this->redirectTo("/ingreso/register");
     }
 
     public function redirectTo($str)

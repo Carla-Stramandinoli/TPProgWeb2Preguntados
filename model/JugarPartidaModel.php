@@ -59,10 +59,12 @@ class JugarPartidaModel{
 
         $cantidadPreguntasRespondidasJugador = $this->database->query("SELECT cantidad_jugada FROM jugador WHERE id = '$idJugador'");
 
-        if ($cantidadPreguntasRespondidasJugador > 10){
+        if (isset($cantidadPreguntasRespondidasJugador[0]['cantidad_jugada'])
+            && $cantidadPreguntasRespondidasJugador[0]['cantidad_jugada'] > 10){
 
             $resultado = $this->obtenerPreguntasFiltradasNoRespondidasPorUsuario($descripcionCategoria, $idJugador);
 
+            //return isset($resultado[0]['enunciado']) ? $resultado[0]['enunciado'] : false;
             if ($resultado) {
                 return $resultado;
             }
@@ -137,12 +139,15 @@ class JugarPartidaModel{
     public function almacenarPreguntaDePartidaEnTablaCompuesta($id_partida, $id)
     {
         // Verificamos si ya existe la relación
-        $resultado = $this->database->query("SELECT 1 FROM compuesta WHERE id_partida = $id_partida AND id_pregunta = $id");
+        /*$resultado = $this->database->query("SELECT 1 FROM compuesta WHERE id_partida = $id_partida AND id_pregunta = $id");
 
         // Si no existe, insertamos
         if (empty($resultado)) {
             $this->database->execute("INSERT INTO compuesta (id_partida, id_pregunta) VALUES ($id_partida, $id)");
-        }
+        }*/
+
+        $this->database->execute("INSERT INTO compuesta (id_partida, id_pregunta)
+                                    VALUES ($id_partida, $id)");
     }
 
     public function almacenarPreguntasContestadasEnTablaContesta($idJugador, $id)
