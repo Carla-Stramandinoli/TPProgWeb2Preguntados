@@ -7,6 +7,8 @@ require_once("controller/LobbyController.php");
 require_once("controller/IngresoController.php");
 require_once("controller/PerfilController.php");
 require_once ("controller/JugarPartidaController.php");
+require_once ("controller/VerRankingController.php");
+require_once ("model/VerRankingModel.php");
 require_once ("model/LobbyModel.php");
 require_once("model/IngresoModel.php");
 require_once("model/PerfilModel.php");
@@ -32,6 +34,13 @@ class Configuration
     {
         return parse_ini_file("configuration/config.ini", true);
     }
+
+
+    public function getVerRankingController()
+    {
+        return new VerRankingController (new VerRankingModel ($this->getDatabase()),$this->getViewer());
+    }
+
 
     public function getLobbyController()
     {
