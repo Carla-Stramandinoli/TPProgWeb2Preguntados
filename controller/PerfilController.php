@@ -15,7 +15,7 @@ class PerfilController
 
     public function mostrar()
     {
-        if(!isset($_SESSION['nickname'])) $this->redirectTo('/');
+//        if(!isset($_SESSION['nickname'])) $this->redirectTo('/');
 
         $this->model->almacenarPuntajeAlcanzado($_SESSION["usuarioId"]);
 
@@ -27,6 +27,11 @@ class PerfilController
 
 
         $this->view->render("perfil", [ "datosUsuario" => $datosUsuario, "partidasYPuntajesUsuario" => $puntajesDePartidaConIndices, "showLogout" => true ]);
+    }
+
+    public function cerrarSesion() {
+        session_destroy();
+        $this->redirectTo("/");
     }
 
     private function redirectTo($str)

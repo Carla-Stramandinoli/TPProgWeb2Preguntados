@@ -11,9 +11,7 @@ class LobbyController
 
     public function mostrar()
     {
-        (isset($_SESSION['nickname']))
-            ? $this->view->render("lobby", ["showLogout" => true])
-            : $this->redirectTo('/');
+        $this->view->render("lobby", ["showLogout" => true]);
     }
 
     private function redirectTo($str)

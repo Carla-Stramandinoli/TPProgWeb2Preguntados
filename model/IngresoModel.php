@@ -15,22 +15,24 @@ class IngresoModel
         }*/
 
     public function obtenerUsuario($nickname, $contrasenia){
-        if ($this->validarUsuario($nickname, $contrasenia)) {
+        if ($this->validarUsuario($nickname, $contrasenia))
+            return $this->database->query("SELECT * FROM usuario JOIN jugador ON jugador.id = usuario.id WHERE nickname = '$nickname'");
+        else return [];
 
-            if ($nickname == "admin" || $nickname == "editor"){
-                return $this->database->query("SELECT * 
-                                            FROM usuario
-                                            WHERE nickname = '$nickname'");
-            }
-
-            return $this->database->query("SELECT * 
-                                            FROM usuario 
-                                            JOIN jugador ON jugador.id = usuario.id 
-                                            WHERE usuario.nickname = '$nickname'");
-
-        } else {
-            return [];
-        }
+//            if ($nickname == "admin" || $nickname == "editor"){
+//                return $this->database->query("SELECT *
+//                                            FROM usuario
+//                                            WHERE nickname = '$nickname'");
+//            }
+//
+//            return $this->database->query("SELECT *
+//                                            FROM usuario
+//                                            JOIN jugador ON jugador.id = usuario.id
+//                                            WHERE usuario.nickname = '$nickname'");
+//
+//        } else {
+//            return [];
+//        }
     }
 
     public function obtenerUsuarioParaJugador($hash)
@@ -150,9 +152,9 @@ class IngresoModel
     private function validarUsuario($nickname, $contrasenia)
     {
         $usuario = $this->database->query("SELECT * FROM usuario WHERE nickname = '$nickname'");
-        if($nickname == $usuario[0]['nickname'] && $usuario[0]['id'] == 1 || $usuario[0]['id'] == 2){
-            return !empty($usuario); //true
-        }
+//        if($nickname == $usuario[0]['nickname'] && $usuario[0]['id'] == 1 || $usuario[0]['id'] == 2){
+//            return !empty($usuario); //true
+//        }
         return !empty($usuario) && password_verify($contrasenia, $usuario[0]["contrasenia"]);
     }
 
