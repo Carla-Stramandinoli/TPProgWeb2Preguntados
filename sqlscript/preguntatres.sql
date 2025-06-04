@@ -65,12 +65,16 @@ CREATE TABLE usuario (
     nickname VARCHAR(100) NOT NULL,
     nombre_completo VARCHAR(100) NOT NULL,
     contrasenia VARCHAR(100) NOT NULL,
+    rol varchar(100) DEFAULT 'jugador',
     UNIQUE (nickname)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO usuario (id, nickname, nombre_completo, contrasenia) VALUES (1, 'admin', 'Juan Perez', '123');
+-- insert de usuarios (un admin, un editor y un jugador)
+INSERT INTO `usuario` (`id`, `nickname`, `nombre_completo`, `contrasenia`, `rol`) VALUES
+(1, 'admin', 'admin', '$2y$10$p67lrz3trA60A41TVR3P6.ZMav.yJm8fvuuOi8Xanq1rEA7EATTUO', 'administrador'),
+(2, 'editor', 'editor', '$2y$10$vOGtq0T7ctVVUDEwZGJ7l.FS2JMKivFbVIRuL168zaUbyJ.kWZ01S', 'editor'),
+(3, 'JugadorTest', 'JugadorTest', '$2y$10$GYlEgvBrW4NDdXf3MyGJI.f6OIf4mRlZhWrbshXmzOPRTHWcczySG', 'jugador');
 
-INSERT INTO usuario (id, nickname, nombre_completo, contrasenia) VALUES (2, 'editor', 'Pepito', '123');
 
 CREATE TABLE jugador (
     id INT PRIMARY KEY,
@@ -90,23 +94,25 @@ CREATE TABLE jugador (
     FOREIGN KEY (id) REFERENCES usuario(id)
 );
 
+
 CREATE TABLE administrador (
     id INT PRIMARY KEY,
-    nickname VARCHAR(100),
-    FOREIGN KEY (id) REFERENCES usuario(id),
-    FOREIGN KEY (nickname) REFERENCES usuario(nickname)
+    FOREIGN KEY (id) REFERENCES usuario(id)
 );
 
 CREATE TABLE editor (
     id INT PRIMARY KEY,
-    nickname VARCHAR(100),
-    FOREIGN KEY (id) REFERENCES usuario(id),
-    FOREIGN KEY (nickname) REFERENCES usuario(nickname)
+    FOREIGN KEY (id) REFERENCES usuario(id)
 );
 
-INSERT INTO administrador (id, nickname) VALUES (1,'admin');
+-- inserts de herencia de los usuarios  administrador, editor y jugador
 
-INSERT INTO editor (id, nickname) VALUES (2,'editor');
+INSERT INTO administrador (id) VALUES (1);
+
+INSERT INTO editor (id) VALUES (2);
+
+INSERT INTO `jugador` (`id`, `puntaje_alcanzado`, `anio_nacimiento`, `fecha_registro`, `foto_perfil`, `email`, `genero`, `pais`, `ciudad`, `cuenta_activada`, `nickname_hash`, `qr`, `cantidad_jugada`, `cantidad_aciertos`) VALUES
+    (3, 0, '2025-06-04', '2025-06-04', 'foto_perfil.jpg', 'jugador@gmail.com', '3', 'Argentina', 'Buenos Aires', 1, NULL, NULL, 0, 0);
 
 CREATE TABLE partida (
     id_partida INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -114,14 +120,6 @@ CREATE TABLE partida (
     resultado INT,
     id_jugador INT NOT NULL,
     FOREIGN KEY (id_jugador) REFERENCES jugador(id)
-);
-
-CREATE TABLE compuesta (
-    id_partida INT NOT NULL,
-    id_pregunta INT NOT NULL,
-    PRIMARY KEY (id_partida, id_pregunta),
-    FOREIGN KEY (id_partida) REFERENCES partida(id_partida),
-    FOREIGN KEY (id_pregunta) REFERENCES pregunta(id)
 );
 
 CREATE TABLE contesta (

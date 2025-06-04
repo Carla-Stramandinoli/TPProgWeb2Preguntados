@@ -2,6 +2,7 @@
 require_once("core/Database.php");
 require_once("core/MustachePresenter.php");
 require_once("core/Router.php");
+require_once("core/Permisos.php");
 
 require_once("controller/LobbyController.php");
 require_once("controller/IngresoController.php");
@@ -9,6 +10,7 @@ require_once("controller/PerfilController.php");
 require_once ("controller/JugarPartidaController.php");
 require_once ("controller/EditorController.php");
 require_once ("controller/AdministradorController.php");
+require_once ("controller/CerrarSesionController.php");
 
 require_once("model/IngresoModel.php");
 require_once("model/PerfilModel.php");
@@ -65,25 +67,41 @@ class Configuration
         return new AdministradorController(new AdministradorModel($this->getDatabase()) ,$this->getViewer());
     }
 
+    public function getCerrarSesionController()
+    {
+        return new CerrarSesionController();
+    }
+
     public function getRouter()
     {
 
-        $defaultController='getIngresoController';
-        $defaultMethod='login';
+//        $defaultController='getIngresoController';
+//        $defaultMethod='login';
+//
+//        if(isset($_SESSION['nickname'])){
+//            $defaultController = 'getLobbyController';
+//            $defaultMethod = 'mostrar';
+//        }
+//
+//        // analizar switch para tipos luego.
 
-        if(isset($_SESSION['nickname'])){
-            $defaultController = 'getLobbyController';
-            $defaultMethod = 'mostrar';
-        }
-
-        // analizar switch para tipos luego.
-
-        return new Router($defaultController, $defaultMethod, $this);
+        return new Router('getIngresoController', 'login', $this);
     }
 
     public function getViewer()
     {
         return new MustachePresenter("view");
     }
+
+    private function getPermisosIni()
+    {
+        return parse_ini_file("configuration/permisos.ini", true);
+    }
+    public function getPermisos()
+    {
+        return new Permisos($this->getPermisosIni(), $this->getRouter());
+    }
+
+
 
 }

@@ -15,6 +15,6 @@ class EditorController
 
     public function mostrar()
     {
-        $this->view->render("editor");
+        $this->view->render("editor", ["showLogout" => true, "noEsJugador" => true]);
     }
 }

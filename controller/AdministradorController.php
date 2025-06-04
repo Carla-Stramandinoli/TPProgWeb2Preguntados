@@ -15,6 +15,6 @@ class AdministradorController
 
     public function mostrar()
     {
-        $this->view->render("administrador");
+        $this->view->render("administrador", ["showLogout" => true, "noEsJugador" => true]);
     }
 }
