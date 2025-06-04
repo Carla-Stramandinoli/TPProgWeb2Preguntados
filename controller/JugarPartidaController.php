@@ -46,7 +46,7 @@ class JugarPartidaController{
             $idPregunta = $this->model->obtenerIdPregunta($pregunta);
             $partidaActual = $this->model->obtenerPartidaPorJugador($_SESSION["usuarioId"]);
 
-            $this->model->almacenarPreguntaDePartidaEnTablaCompuesta($partidaActual, $idPregunta);
+            //$this->model->almacenarPreguntaDePartidaEnTablaCompuesta($partidaActual, $idPregunta);
             $this->model->almacenarPreguntasContestadasEnTablaContesta($_SESSION["usuarioId"], $idPregunta);
 
             $_SESSION["pregunta_actual"] = $pregunta;
@@ -56,6 +56,8 @@ class JugarPartidaController{
         }
 
         $respuestas = $this->model->obtenerRespuestasPorPregunta($idPregunta);
+
+        $this->model->actualizarCantidadTotalPreguntasJugador($_SESSION["usuarioId"]);
 
         // Mezclar las opciones
         shuffle($respuestas);
@@ -101,6 +103,7 @@ class JugarPartidaController{
 
         $puntos = $_SESSION["puntos"];
         $tiempo_actual = time();
+
         if ($resultado==1 && $tiempo_actual - $_SESSION['inicio_pregunta'] <10){
 
             unset($_SESSION['inicio_pregunta']);

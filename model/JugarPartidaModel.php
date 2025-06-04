@@ -39,7 +39,7 @@ class JugarPartidaModel{
                                             FROM pregunta 
                                             JOIN categoria ON pregunta.id_categoria = categoria.id
                                             WHERE categoria.descripcion = '$descripcionCategoria'
-                                                AND pregunta.cantidad_jugada > 2 /*Cambiar luego de testeo*/
+                                                AND pregunta.cantidad_jugada > 10 
                                                 AND (pregunta.cantidad_aciertos / pregunta.cantidad_jugada * 100) $stringBetween
                                                 AND pregunta.id NOT IN (
                                                     SELECT id_pregunta FROM contesta WHERE id_jugador = '$idJugador'
@@ -113,7 +113,7 @@ class JugarPartidaModel{
 
     public function elegirCategoriaRandom()
     {
-        $categorias = ["Historia", "Ciencia", "Geografía", "Deportes", "Entretenimiento", "Arte"];
+        $categorias = ["Deportes"];
         $indiceElegido = array_rand($categorias);
         $categoria = $categorias[$indiceElegido];
         return $categoria;
@@ -138,13 +138,13 @@ class JugarPartidaModel{
 
     public function almacenarPreguntaDePartidaEnTablaCompuesta($id_partida, $id)
     {
-        // Verificamos si ya existe la relación
-        /*$resultado = $this->database->query("SELECT 1 FROM compuesta WHERE id_partida = $id_partida AND id_pregunta = $id");
-
-        // Si no existe, insertamos
-        if (empty($resultado)) {
-            $this->database->execute("INSERT INTO compuesta (id_partida, id_pregunta) VALUES ($id_partida, $id)");
-        }*/
+//        // Verificamos si ya existe la relación
+//        $resultado = $this->database->query("SELECT 1 FROM compuesta WHERE id_partida = $id_partida AND id_pregunta = $id");
+//
+//        // Si no existe, insertamos
+//        if (empty($resultado)) {
+//            $this->database->execute("INSERT INTO compuesta (id_partida, id_pregunta) VALUES ($id_partida, $id)");
+//        }
 
         $this->database->execute("INSERT INTO compuesta (id_partida, id_pregunta)
                                     VALUES ($id_partida, $id)");
@@ -184,6 +184,7 @@ class JugarPartidaModel{
     }
 
     //Cantidad total de respuestas correctas que hizo un usuario
+
     public function actualizarCantidadTotalPreguntasCorrectasJugador($idJugador)
     {
         $this->database->execute("UPDATE jugador SET cantidad_aciertos = cantidad_aciertos + 1 WHERE id = $idJugador");
@@ -202,5 +203,7 @@ class JugarPartidaModel{
         $resultado = $this->database->query("SELECT MAX(resultado) AS mejor_resultado FROM partida WHERE id_jugador='$idJugador'");
         return isset($resultado[0]['mejor_resultado']) ? ($resultado[0]['mejor_resultado']) : false;
     }
+
+
 
 }
