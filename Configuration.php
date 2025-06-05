@@ -1,8 +1,10 @@
 <?php
+
 require_once("core/Database.php");
 require_once("core/MustachePresenter.php");
 require_once("core/Router.php");
 require_once("core/Permisos.php");
+require_once("core/EmailSender.php");
 
 require_once("controller/LobbyController.php");
 require_once("controller/IngresoController.php");
@@ -19,6 +21,7 @@ require_once ("model/EditorModel.php");
 require_once("model/AdministradorModel.php");
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
+include_once('vendor/phpmailer/autoloader.php');
 
 class Configuration
 {
@@ -45,7 +48,7 @@ class Configuration
     }
 
     public function getIngresoController(){
-        return new IngresoController(new IngresoModel($this->getDatabase()) ,$this->getViewer());
+        return new IngresoController(new IngresoModel($this->getDatabase()) ,$this->getViewer(), $this->getEmailSender());
     }
 
     public function getPerfilController(){
@@ -102,6 +105,10 @@ class Configuration
         return new Permisos($this->getPermisosIni(), $this->getRouter());
     }
 
+    private function getEmailSender()
+    {
+        return new EmailSender();
+    }
 
 
 }
