@@ -1,7 +1,0 @@
-<form class="flex-fill d-flex flex-column align-items-center justify-content-center gap-2" action='/ingreso/validarCuenta' method="post" class="card">
-    <h2>Ya casi tienes tu cuenta, valida y logueate!</h2>
-    {{#hash}}
-        <input value="{{hash}}" type="hidden" name="hash">
-    {{/hash}}
-    <input class="btn btn-success"type="submit" value="¡Validar!">
-</form>

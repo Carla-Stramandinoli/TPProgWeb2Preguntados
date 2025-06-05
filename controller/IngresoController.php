@@ -5,10 +5,13 @@ class IngresoController
     private $model;
     private $view;
 
-    public function __construct($model, $view)
+    private $emailSender;
+
+    public function __construct($model, $view, $emailSender)
     {
         $this->model = $model;
         $this->view = $view;
+        $this->emailSender = $emailSender;
     }
 
     public function login(){
@@ -85,9 +88,7 @@ class IngresoController
                 $msjExito = "Registro exitoso! Verifique su correo para activar su cuenta.";
                 $usuario = $this->model->obtenerUsuario($nickname, $contrasenia);
 
-                // mandar mail $usuario['nickname_hash']
-
-                $this->redirectTo("/ingreso/activar?hash=" . $usuario[0]['nickname_hash']); // esto lo pasara el html del correo por post.
+                $this->mandarEmailDeValidacionDeCuenta($usuario[0]);
 
             } else {
                 $msjError = $informe;
@@ -101,12 +102,6 @@ class IngresoController
             $msjError = "Por favor complete todos los datos para el registro.";
             $this->redirectTo("/ingreso/register?msjError=" . urlencode($msjError));
         }
-    }
-
-    public function activar(){
-        $hash = isset($_GET['hash']) ? trim($_GET['hash']) : '';
-
-        $this->view->render('activar', array('hash' => $hash));
     }
 
     public function validarCuenta(){
@@ -127,6 +122,25 @@ class IngresoController
     {
         header("location:" . $str);
         exit();
+    }
+
+    private function mandarEmailDeValidacionDeCuenta($usuario)
+    {
+        $body = $this->generadorDeBodyParaCorreo($usuario['nickname'], $usuario['nickname_hash']);
+        $this->emailSender->send($usuario, $body);
+    }
+
+    private function generadorDeBodyParaCorreo($nickname, $nickname_hash)
+    {
+        return '<div style="max-width: 600px; margin: auto; padding: 20px; font-family: Arial, sans-serif; border: 1px solid #ccc; border-radius: 8px; text-align: center;">
+                    <h1 style="color: #333;">¡Hola '.$nickname.'!</h1>
+                    <h2 style="color: #333;"> Ya casi tienes tu cuenta, validala para poder iniciar sesión en nuestra página.</h2>
+                    <form action="http://localhost/ingreso/validarCuenta" method="post">
+                        <input type="hidden" name="hash" value="'.$nickname_hash. '">
+                        <input type="submit" value="¡Validar Cuenta!" 
+                            style="background-color: #1e903c; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                    </form>
+                </div>';
     }
 
 }

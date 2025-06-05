@@ -90,7 +90,6 @@ class IngresoModel
                                                 email, genero, nickname_hash, puntaje_alcanzado, qr, cantidad_jugada, cantidad_aciertos) 
                                             VALUES ($idUsuario, '$fechaNacimiento', '$fechaActual', '$imagenPerfilGuardada', 
                                                     '$email', '$genero', '$nicknameHasheado', 0, null, 0, 0)");
-//        }
     }
 
     public function activarJugador($idJugador){
