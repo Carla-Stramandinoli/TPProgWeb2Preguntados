@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d3c63534-2af5-459f-a625-42942ec8932d" name="Changes" comment="Ya se puede jugar una partida entera, y perdura los datos con las sesiones">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/JugarPartidaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/JugarPartidaController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -119,7 +120,8 @@
       <workItem from="1748724579308" duration="10405000" />
       <workItem from="1748754389406" duration="1173000" />
       <workItem from="1748757458909" duration="3979000" />
-      <workItem from="1749059730462" duration="11808000" />
+      <workItem from="1749059730462" duration="12857000" />
+      <workItem from="1749130137188" duration="851000" />
     </task>
     <task id="LOCAL-00001" summary="Ruleta agregada y pagina de jugar Partida">
       <option name="closed" value="true" />

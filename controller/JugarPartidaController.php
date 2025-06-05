@@ -45,6 +45,10 @@ class JugarPartidaController{
     public function categoria()
     {
 
+        if(!isset($_SESSION['id_partida_actual'])){
+            $this->redirectTo('/jugarPartida/mostrar');
+        }
+
         $descripcionCategoria = $_SESSION["categoria_actual"];
 
         if (!isset($_SESSION["puntos"])) {
@@ -110,6 +114,8 @@ class JugarPartidaController{
 
     public function validarResultado()
     {
+        if(!$_POST['respuesta']) $this->redirectTo('/jugarPartida/timeOut');
+
         $idPregunta = $_POST['pregunta_id'];
         $respuesta = $_POST['respuesta'];
 
