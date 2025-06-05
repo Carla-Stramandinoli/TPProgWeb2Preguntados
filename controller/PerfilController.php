@@ -23,7 +23,6 @@ class PerfilController
 
         $puntajesDePartidaConIndices = $this->model->agregarIndicesAPartidasYPuntajes( $puntajesDePartidasDelJugador);
 
-
         $this->view->render("perfil", [ "datosUsuario" => $datosUsuario, "partidasYPuntajesUsuario" => $puntajesDePartidaConIndices, "showLogout" => true ]);
     }
 

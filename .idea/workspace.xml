@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d3c63534-2af5-459f-a625-42942ec8932d" name="Changes" comment="Ya se puede jugar una partida entera, y perdura los datos con las sesiones">
+      <change afterPath="$PROJECT_DIR$/core/EmailSender.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/phpmailer/autoloader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration.php" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/IngresoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/IngresoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/IngresoModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/IngresoModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/activarView.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/jugarPartidaView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/jugarPartidaView.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/registerView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/registerView.mustache" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MatiasDworzak&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Carla-Stramandinoli/TPProgWeb2Preguntados.git&quot;,
+    &quot;accountId&quot;: &quot;5d3cec17-7597-4fcb-a38a-03c403d275e0&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;Carla-Stramandinoli&quot;,
+    &quot;repository&quot;: &quot;TPProgWeb2Preguntados&quot;
+  }
+}</component>
+  <component name="PhpDebugGeneral" listening_started="true" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2xYUvGD0UIG6K6Z1b8drqFdcQTS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;luketo&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/model&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\sqlscript" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PS-243.26053.13" />
+        <option value="bundled-php-predefined-a98d8de5180a-1ec7b7818973-com.jetbrains.php.sharedIndexes-PS-243.26053.13" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d3c63534-2af5-459f-a625-42942ec8932d" name="Changes" comment="" />
+      <created>1748114730148</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748114730148</updated>
+      <workItem from="1748114732091" duration="32500000" />
+      <workItem from="1748153128994" duration="102000" />
+      <workItem from="1748198741440" duration="20376000" />
+      <workItem from="1748222306723" duration="11863000" />
+      <workItem from="1748288578888" duration="16405000" />
+      <workItem from="1748549752662" duration="3735000" />
+      <workItem from="1748573339141" duration="7563000" />
+      <workItem from="1748583581742" duration="6402000" />
+      <workItem from="1748629603962" duration="1577000" />
+      <workItem from="1748635408554" duration="483000" />
+      <workItem from="1748639269272" duration="783000" />
+      <workItem from="1748666510257" duration="1373000" />
+      <workItem from="1748723615568" duration="540000" />
+      <workItem from="1748724579308" duration="10405000" />
+      <workItem from="1748754389406" duration="1173000" />
+      <workItem from="1748757458909" duration="3979000" />
+      <workItem from="1749059730462" duration="12857000" />
+      <workItem from="1749130137188" duration="12895000" />
+    </task>
+    <task id="LOCAL-00001" summary="Ruleta agregada y pagina de jugar Partida">
+      <option name="closed" value="true" />
+      <created>1748470820345</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748470820345</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Ruleta agregada y pagina de jugar Partida">
+      <option name="closed" value="true" />
+      <created>1748573468493</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748573468493</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Cree nuevas tablas en la base de datos, preguntas, respuestas y categorias. Sume la logica para que se cargen de forma random las preguntas, el metodo post con las respuestas y valide si la respuesta es correcta o incorrecta sin que se vea desde el front">
+      <option name="closed" value="true" />
+      <created>1748589520537</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748589520537</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Actualizar base de datos mediante a metodos cuando se juega una pregunta y cuando se responde bien">
+      <option name="closed" value="true" />
+      <created>1748639984215</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748639984215</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Ya se puede jugar una partida entera, y perdura los datos con las sesiones">
+      <option name="closed" value="true" />
+      <created>1748738464243</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748738464243</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Ruleta agregada y pagina de jugar Partida" />
+    <MESSAGE value="Cree nuevas tablas en la base de datos, preguntas, respuestas y categorias. Sume la logica para que se cargen de forma random las preguntas, el metodo post con las respuestas y valide si la respuesta es correcta o incorrecta sin que se vea desde el front" />
+    <MESSAGE value="Actualizar base de datos mediante a metodos cuando se juega una pregunta y cuando se responde bien" />
+    <MESSAGE value="Ya se puede jugar una partida entera, y perdura los datos con las sesiones" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ya se puede jugar una partida entera, y perdura los datos con las sesiones" />
+  </component>
+</project>
