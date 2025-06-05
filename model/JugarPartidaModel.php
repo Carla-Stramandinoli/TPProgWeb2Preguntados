@@ -28,11 +28,11 @@ class JugarPartidaModel{
         $stringBetween = "";
 
         if ($nivelJugador <= 30){
-            $stringBetween = "BETWEEN 70 AND 100";
+            $stringBetween = "BETWEEN 70 AND 100"; // pregunta facil
         } elseif ($nivelJugador >= 70){
-            $stringBetween = "BETWEEN 0.01 AND 30";
+            $stringBetween = "BETWEEN 0 AND 30"; // pregunta dificil
         } else {
-            $stringBetween = "BETWEEN 30.01 AND 69";
+            $stringBetween = "BETWEEN 31 AND 69"; // pregunta media
         }
 
         $resultado = $this->database->query("SELECT enunciado 
@@ -40,7 +40,7 @@ class JugarPartidaModel{
                                             JOIN categoria ON pregunta.id_categoria = categoria.id
                                             WHERE categoria.descripcion = '$descripcionCategoria'
                                                 AND pregunta.cantidad_jugada > 10 
-                                                AND (pregunta.cantidad_aciertos / pregunta.cantidad_jugada * 100) $stringBetween
+                                                AND ROUND(pregunta.cantidad_aciertos / pregunta.cantidad_jugada * 100) $stringBetween
                                                 AND pregunta.id NOT IN (
                                                     SELECT id_pregunta FROM contesta WHERE id_jugador = '$idJugador'
                                                 )
@@ -64,7 +64,6 @@ class JugarPartidaModel{
 
             $resultado = $this->obtenerPreguntasFiltradasNoRespondidasPorUsuario($descripcionCategoria, $idJugador);
 
-            //return isset($resultado[0]['enunciado']) ? $resultado[0]['enunciado'] : false;
             if ($resultado) {
                 return $resultado;
             }
