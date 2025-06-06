@@ -2,20 +2,9 @@ const reloj = document.getElementById("reloj");
 
 // ✅ Cargamos el tiempo guardado, si existe
 let tiempo = parseInt(localStorage.getItem("tiempoRestante")) || 10;
-
 temporizadorDiezSegundos();
-//setInterval(perdistePorTiempo, 1100);
 
 const intervaloTemporizador = setInterval(temporizadorDiezSegundos, 1000);
-
-//
-// perdistePorTiempo();
-// function perdistePorTiempo(){
-//     setTimeout(() => {
-//         window.location.href = "/jugarPartida/timeOut";
-//     }, tiempo * 1000 + 800);
-//
-// }
 
 function temporizadorDiezSegundos() {
     reloj.innerText = `Tiempo: ${tiempo}`;

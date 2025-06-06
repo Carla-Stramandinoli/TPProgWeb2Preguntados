@@ -17,7 +17,6 @@ class JugarPartidaController{
     }
     public function mostrar()
     {
-
         $categoria = $this->model->elegirCategoriaRandom();
         $_SESSION["categoria_actual"] = $categoria;
         $_SESSION['result'] = 0;
@@ -39,23 +38,13 @@ class JugarPartidaController{
             $_SESSION['id_partida_actual'] = $this->model->obtenerPartidaPorJugador($_SESSION["usuarioId"]);
             $this-> view->render("jugarPartida" ,["showLogout" => true, "primerInicio" => true, "categoria" =>$categoria]);
         }
-
     }
 
-    public function categoria()
+    public function jugar()
     {
-
-        if(!isset($_SESSION['id_partida_actual'])){
-            $this->redirectTo('/jugarPartida/mostrar');
-        }
+        if(!isset($_SESSION['id_partida_actual'])){ $this->redirectTo('/jugarPartida/mostrar');}
         $_SESSION['result'] = 0;
-
-        $descripcionCategoria = $_SESSION["categoria_actual"];
-
-        if (!isset($_SESSION["puntos"])) {
-            $_SESSION["puntos"] = 0;
-        }
-        $puntos =  $_SESSION["puntos"];
+        if (!isset($_SESSION["puntos"])) {$_SESSION["puntos"] = 0;}
 
         if (isset($_SESSION["pregunta_actual"])){
             $pregunta = $_SESSION["pregunta_actual"];
@@ -64,44 +53,33 @@ class JugarPartidaController{
             $pregunta = "";
         }
 
-
         if (!isset($_SESSION["pregunta_actual"])){
-            $pregunta = $this->model->obtenerEnunciadoPregunta($descripcionCategoria, $_SESSION["usuarioId"]);
+            $pregunta = $this->model->obtenerEnunciadoPregunta($_SESSION["categoria_actual"], $_SESSION["usuarioId"]);
             $idPregunta = $this->model->obtenerIdPregunta($pregunta);
-
             $this->model->almacenarPreguntasContestadasEnTablaContesta($_SESSION["usuarioId"], $idPregunta);
             $this->model->actualizarCantidadTotalPreguntasJugador($_SESSION["usuarioId"]);
             $_SESSION["pregunta_actual"] = $pregunta;
         }
-        if (!$pregunta) {
-            die("No se encontró la pregunta con ID");
-        }
-
+        if (!$pregunta) {die("No se encontró la pregunta con ID");}
         $respuestas = $this->model->obtenerRespuestasPorPregunta($idPregunta);
-
-
 
         // Mezclar las opciones
         shuffle($respuestas);
         $_SESSION['preguntas_array']= $respuestas;
         $_SESSION['ultimo_enunciado'] = $pregunta;
-         if (!isset($_SESSION['inicio_pregunta'])){
-            $_SESSION['inicio_pregunta'] = time();
-        }
 
-        // Renderizar con Mustache
+         if (!isset($_SESSION['inicio_pregunta'])){$_SESSION['inicio_pregunta'] = time();}
+
         $this->view->render("pregunta", [
-            "categoria" => $descripcionCategoria,
+            "categoria" => $_SESSION["categoria_actual"],
             "pregunta" => $pregunta,
             "id" => $idPregunta,
-
             "respuestas" => $respuestas,
-            "puntos" => $puntos,
+            "puntos" => $_SESSION["puntos"],
             "showLogout" => true] );
     }
     public function timeOut()
     {
-
         $puntos = $_SESSION["puntos"];
         unset($_SESSION['pregunta_actual']);
         $racha = $this->model->obtenerRachaMasLargaJugador($_SESSION["usuarioId"]);
@@ -124,30 +102,20 @@ class JugarPartidaController{
         $idPregunta = $_POST['pregunta_id'];
         $respuesta = $_POST['respuesta'];
         $_SESSION['ultima_respuesta'] = $respuesta;
-        //Verificar
+
         $this->model->actualizarCantidadDeVecesJugadaPregunta($idPregunta);
-
         $resultado = $this->model->validarRespuestaCorrecta($idPregunta, $respuesta);
-        if ($resultado == 1) {
-            $this->model->actualizarPuntosPartida($this->model->obtenerPartidaPorJugador($_SESSION["usuarioId"]));
-        }
-
         $tiempo_actual = time();
-        $racha = $this->model->obtenerRachaMasLargaJugador($_SESSION["usuarioId"]);
         unset($_SESSION["pregunta_actual"]);
+
         if ($resultado==1 && $tiempo_actual - $_SESSION['inicio_pregunta'] <10){
+            $this->model->actualizarPuntosPartida($this->model->obtenerPartidaPorJugador($_SESSION["usuarioId"]));
             $_SESSION['result'] = 1;
             unset($_SESSION['inicio_pregunta']);
-
-            //Verificar
             $this->model->actualizarRespuestaExitosaPregunta($idPregunta);
-
-            //Este metodo tiene que actualizar la cantidad de preguntas que respondiÃ³ bien un usuario
             $this->model->actualizarCantidadTotalPreguntasCorrectasJugador($_SESSION["usuarioId"]);
-
+            $this->model->almacenarPuntajeAlcanzado($_SESSION["usuarioId"]);
             $_SESSION["puntos"] += 1;
-
-
         } else {
             unset($_SESSION['inicio_pregunta']);
             unset($_SESSION['id_partida_actual']);
@@ -173,7 +141,6 @@ class JugarPartidaController{
         $racha = $this->model->obtenerRachaMasLargaJugador($_SESSION["usuarioId"]);
 
         if ( $_SESSION['result'] ==1){
-
             unset($_SESSION['inicio_pregunta']);
             $categoria = $this->model->elegirCategoriaRandom();
             $_SESSION["categoria_actual"] = $categoria;

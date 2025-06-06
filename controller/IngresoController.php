@@ -135,7 +135,7 @@ class IngresoController
         return '<div style="max-width: 600px; margin: auto; padding: 20px; font-family: Arial, sans-serif; border: 1px solid #ccc; border-radius: 8px; text-align: center;">
                     <h1 style="color: #333;">¡Hola '.$nickname.'!</h1>
                     <h2 style="color: #333;"> Ya casi tienes tu cuenta, validala para poder iniciar sesión en nuestra página.</h2>
-                    <form action="http://localhost/ingreso/validarCuenta" method="post">
+                    <form action="http://localhost:8080/ingreso/validarCuenta" method="post">
                         <input type="hidden" name="hash" value="'.$nickname_hash. '">
                         <input type="submit" value="¡Validar Cuenta!" 
                             style="background-color: #1e903c; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">

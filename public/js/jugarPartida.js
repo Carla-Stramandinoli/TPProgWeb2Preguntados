@@ -48,7 +48,7 @@ dibujarRuleta(0);
 function redirigir() {
 
     setTimeout(() => {
-        window.location.href = `/jugarPartida/categoria`;
+        window.location.href = `/jugarPartida/jugar`;
     }, 100); // 500 milisegundos = 0.5 segundos
 }
 
