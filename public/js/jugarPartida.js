@@ -59,10 +59,10 @@ function girar() {
     const anguloPorCategoria = 360 / categorias.length;
     const seccionElegida = categorias.indexOf(categoriaElegidaDesdeBack);
 
-    // 🧠 Centro del sector elegido (en grados)
+    // Centro del sector elegido (en grados)
     const centroCategoria = (seccionElegida + 0.5) * anguloPorCategoria;
 
-    // 📍 Queremos que el centro de la categoría quede en 270° (la flecha)
+    // Queremos que el centro de la categoría quede en 270° (la flecha)
     let anguloObjetivo = 270 - centroCategoria;
 
     // Asegurar que esté en rango [0, 360)

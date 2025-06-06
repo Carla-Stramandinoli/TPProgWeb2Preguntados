@@ -1,14 +1,12 @@
 
 
-<div class="container text-center mt-5">
+<div class="flex-fill container d-flex flex-column justify-content-center text-center">
     {{#primerInicio}}
         <h2>Iniciar partida</h2>
     {{/primerInicio}}
     {{#partidaEnCurso}}
-        <div class="row mb-4  py-5">
-            <div class="col">
-                <h4 class="info-box bg-success">🏆 Trofeos Ganados: {{trofeos}}</h4>
-            </div>
+        <h2>Partida en curso</h2>
+        <div class="row mb-4 py-5">
             <div class="col">
                 <h4 class="info-box bg-success"> Puntos: {{puntos}}</h4>
             </div>
@@ -30,7 +28,7 @@
 
 
         <div class="position-absolute top-50 start-50 translate-middle">
-            <button class="btn btn-primary" id="boton-girar" >Girar</button>
+            <button class="btn btn-primary w-auto py-3 rounded-5" id="boton-girar" >Girar</button>
         </div>
     </div>
 

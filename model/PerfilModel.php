@@ -19,16 +19,26 @@ class PerfilModel
     public function almacenarPuntajeAlcanzado($id_jugador)
     {
         $resultadoQuery = $this->database->query("SELECT SUM(resultado) as total FROM partida WHERE id_jugador='$id_jugador'");
-        $puntajeTotal = isset($resultadoQuery[0]['total']) ? $resultadoQuery[0]['total'] : false;
+        $puntajeTotal = isset($resultadoQuery[0]['total']) ? $resultadoQuery[0]['total'] : 0;
         $this->database->execute("UPDATE jugador
                                 SET puntaje_alcanzado='$puntajeTotal'
                                 WHERE id='$id_jugador'");
     }
 
-    public function obtenerPartidasYPuntajes($id_jugador)
+    public function obtenerPuntajesDePartidasDelJugador($id_jugador)
     {
-        return $this->database->query("SELECT id_partida, resultado 
+        return $this->database->query("SELECT resultado 
                                         FROM partida 
                                         WHERE id_jugador='$id_jugador'");
+    }
+
+    public function agregarIndicesAPartidasYPuntajes($partidasYPuntajes){
+        $partidasYPuntajesConIndices = array();
+        $indice= 1;
+        foreach ($partidasYPuntajes as $registro) {
+            $registro['indice'] = $indice++;
+            $partidasYPuntajesConIndices[] = $registro;
+        }
+        return $partidasYPuntajesConIndices;
     }
 }
