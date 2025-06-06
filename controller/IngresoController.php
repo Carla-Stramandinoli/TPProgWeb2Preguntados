@@ -7,17 +7,20 @@ class IngresoController
 
     private $emailSender;
 
-    public function __construct($model, $view, $emailSender)
+    private $hostData;
+
+    public function __construct($model, $view, $emailSender, $hostData)
     {
         $this->model = $model;
         $this->view = $view;
         $this->emailSender = $emailSender;
+        $this->hostData = $hostData;
     }
 
     public function login(){
-        (isset($_GET['msjError'])) // verificar despues si se puede limpiar la ruta
-            ? $this->view->render('login', ['msjError' => $_GET['msjError']])
-            : $this->view->render('login');
+        if (isset($_GET['msjError'])) $this->view->render('login', ['msjError' => $_GET['msjError']]);
+        if (isset($_GET['msjExito'])) $this->view->render('login', ['msjExito' => $_GET['msjExito']]);
+        if (!isset($_GET['msjExito']) && !isset($_GET['msjError'])) $this->view->render('login');
     }
 
     public function register(){
@@ -105,17 +108,20 @@ class IngresoController
     }
 
     public function validarCuenta(){
-        $hash = isset($_POST['hash']) ? trim($_POST['hash']) : '';
+        $hash = isset($_GET['hash']) ? trim($_GET['hash']) : '';
 
         $resultado = $this->model->existeUsuarioConHash($hash);
         $idJugador = $this->model->obtenerUsuarioParaJugador($hash);
 
+        $msj = '';
+
         if ($resultado){
             $this->model->activarJugador($idJugador);
-            $this->redirectTo("/ingreso/login");
+            $msj='Validacion exitosa! Ahora puede loguearse.';
+            $this->redirectTo("/ingreso/login?msjExito=" . urlencode($msj));
         }
-
-        $this->redirectTo("/ingreso/register");
+        $msj='Esta intentando validar una cuenta que ya esta validada o no esta registrada en el sitio.';
+        $this->redirectTo("/ingreso/register?msjError=" . urlencode($msj));
     }
 
     public function redirectTo($str)
@@ -135,11 +141,8 @@ class IngresoController
         return '<div style="max-width: 600px; margin: auto; padding: 20px; font-family: Arial, sans-serif; border: 1px solid #ccc; border-radius: 8px; text-align: center;">
                     <h1 style="color: #333;">¡Hola '.$nickname.'!</h1>
                     <h2 style="color: #333;"> Ya casi tienes tu cuenta, validala para poder iniciar sesión en nuestra página.</h2>
-                    <form action="http://localhost/ingreso/validarCuenta" method="post">
-                        <input type="hidden" name="hash" value="'.$nickname_hash. '">
-                        <input type="submit" value="¡Validar Cuenta!" 
-                            style="background-color: #1e903c; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-                    </form>
+                    <a href="http://'.$this->hostData['host'].':'.$this->hostData['port'].'/ingreso/validarCuenta?hash='.$nickname_hash.'" 
+                    style="background-color: #1e903c; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">¡Validar Cuenta!</a>
                 </div>';
     }
 

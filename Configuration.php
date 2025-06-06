@@ -48,7 +48,7 @@ class Configuration
     }
 
     public function getIngresoController(){
-        return new IngresoController(new IngresoModel($this->getDatabase()) ,$this->getViewer(), $this->getEmailSender());
+        return new IngresoController(new IngresoModel($this->getDatabase()) ,$this->getViewer(), $this->getEmailSender(), $this->getIniConfig()['server']);
     }
 
     public function getPerfilController(){
@@ -77,17 +77,6 @@ class Configuration
 
     public function getRouter()
     {
-
-//        $defaultController='getIngresoController';
-//        $defaultMethod='login';
-//
-//        if(isset($_SESSION['nickname'])){
-//            $defaultController = 'getLobbyController';
-//            $defaultMethod = 'mostrar';
-//        }
-//
-//        // analizar switch para tipos luego.
-
         return new Router('getIngresoController', 'login', $this);
     }
 
