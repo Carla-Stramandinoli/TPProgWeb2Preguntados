@@ -92,19 +92,33 @@ class JugarPartidaModel{
     public function obtenerRespuestasPorPregunta($idPregunta) {
         //$id = $pregunta['id'];
         $result = $this->database->query("
-                            SELECT descripcion
+                            SELECT descripcion, id AS id_respuesta, es_correcta
                             FROM respuesta
                             WHERE id_pregunta = '$idPregunta'");
         return $result;
     }
 
-    public function validarRespuestaCorrecta($idPregunta, $respuesta)
+    public function obtenerArrayDeRespuestasParaMostrar($idRespuestaElegida, $arrayRespuestas )
     {
-        $resultado = $this->database->query("SELECT descripcion 
+        foreach ($arrayRespuestas as &$respuesta) {
+            if ($respuesta['es_correcta'] == 1) {
+                $respuesta['id_html'] = 'correcta';
+            } elseif ($respuesta['es_correcta'] == 0 && $respuesta['id_respuesta'] == $idRespuestaElegida) {
+                $respuesta['id_html'] = 'respuestaIncorrecta';
+            } else {
+                $respuesta['id_html'] = ''; // No se le asigna nada
+            }
+        }
+            return $arrayRespuestas;
+    }
+
+    public function validarRespuestaCorrecta($idPregunta, $idRespuesta)
+    {
+        $resultado = $this->database->query("SELECT id
                                             FROM respuesta
                                             WHERE es_correcta = 1 AND id_pregunta = '$idPregunta'");
-        $enunciadoCorrecto = isset($resultado[0]['descripcion']) ? $resultado[0]['descripcion'] : false;
-        if ($enunciadoCorrecto == $respuesta) {
+        $idRespuestaCorrecta = isset($resultado[0]['id']) ? $resultado[0]['id'] : false;
+        if ($idRespuestaCorrecta == $idRespuesta) {
             return 1;
         }
         return "Error";

@@ -49,7 +49,7 @@ function redirigir() {
 
     setTimeout(() => {
         window.location.href = `/jugarPartida/categoria`;
-    }, 400); // 500 milisegundos = 0.5 segundos
+    }, 100); // 500 milisegundos = 0.5 segundos
 }
 
 let anguloActual = 0;
@@ -69,7 +69,7 @@ function girar() {
     if (anguloObjetivo < 0) anguloObjetivo += 360;
 
     const total = (360 * vueltas) + anguloObjetivo;
-    const duracion = 2000;
+    const duracion = 1200;
     const inicio = performance.now();
 
     function animarRuleta(timestamp) {

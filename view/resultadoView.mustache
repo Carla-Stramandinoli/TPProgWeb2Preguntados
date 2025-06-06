@@ -18,17 +18,18 @@
         <div class="question-box bg-white text-dark p-4 rounded shadow mb-4">
             <h3 class="mb-3">{{pregunta}}</h3>
 
-            <form method="post" action="./validarResultado">
-                <input type="hidden" name="pregunta_id" value="{{id}}">
+
                 <div class="d-flex flex-column align-items-center gap-3">
                     {{#respuestas}}
-                        <button type="submit" name="respuesta" value="{{id_respuesta}}" class="btn btn-answer">
+                        <div  id="{{id_html}}"  class="btn btn-answer">
                             {{descripcion}}
-                        </button>
+                        </div>
                     {{/respuestas}}
                 </div>
-            </form>
+                <a href="/jugarPartida/redirect"  class="btn btn-warning rounded-pill text-decoration-none text-white"><i class="bi bi-arrow-right"></i></a>
+
         </div>
     </div>
 </div>
-<script src="/public/js/pregunta.js"></script>
+
+<script src="/public/js/resultado.js"></script>

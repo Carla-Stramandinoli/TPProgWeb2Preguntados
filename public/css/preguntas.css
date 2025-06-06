@@ -58,13 +58,24 @@ body {
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
     width: 40%;
 }
+#correcta {
+    border: 2px solid green;
+    background-color: #d4edda;
+}
+
+#respuestaIncorrecta {
+    border: 2px solid lightblue;
+    background-color: #f8d7da;
+}
+
 #reloj {
     font-size: 1.5rem;
     font-weight: bold;
 }
-#bg-geografía { background: linear-gradient(to right, #34e89e, #0f3443); }
-#bg-ciencia   { background: linear-gradient(to right, #43cea2, #185a9d); }
-#bg-historia  { background: linear-gradient(to right, #f7971e, #ffd200); }
-#bg-deportes  { background: linear-gradient(to right, #ff512f, #dd2476); }
-#bg-arte      { background: linear-gradient(to right, #ee9ca7, #ffdde1); }
-#bg-entretenimiento { background: linear-gradient(to right, #00c6ff, #0072ff); }
+#bg-Deportes { background: linear-gradient(to left, #34e89e, #1f4f69); }
+#bg-Entretenimiento   { background: linear-gradient(to right, #43cea2, #40189d); }
+#bg-Geografía  { background: linear-gradient(to right, #f7971e, #ffd200); }
+#bg-Arte { background: linear-gradient(to right, #f8b27a, #cd7d19); }
+#bg-Historia      { background: linear-gradient(to right, #ee9ca7, #db384d); }
+#bg-Ciencia { background: linear-gradient(to right, #00c6ff, #0072ff); }
+
