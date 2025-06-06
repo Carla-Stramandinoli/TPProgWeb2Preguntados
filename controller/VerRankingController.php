@@ -26,6 +26,8 @@ class VerRankingController {
         }
 
         $this->view->render("verRanking", [
+
+
             "ranking" => $ranking,
             "miPosicion" => $miPosicion
         ]);

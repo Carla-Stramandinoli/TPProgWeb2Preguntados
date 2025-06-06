@@ -12,7 +12,7 @@ class VerRankingModel
 
     public function obtenerRankingGlobalCompleto($idUsuarioActual)
     {
-        $query = "SELECT usuario.id, nickname, puntaje_alcanzado, foto_perfil 
+        $query = "SELECT usuario.id, usuario.nickname, jugador.puntaje_alcanzado, usuario.foto_perfil, usuario.pais
               FROM usuario 
               JOIN jugador ON jugador.id = usuario.id 
               ORDER BY puntaje_alcanzado DESC";
@@ -30,6 +30,7 @@ class VerRankingModel
         }
 
         return $ranking;
+
     }
 
 

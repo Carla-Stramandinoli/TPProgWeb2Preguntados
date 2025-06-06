@@ -14,6 +14,7 @@
                 <th>Foto</th>
                 <th>Nickname</th>
                 <th>Puntaje</th>
+                <th>Pais</th>
             </tr>
             </thead>
             <tbody>
@@ -22,13 +23,19 @@
                     <td>{{posicion}}</td>
                     <td>
                         <a href="perfil.php?id={{id}}">
-                        <img src="{{foto_perfil}}" alt="Foto de {{nickname}}" class="perfil-img">
+                        <img src="/public/images/profiles/{{foto_perfil}}"   class="img-thumbnail rounded-3 shadow-sm"
+                             style="height: 60px; width: auto; object-fit: cover;"
+                             alt="Foto de {{nickname}}" >
                         </a>
                     </td>
                     <td>
                         <a href="perfil.php?id={{id}}" class="text-decoration-none">{{nickname}}</a>
                     </td>
                     <td>{{puntaje}}</td>
+                    <td>
+
+                    </td>
+                     {{pais}}
                 </tr>
             {{/ranking}}
             </tbody>
