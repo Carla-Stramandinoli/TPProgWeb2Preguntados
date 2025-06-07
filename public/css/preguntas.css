@@ -57,12 +57,12 @@ body {
 }
 #correcta {
     border: 2px solid green;
-    background-color: #d4edda;
+    background-color: #53db73;
 }
 
 #respuestaIncorrecta {
     border: 2px solid lightblue;
-    background-color: #f8d7da;
+    background-color: #f8505e;
 }
 
 #reloj {
