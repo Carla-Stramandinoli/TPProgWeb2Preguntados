@@ -1,5 +1,5 @@
 <main id="bg-{{categoria}}" class="game-container flex-grow-1 d-flex flex-column">
-    <div class="container-fluid h-100 d-flex flex-column text-white py-3">
+    <div class="container-fluid d-flex flex-column text-white py-2">
         <div class="d-flex justify-content-center mb-2">
             <div class="row w-75 g-3 align-items-center">
                 <div class="col">
@@ -18,8 +18,8 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="d-flex align-items-center justify-content-center" style="min-height: 70px;">
-                        <button class="btn bg-warning bg-opacity-75 text-dark rounded-pill w-100 py-2 fw-semibold shadow-sm">
+                    <div class="d-flex align-items-center justify-content-center fs-4" style="min-height: 80px;">
+                        <button class="btn bg-danger bg-opacity-75 text-white rounded-pill w-100 py-2 fw-semibold shadow-sm">
                             <i class="bi bi-exclamation-triangle fs-4 me-2"></i> Reportar pregunta
                         </button>
                     </div>
@@ -28,8 +28,8 @@
         </div>
 
         <div class="flex-grow-1 d-flex align-items-center justify-content-center px-3">
-            <div class="question-box bg-white text-dark p-5 rounded-4 shadow-lg text-center w-100 mx-auto" style="max-width: 800px;">
-                <h3 class="mb-4">{{pregunta}}</h3>
+            <div class="question-box bg-white text-dark p-5 rounded-4 shadow-lg text-center w-100 mx-auto mt-5" style="max-width: 800px;">
+                <h2 class="mb-4">{{pregunta}}</h2>
 
                 <form method="post" action="./validarResultado">
                     <input type="hidden" name="pregunta_id" value="{{id}}">
@@ -37,7 +37,7 @@
                         {{#respuestas}}
                             <div class="col">
                                 <button type="submit" name="respuesta" value="{{id_respuesta}}"
-                                        class="btn w-100 text-dark py-3 rounded-pill border-0 text-center shadow">
+                                        class="btn w-100 text-dark py-3 rounded-pill border-1 text-center shadow fs-3">
                                     {{descripcion}}
                                 </button>
                             </div>
