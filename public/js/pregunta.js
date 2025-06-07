@@ -13,10 +13,10 @@ function temporizadorDiezSegundos() {
 
         clearInterval(intervaloTemporizador);
 
-        // setTimeout(() => {
-        //     window.location.href = "/jugarPartida/timeOut";
-        // }, 400);
-        // return;
+        setTimeout(() => {
+            window.location.href = "/jugarPartida/timeOut";
+        }, 400);
+        return;
     }
     tiempo--;
     // Guardamos el nuevo valor en localStorage
