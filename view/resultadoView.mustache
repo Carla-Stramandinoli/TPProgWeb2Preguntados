@@ -1,34 +1,57 @@
-<div id="bg-{{categoria}}" class="game-container py-3 pt-4">
-    <div class="container text-center text-white">
-        <div class="row mb-4 d-flex align-items-center">
-            <div class="col">
-                <h4 class="info-box">🎯 Categoría: {{categoria}}</h4>
-            </div>
-            <div class="col">
-                <h4 class="info-box" id="reloj">⏱️</h4>
-            </div>
-            <div class="col">
-                <h4 class="info-box">🏆 Puntos: {{puntos}}</h4>
-            </div>
-            <div class="col">
-                <button class="btn btn-danger rounded-pill">⚠️ Reportar pregunta</button>
+
+<main id="bg-{{categoria}}" class="game-container flex-grow-1 d-flex flex-column">
+    <div class="container-fluid d-flex flex-column text-white py-2">
+        <div class="d-flex justify-content-center">
+            <div class="row w-75 g-3 align-items-center">
+                <div class="col">
+                    <div class="info-box bg-white bg-opacity-25 p-3 rounded-3 text-center text-nowrap fw-semibold d-flex align-items-center justify-content-center fs-4" style="min-height: 70px;">
+                        <i class="bi bi-dice-1 fs-4 me-2"></i> Categoría: {{categoria}}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="info-box bg-white bg-opacity-25 p-3 rounded-3 text-center text-nowrap fw-semibold d-flex align-items-center justify-content-center fs-4" style="min-height: 70px;">
+                        <i class="bi bi-clock fs-4 me-2"></i> <span id="reloj"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="info-box bg-white bg-opacity-25 p-3 rounded-3 text-center text-nowrap fw-semibold d-flex align-items-center justify-content-center fs-4" style="min-height: 70px;">
+                        <i class="bi bi-trophy fs-4 me-2"></i> Puntos: {{puntos}}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex align-items-center justify-content-center fs-4" style="min-height: 70px;">
+                        <button class="btn bg-danger bg-opacity-75 text-white rounded-pill w-100 py-2 fw-semibold shadow-sm">
+                            <i class="bi bi-exclamation-triangle fs-4 me-2"></i> Reportar pregunta
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="question-box bg-white text-dark p-2 rounded shadow mb-2">
-            <h3 class="mb-3">{{pregunta}}</h3>
-
-                <div class="d-flex flex-column align-items-center gap-1">
+        <div class="d-flex align-items-center justify-content-center my-2">
+            <div class="question-box bg-white text-dark rounded-4 shadow-lg text-center w-100 mx-auto mt-5" style="max-width: 800px;">
+                <h3 class="mb-4">{{pregunta}}</h3>
+                <div class="row row-cols-1 g-3 w-100 mb-4">
                     {{#respuestas}}
-                        <div  id="{{id_html}}"  class="btn btn-answer">
-                            {{descripcion}}
+                        <div class="col">
+                            <div id="{{id_html}}" role="button"
+                                 class="btn w-100 text-dark py-3 rounded-pill border-0 text-center shadow fs-3">
+                                {{descripcion}}
+                            </div>
                         </div>
                     {{/respuestas}}
-                </div>
-                <a href="/jugarPartida/redirect"  class="btn btn-warning rounded-pill text-decoration-none text-white"><i class="bi bi-arrow-right"></i></a>
 
+                    <div class="col">
+                        <a href="/jugarPartida/redirect"
+                           class="btn w-40 text-dark py-3 rounded-pill border-0 text-center shadow-sm"
+                           style="background-color: #EECB9A;">
+                            <i class="bi bi-arrow-right me-2 fs-3"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</main>
 
 <script src="/public/js/resultado.js"></script>

@@ -37,7 +37,7 @@ function dibujarRuleta(angulo = 0) {
         ctx.rotate(start + angle / 2);
         ctx.textAlign = "right";
         ctx.fillStyle = "#fff";
-        ctx.font = "14px Arial";
+        ctx.font = "20px Arial";
         ctx.fillText(categorias[i], radius - 10, 5);
         ctx.restore();
     }

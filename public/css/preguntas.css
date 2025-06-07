@@ -6,13 +6,12 @@ body {
 }
 
 .game-container {
-
     background: linear-gradient(to bottom, #7f7fd5, #86a8e7, #91eae4);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 2rem;
+    /*padding: 2rem;*/
 }
 
 .info-box {
@@ -38,8 +37,6 @@ body {
     margin-bottom: 2rem;
 }
 
-
-
 .btn-answer:hover {
     background-color: #ffeaa7;
     transform: scale(1.03);
@@ -51,7 +48,7 @@ body {
     border-radius: 30px;
     font-size: 1.2rem;
     font-weight: bold;
-    background-color: #ffdd59;
+    background-color: #f2f0ef;
     color: #222;
     border: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -72,10 +69,10 @@ body {
     font-size: 1.5rem;
     font-weight: bold;
 }
-#bg-Deportes { background: linear-gradient(to left, #34e89e, #1f4f69); }
-#bg-Entretenimiento   { background: linear-gradient(to right, #43cea2, #40189d); }
-#bg-Geografía  { background: linear-gradient(to right, #f7971e, #ffd200); }
-#bg-Arte { background: linear-gradient(to right, #f8b27a, #cd7d19); }
-#bg-Historia      { background: linear-gradient(to right, #f38b95, #cf3447); }
-#bg-Ciencia { background: linear-gradient(to right, #00c6ff, #0072ff); }
+#bg-Deportes { background: linear-gradient(to left, #3ee89e, #0c9d5b); }
+#bg-Entretenimiento   { background: linear-gradient(to right, #846aea, #542cbd); }
+#bg-Geografía  { background: linear-gradient(to right, #d8d186, #ece34e); }
+#bg-Arte { background: linear-gradient(to right, #eab577, #c0903d); }
+#bg-Historia      { background: linear-gradient(to right, #d3828a, #d75a67); }
+#bg-Ciencia { background: linear-gradient(to right, #4590e8, #2e83e2); }
 
