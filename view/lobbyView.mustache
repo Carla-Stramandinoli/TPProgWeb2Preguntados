@@ -16,12 +16,23 @@
             <p>Puntaje total: <strong>{{puntaje_alcanzado}}</strong></p>
         </div>
 
-        <div class="d-flex justify-content-center gap-3 mb-4">
-            <button onclick="crearPartida()" class="btn btn-primary">➕ Crear nueva partida</button>
-            <a href="/VerRanking/mostrar" class="btn btn-success">📊 Ver ranking</a>
-            <button onclick="crearPreguntas()" class="btn btn-warning text-white">📝 Crear preguntas nuevas</button>
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-3 mb-2">
+                <a href="/jugarPartida/mostrar" class="btn btn-outline-primary w-100 py-2 shadow-sm rounded-pill">
+                    🎮 <strong>Jugar una partida</strong>
+                </a>
+            </div>
+            <div class="col-md-3 mb-2">
+                <a href="/verRanking/mostrar" class="btn btn-outline-success w-100 py-2 shadow-sm rounded-pill">
+                    📈 <strong>Ver ranking</strong>
+                </a>
+            </div>
+            <div class="col-md-3 mb-2">
+                <a href="/crearPregunta/mostrar" class="btn btn-outline-warning w-100 py-2 shadow-sm rounded-pill text-dark">
+                    ✍️ <strong>Crear preguntas</strong>
+                </a>
+            </div>
         </div>
-
         <div class="card mb-4">
             <div class="card-header">
                 <h2 class="mb-0">🏆 Posición en el Ranking Global</h2>
@@ -34,12 +45,12 @@
 
         <div class="card">
             <div class="card-header">
-                <h2 class="mb-0">Historial de partidas</h2>
+                <h2 class="mb-0">🕹️ Historial de partidas</h2>
             </div>
             <div class="card-body">
                 {{#historialPartidas}}
                     <div class="mb-3 border-bottom pb-2">
-                        Contra <a href="perfil.html?id={{id_oponente}}" class="link-primary">{{nombre_oponente}}</a> – <strong>{{resultado}}</strong>
+                        Partida del {{fecha_partida}} – Puntaje: <strong>{{resultado}}</strong>
                     </div>
                 {{/historialPartidas}}
 
@@ -51,17 +62,6 @@
     {{/datosUsuario}}
 </div>
 
-<script>
-    function crearPartida() {
-        window.location.href = "crearPartida.php";
-    }
-    function verRanking() {
-        window.location.href = "ranking.php";
-    }
-    function crearPreguntas() {
-        window.location.href = "crearPregunta.php";
-    }
-</script>
 
 <!-- Bootstrap Bundle JS CDN (includes Popper) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

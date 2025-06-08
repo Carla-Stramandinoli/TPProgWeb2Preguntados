@@ -1,35 +1,33 @@
 <?php
-class VerRankingController {
-
+class VerRankingController
+{
     private $view;
     private $model;
-
 
     public function __construct($model ,$view)
     {
         $this->model = $model;
         $this->view = $view;
     }
+
     public function mostrar()
     {
         $idUsuario = $_SESSION["usuarioId"];
 
-        $ranking = $this->model->obtenerRankingGlobalCompleto($idUsuario);
+        $datos = $this->model->obtenerRankingGlobalCompleto($idUsuario);
+        $ranking = $datos["ranking"];
+        $usuarioActual = $datos["datosUsuarioActual"];
 
-        // Buscar tu posición en el array
-        $miPosicion = null;
-        foreach ($ranking as $jugador) {
-            if ($jugador["esUsuarioActual"]) {
-                $miPosicion = $jugador["posicion"];
-                break;
-            }
-        }
+        $miPosicion = $usuarioActual["posicion"] ?? null;
+        $mostrarMiPosicionAbajo = ($miPosicion > 6);
 
         $this->view->render("verRanking", [
-
-
             "ranking" => $ranking,
-            "miPosicion" => $miPosicion
+            "miPosicion" => $miPosicion,
+            "miNombre" => $usuarioActual["nickname"] ?? '',
+            "miFoto" => $usuarioActual["foto_perfil"] ?? '',
+            "miPuntaje" => $usuarioActual["puntaje_alcanzado"] ?? 0,
+            "mostrarMiPosicionAbajo" => $mostrarMiPosicionAbajo
         ]);
     }
 }

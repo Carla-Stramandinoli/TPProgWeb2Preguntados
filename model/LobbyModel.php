@@ -15,35 +15,36 @@ class LobbyModel  {
         return $resultado[0] ; // Esto saca el array interno que sí tiene las claves
     }
 
-    public function  obtenerRankingGlobalOrdenado($idUsuario)
-    {
-        $ranking = [
-            ["nickname" => "puchi", "puntaje" => 576],
-            ["nickname" => "luketo", "puntaje" => 280],
-            ["nickname" => "carli", "puntaje" => 310],
-            ["nickname" => $idUsuario["nickname"], "puntaje" => $idUsuario["puntaje_alcanzado"]],
-            ["nickname" => "tinto", "puntaje" => 250],
-            ["nickname" => "nico", "puntaje" => 1],
-        ];
-
-        //  Ordenar el ranking de mayor a menor puntaje
-        usort($ranking, function($a, $b) {
-            return $b["puntaje"] - $a["puntaje"];
-        });
-
-        return $ranking;
+    public function obtenerPuestoRanking($idUsuario) {
+        $sql = "
+        SELECT COUNT(*) + 1 AS puesto
+        FROM usuario u2
+        JOIN jugador j2 ON j2.id = u2.id
+        WHERE j2.puntaje_alcanzado > (
+            SELECT j.puntaje_alcanzado 
+            FROM jugador j 
+            WHERE j.id = '$idUsuario'
+        )
+    ";
+        $resultado = $this->database->query($sql);
+        return $resultado[0]['puesto'] ?? null;
     }
 
-    public function calcularPosicionEnElRankig($idUsuario, $ranking){
-        $posicion = null;
-        foreach ($ranking as $index => $jugador) {
-            if ($jugador["nickname"] === $idUsuario["nickname"]) {
-                $posicion = $index + 1; // porque los arrays empiezan en 0
-                break;
-            }
-        }
 
-       return $posicion;
+    public function obtenerHistorialPartidas($idUsuario) {
+        $sql = "
+        SELECT id_jugador, resultado, fecha_partida
+        FROM partida
+        WHERE id_jugador = '$idUsuario'
+        ORDER BY fecha_partida DESC
+        LIMIT 10
+    ";
+        return $this->database->query($sql);
+    }
+
+    public function getDatabase()
+    {
+        return $this->database;
     }
 
 
