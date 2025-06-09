@@ -12,18 +12,25 @@ class PerfilController
         $this->model = $model;
         $this->view = $view;
     }
-
     public function mostrar()
     {
-        $this->model->almacenarPuntajeAlcanzado($_SESSION["usuarioId"]);
+        $id = $_GET["id"] ?? $_SESSION["usuarioId"];
 
-        $datosUsuario = $this->model->obtenerDatosUsuario($_SESSION["usuarioId"]);
+        $this->model->almacenarPuntajeAlcanzado($id);
 
-        $puntajesDePartidasDelJugador = $this->model->obtenerPuntajesDePartidasDelJugador($_SESSION["usuarioId"]);
+        $datosUsuario = $this->model->obtenerDatosUsuario($id);
+        $puntajesDePartidasDelJugador = $this->model->obtenerPuntajesDePartidasDelJugador($id);
+        $puntajesDePartidaConIndices = $this->model->agregarIndicesAPartidasYPuntajes($puntajesDePartidasDelJugador);
 
-        $puntajesDePartidaConIndices = $this->model->agregarIndicesAPartidasYPuntajes( $puntajesDePartidasDelJugador);
+        $mostrarLogout = !isset($_GET["id"]); // Solo mostrar logout si es el perfil propio
 
-        $this->view->render("perfil", [ "datosUsuario" => $datosUsuario, "partidasYPuntajesUsuario" => $puntajesDePartidaConIndices, "showLogout" => true ]);
+        $this->view->render("perfil", [
+            "datosUsuario" => $datosUsuario,
+            "partidasYPuntajesUsuario" => $puntajesDePartidaConIndices,
+            "showLogout" => $mostrarLogout
+        ]);
     }
+
+
 
 }

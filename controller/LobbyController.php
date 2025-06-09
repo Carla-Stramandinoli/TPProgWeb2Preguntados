@@ -3,16 +3,32 @@
 class LobbyController
 {
     private $view;
+    private $model;
 
-    public function __construct($view)
+
+    public function __construct($model ,$view)
     {
+        $this->model = $model;
         $this->view = $view;
+
     }
 
     public function mostrar()
     {
-        $this->view->render("lobby", ["showLogout" => true]);
+        $idUsuario = $_SESSION["usuarioId"];
+        $datosUsuarioLobby = $this->model->obtenerDatosUsuarioLobby($idUsuario);
+        $puestoRanking = $this->model->obtenerPuestoRanking($idUsuario);
+        $historialPartidas = $this->model->obtenerHistorialPartidas($idUsuario);
+
+        $this->view->render("lobby", [
+            "datosUsuario" => $datosUsuarioLobby,
+            "puestoRanking" => $puestoRanking,
+            "historialPartidas" => $historialPartidas,
+            "showLogout" => true
+        ]);
     }
+
+
 
     private function redirectTo($str)
     {

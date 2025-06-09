@@ -13,12 +13,17 @@ require_once ("controller/JugarPartidaController.php");
 require_once ("controller/EditorController.php");
 require_once ("controller/AdministradorController.php");
 require_once ("controller/CerrarSesionController.php");
+require_once ("controller/VerRankingController.php");
 
+
+require_once ("model/VerRankingModel.php");
 require_once("model/IngresoModel.php");
 require_once("model/PerfilModel.php");
 require_once ("model/JugarPartidaModel.php");
 require_once ("model/EditorModel.php");
 require_once("model/AdministradorModel.php");
+require_once("model/LobbyModel.php");
+
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 include_once('vendor/phpmailer/autoloader.php');
@@ -44,11 +49,16 @@ class Configuration
 
     public function getLobbyController()
     {
-        return new LobbyController($this->getViewer());
+        return new LobbyController(new LobbyModel($this->getDatabase()) , $this->getViewer());
     }
 
     public function getIngresoController(){
         return new IngresoController(new IngresoModel($this->getDatabase()) ,$this->getViewer(), $this->getEmailSender(), $this->getIniConfig()['server']);
+    }
+
+    public function getVerRankingController()
+    {
+        return new VerRankingController (new VerRankingModel ($this->getDatabase()),$this->getViewer());
     }
 
     public function getPerfilController(){
