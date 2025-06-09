@@ -25,33 +25,31 @@
 </head>
 <body class="bg-light">
 
-<div class="container py-4">
+<div class="container py-4  flex-fill" >
     <h1 class="text-center mb-4">🏆 Ranking Global</h1>
 
-    <div class="rank-card">
+    <div class="rank-card" style="max-height: 400px; overflow-y: auto;">
         {{#ranking}}
-            {{#posicionMenorA7}}
-                <div class="d-flex align-items-center justify-content-between px-3 py-2 mb-2 rounded {{#esUsuarioActual}}mi-fila{{/esUsuarioActual}}">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="medalla text-center" style="width: 40px;">
-                            {{#esPrimero}}🥇{{/esPrimero}}
-                            {{#esSegundo}}🥈{{/esSegundo}}
-                            {{#esTercero}}🥉{{/esTercero}}
-                            {{^esPrimero}}{{^esSegundo}}{{^esTercero}}{{posicion}}{{/esTercero}}{{/esSegundo}}{{/esPrimero}}
-                        </div>
-                        <a href="/perfil/mostrar?id={{id}}" class="d-flex align-items-center gap-3 text-decoration-none text-dark">
-                        <img src="/public/images/profiles/{{foto_perfil}}" class="rounded-circle" style="height: 50px; width: 50px; object-fit: cover;" alt="Foto perfil">
-                        <strong>{{nickname}}</strong>
-                        </a>
-
+            <div class="d-flex align-items-center justify-content-between px-3 py-2 mb-2 rounded {{#esUsuarioActual}}mi-fila{{/esUsuarioActual}}">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="medalla text-center" style="width: 40px;">
+                        {{#esPrimero}}🥇{{/esPrimero}}
+                        {{#esSegundo}}🥈{{/esSegundo}}
+                        {{#esTercero}}🥉{{/esTercero}}
+                        {{^esPrimero}}{{^esSegundo}}{{^esTercero}}{{posicion}}{{/esTercero}}{{/esSegundo}}{{/esPrimero}}
                     </div>
-                    <div class="text-primary fw-bold fs-5">
-                        {{puntaje_alcanzado}} <i class="bi bi-trophy-fill"></i>
-                    </div>
+                    <a href="/perfil/mostrar?id={{id}}" class="d-flex align-items-center gap-3 text-decoration-none text-dark">
+                    <img src="/public/images/profiles/{{foto_perfil}}" class="rounded-circle" style="height: 50px; width: 50px; object-fit: cover;" alt="Foto perfil">
+                    <strong>{{nickname}}</strong>
+                    </a>
                 </div>
-            {{/posicionMenorA7}}
+                <div class="text-primary fw-bold fs-5">
+                    {{puntaje_alcanzado}} <i class="bi bi-trophy-fill"></i>
+                </div>
+            </div>
         {{/ranking}}
     </div>
+
 
     {{#mostrarMiPosicionAbajo}}
         <div class="rank-card">
@@ -72,7 +70,7 @@
     {{/mostrarMiPosicionAbajo}}
 
     <div class="text-center">
-        <a href="/lobby/mostrar" class="btn btn-secondary mt-3">Volver al Lobby</a>
+        <a href="/lobby/mostrar" class="btn btn-primary mt-3">Volver al Lobby</a>
     </div>
 </div>
 
