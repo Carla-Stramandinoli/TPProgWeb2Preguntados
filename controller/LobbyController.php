@@ -42,14 +42,12 @@ class LobbyController
         $respuestaIncorrecta1 = $_POST['respuesta_1'] ?? '';
         $respuestaIncorrecta2 = $_POST['respuesta_2'] ?? '';
         $respuestaIncorrecta3 = $_POST['respuesta_3'] ?? '';
+        $categoria = $_POST['categoria'] ?? '';
 
-        $registrarPregunta = $this->model->registrarPreguntaSugerida($idJugador, $enunciadoSugerido, $respuestaCorrecta, $respuestaIncorrecta1, $respuestaIncorrecta2, $respuestaIncorrecta3);
+        $registrarPregunta = $this->model->registrarPreguntaSugerida($idJugador, $enunciadoSugerido, $respuestaCorrecta, $respuestaIncorrecta1, $respuestaIncorrecta2, $respuestaIncorrecta3, $categoria);
 
         if ($registrarPregunta) {
             $this->redirectTo("/lobby/mostrar");
-        } else {
-            // Manejar error
-            $this->redirectTo("/lobby/mostrar?error=1");
         }
     }
 }

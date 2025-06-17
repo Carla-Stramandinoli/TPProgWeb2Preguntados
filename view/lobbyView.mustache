@@ -9,7 +9,7 @@
 <body class="bg-light">
 
 <div class="container py-4">
-    {{#datosUsuario}}
+{{#datosUsuario}}
         <div class="text-center mb-4">
             <h1>Hola <strong>{{nickname}}</strong></h1>
             <p class="lead">Jugador: <strong>{{nombre_completo}}</strong></p>
@@ -29,44 +29,160 @@
             </div>
             <div class="col-md-3 mb-2">
                 <button type="button" class="btn btn-outline-warning w-100 py-2 shadow-sm rounded-pill text-dark"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        data-bs-toggle="modal" data-bs-target="#modalSugerirPregunta">
                     <i class="bi bi-pencil"></i> Crear pregunta nueva
                 </button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Sugerir pregunta nueva</h1>
+                <div class="modal fade" id="modalSugerirPregunta" tabindex="-1"
+                     aria-labelledby="modalSugerirPreguntaLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content shadow-lg border-0">
+                            <div class="modal-header bg-primary-subtle border-0">
+                                <h1 class="modal-title fs-4 text-primary-emphasis" id="modalSugerirPreguntaLabel">
+                                    <i class="bi bi-lightbulb me-2"></i>Sugerir Pregunta Nueva
+                                </h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
-                            <form action="/lobby/sugerirPregunta" method=POST enctype="multipart/form-data">
-                                <div class="modal-body">
 
-                                    <label>Enunciado: </label>
-                                    <input type="text" name="enunciadoPregunta" class="w-100"
-                                           placeholder="Escriba aqui el enunciado de la pregunta.">
-                                    <label>Respuesta correcta:</label>
-                                    <input type="text" name="respuesta_correcta" class="w-100"
-                                           placeholder="Escriba la respuesta correcta.">
-                                    <label>Respuesta incorrecta:</label>
-                                    <input type="text" name="respuesta_1" class="w-100"
-                                           placeholder="Escriba respuesta incorrecta 1.">
-                                    <label>Respuesta incorrecta:</label>
-                                    <input type="text" name="respuesta_2" class="w-100"
-                                           placeholder="Escriba respuesta incorrecta 2.">
-                                    <label>Respuesta incorrecta:</label>
-                                    <input type="text" name="respuesta_3" class="w-100"
-                                           placeholder="Escriba respuesta incorrecta 3.">
+                            <form action="/lobby/sugerirPregunta" method="POST" enctype="multipart/form-data">
+                                <div class="modal-body p-4">
+                                    <div class="mb-4">
+                                        <label class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-question-circle me-1"></i>Enunciado de la pregunta
+                                        </label>
+                                        <textarea name="enunciadoPregunta" class="form-control form-control-lg" rows="2"
+                                                  placeholder="Escriba aquí el enunciado de la pregunta..."
+                                                  required></textarea>
+                                    </div>
 
+                                    <!-- Respuesta correcta -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-semibold text-success">
+                                            <i class="bi bi-check-circle me-1"></i>Respuesta correcta
+                                        </label>
+                                        <input
+                                                type="text"
+                                                name="respuesta_correcta"
+                                                class="form-control border-success"
+                                                placeholder="Escriba la respuesta correcta..."
+                                                required>
+                                    </div>
+
+                                    <!-- Respuestas incorrectas -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-semibold text-danger">
+                                            <i class="bi bi-x-circle me-1"></i>Respuestas incorrectas
+                                        </label>
+
+                                        <div class="row g-3">
+                                            <div class="col-md-4">
+                                                <input
+                                                        type="text"
+                                                        name="respuesta_1"
+                                                        class="form-control border-danger"
+                                                        placeholder="Opción incorrecta 1..."
+                                                        required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input
+                                                        type="text"
+                                                        name="respuesta_2"
+                                                        class="form-control border-danger"
+                                                        placeholder="Opción incorrecta 2..."
+                                                        required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input
+                                                        type="text"
+                                                        name="respuesta_3"
+                                                        class="form-control border-danger"
+                                                        placeholder="Opción incorrecta 3..."
+                                                        required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Categorías -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-semibold text-info">
+                                            <i class="bi bi-tags me-1"></i>Categoría
+                                        </label>
+                                        <div class="row g-2">
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="categoria"
+                                                           id="arte" value="3" required>
+                                                    <label class="form-check-label fw-medium" for="arte">
+                                                        <i class="bi bi-brush fs-5"></i> Arte
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check"><input class="form-check-input" type="radio"
+                                                                               name="categoria"
+                                                                               id="entretenimiento" value="4" required>
+                                                    <label class="form-check-label fw-medium" for="entretenimiento">
+                                                        <i class="bi bi-joystick fs-5"></i> Entretenimiento
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check"><input class="form-check-input" type="radio"
+                                                                               name="categoria"
+                                                                               id="deportes" value="6" required>
+                                                    <label class="form-check-label fw-medium" for="deportes">
+                                                        <i class="bi bi-dribbble fs-5"></i> Deportes
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="categoria"
+                                                           id="geografia" value="1" required>
+                                                    <label class="form-check-label fw-medium" for="geografia">
+                                                        <i class="bi bi-globe-americas fs-5"></i> Geografía
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="categoria"
+                                                           id="ciencia" value="5" required>
+                                                    <label class="form-check-label fw-medium" for="ciencia">
+                                                        <i class="bi bi-flask fs-5"></i> Ciencia
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="categoria"
+                                                           id="historia" value="2" required>
+                                                    <label class="form-check-label fw-medium" for="historia">
+                                                        <i class="bi bi-book fs-5"></i> Historia
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+
+                                <!-- Nota informativa -->
+                                <div class="alert alert-info border-0 bg-info-subtle">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    <small>Tu sugerencia será revisada por nuestro equipo de editores antes de ser
+                                        incluida en el juego.</small>
+                                </div>
+
+                                <div class="modal-footer border-0 bg-light p-4">
+                                    <button type="button" class="btn btn-outline-secondary px-4"
+                                            data-bs-dismiss="modal">
+                                        <i class="bi bi-x-lg me-1"></i>Cancelar
                                     </button>
-                                    <button type="submit" class="btn btn-primary">Enviar sugerencia</button>
+                                    <button type="submit" class="btn btn-primary px-4">
+                                        <i class="bi bi-send me-1"></i>Enviar Sugerencia
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -74,33 +190,34 @@
                 </div>
             </div>
         </div>
-        <div class="card mb-4">
-            <div class="card-header">
-                <h2 class="mb-0">🏆 Posición en el Ranking Global</h2>
-            </div>
-            <div class="card-body">
-                <p>Puesto: <strong>{{puestoRanking}}</strong></p>
-                <p>Puntaje total: <strong>{{puntaje_alcanzado}}</strong></p>
-            </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 class="mb-0">🏆 Posición en el Ranking Global</h2>
         </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h2 class="mb-0">🕹️ Historial de partidas</h2>
-            </div>
-            <div class="card-body">
-                {{#historialPartidas}}
-                    <div class="mb-3 border-bottom pb-2">
-                        Partida del {{fecha_partida}} – Puntaje: <strong>{{resultado}}</strong>
-                    </div>
-                {{/historialPartidas}}
-
-                {{^historialPartidas}}
-                    <p>No tenés partidas jugadas aún.</p>
-                {{/historialPartidas}}
-            </div>
+        <div class="card-body">
+            <p>Puesto: <strong>{{puestoRanking}}</strong></p>
+            <p>Puntaje total: <strong>{{puntaje_alcanzado}}</strong></p>
         </div>
-    {{/datosUsuario}}
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="mb-0">🕹️ Historial de partidas</h2>
+        </div>
+        <div class="card-body">
+            {{#historialPartidas}}
+                <div class="mb-3 border-bottom pb-2">
+                    Partida del {{fecha_partida}} – Puntaje: <strong>{{resultado}}</strong>
+                </div>
+            {{/historialPartidas}}
+
+            {{^historialPartidas}}
+                <p>No tenés partidas jugadas aún.</p>
+            {{/historialPartidas}}
+        </div>
+    </div>
+{{/datosUsuario}}
 </div>
 
 

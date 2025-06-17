@@ -14,7 +14,8 @@ class EditorModel
     }
 
     public function obtenerPreguntasSugeridas(){
-        return $this->database->query("SELECT id_sugerencia, enunciado, respuesta_correcta, respuesta_1, respuesta_2, respuesta_3  FROM sugerencia");
+        return $this->database->query("SELECT id_sugerencia, enunciado, respuesta_correcta, respuesta_1, respuesta_2, respuesta_3, categoria  
+                                        FROM sugerencia");
     }
 
     public function obtenerPreguntasReportadas(){

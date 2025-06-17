@@ -42,9 +42,9 @@ class LobbyModel  {
         return $this->database->query($sql);
     }
 
-    public function registrarPreguntaSugerida($idJugador, $enunciadoSugerido, $respuestaCorrecta, $respuestaIncorrecta1, $respuestaIncorrecta2, $respuestaIncorrecta3) {
-        return $this->database->execute("INSERT INTO sugerencia (id_jugador, enunciado, respuesta_correcta, respuesta_1, respuesta_2, respuesta_3) 
-                                    VALUES ('$idJugador', '$enunciadoSugerido', '$respuestaCorrecta', '$respuestaIncorrecta1', '$respuestaIncorrecta2', '$respuestaIncorrecta3')");
+    public function registrarPreguntaSugerida($idJugador, $enunciadoSugerido, $respuestaCorrecta, $respuestaIncorrecta1, $respuestaIncorrecta2, $respuestaIncorrecta3, $categoria) {
+        return $this->database->execute("INSERT INTO sugerencia (id_jugador, enunciado, respuesta_correcta, respuesta_1, respuesta_2, respuesta_3, categoria) 
+                                    VALUES ('$idJugador', '$enunciadoSugerido', '$respuestaCorrecta', '$respuestaIncorrecta1', '$respuestaIncorrecta2', '$respuestaIncorrecta3', '$categoria')");
     }
 
     public function getDatabase()
