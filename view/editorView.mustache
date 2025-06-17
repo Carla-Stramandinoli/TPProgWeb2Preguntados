@@ -160,14 +160,16 @@
                                     </td>
                                     <td class="text-center px-3 py-3">
                                         <div class="d-flex justify-content-center gap-1">
-                                            <form method="POST" action="/editor/confirmarPregunta/{{id}}">
+                                            <form method="POST" action="/editor/confirmarPreguntaJugador">
+                                                <input type="hidden" name="id_sugerencia" value="{{id_sugerencia}}">
+
                                                 <button class="btn btn-outline-success px-1 py-0 w-75" style="font-size: 1rem;">
                                                     Aceptar
                                                 </button>
                                             </form>
 
                                             <form method="POST" action="/editor/eliminarPregunta" style="display: inline;">
-                                                <input type="hidden" name="id" value="{{id}}">
+                                                <input type="hidden" name="id" value="{{id_sugerencia}}">
                                                 <button type="submit" class="btn btn-outline-danger px-1 py-0 w-75" style="font-size: 1rem;">
                                                     Denegar
                                                 </button>

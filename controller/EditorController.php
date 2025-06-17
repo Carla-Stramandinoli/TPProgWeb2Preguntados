@@ -38,4 +38,17 @@ class EditorController
     {
         return $this->model->obtenerPreguntasReportadas();
     }
+
+    public function confirmarPreguntaJugador()
+    {
+        $id_sugerencia = $_POST['id_sugerencia'] ?? null;
+
+        $resultado = $this->model->guardarPreguntaEnBaseDeDatos($id_sugerencia);
+
+        if ($resultado) {
+            $this->model->eliminarPreguntaSugeridaAprobada($id_sugerencia);
+            header("Location: /editor/mostrar");
+            exit();
+        }
+    }
 }
