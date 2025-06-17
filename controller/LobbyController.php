@@ -28,12 +28,28 @@ class LobbyController
         ]);
     }
 
-
-
     private function redirectTo($str)
     {
         header("location:" . $str);
         exit();
     }
 
+    public function sugerirPregunta()
+    {
+        $idJugador = $_SESSION["usuarioId"];
+        $enunciadoSugerido = $_POST['enunciadoPregunta'] ?? '';
+        $respuestaCorrecta = $_POST['respuesta_correcta'] ?? '';
+        $respuestaIncorrecta1 = $_POST['respuesta_1'] ?? '';
+        $respuestaIncorrecta2 = $_POST['respuesta_2'] ?? '';
+        $respuestaIncorrecta3 = $_POST['respuesta_3'] ?? '';
+
+        $registrarPregunta = $this->model->registrarPreguntaSugerida($idJugador, $enunciadoSugerido, $respuestaCorrecta, $respuestaIncorrecta1, $respuestaIncorrecta2, $respuestaIncorrecta3);
+
+        if ($registrarPregunta) {
+            $this->redirectTo("/lobby/mostrar");
+        } else {
+            // Manejar error
+            $this->redirectTo("/lobby/mostrar?error=1");
+        }
+    }
 }

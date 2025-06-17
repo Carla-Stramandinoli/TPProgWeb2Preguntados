@@ -7,7 +7,7 @@ class EditorController
     private $model;
 
 
-    public function __construct($model ,$view)
+    public function __construct($model, $view)
     {
         $this->model = $model;
         $this->view = $view;
@@ -15,6 +15,27 @@ class EditorController
 
     public function mostrar()
     {
-        $this->view->render("editor", ["showLogout" => true, "noEsJugador" => true]);
+        $preguntasExistentes = $this->mostrarPreguntasExistentes();
+        $preguntasSugeridas = $this->mostrarPreguntasSugeridas();
+        $preguntasReportadas = $this->mostrarPreguntasReportadas();
+
+        $this->view->render("editor", ["showLogout" => true, "noEsJugador" => true,
+            "preguntasExistentes" => $preguntasExistentes, "preguntasSugeridas" => $preguntasSugeridas,
+            "preguntasReportadas" => $preguntasReportadas]);
+    }
+
+    public function mostrarPreguntasExistentes()
+    {
+        return $this->model->obtenerPreguntasExistentes();
+    }
+
+    public function mostrarPreguntasSugeridas()
+    {
+        return $this->model->obtenerPreguntasSugeridas();
+    }
+
+    public function mostrarPreguntasReportadas()
+    {
+        return $this->model->obtenerPreguntasReportadas();
     }
 }
