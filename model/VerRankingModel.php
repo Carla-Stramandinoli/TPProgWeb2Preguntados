@@ -14,7 +14,7 @@ class VerRankingModel
         $query = "SELECT usuario.id, nickname, puntaje_alcanzado, foto_perfil 
                   FROM usuario 
                   JOIN jugador ON jugador.id = usuario.id 
-                  ORDER BY puntaje_alcanzado DESC";
+                  ORDER BY puntaje_alcanzado DESC, id DESC";
 
         $resultado = $this->database->query($query);
 

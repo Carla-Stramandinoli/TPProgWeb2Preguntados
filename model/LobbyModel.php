@@ -17,17 +17,16 @@ class LobbyModel  {
 
     public function obtenerPuestoRanking($idUsuario) {
         $sql = "
-        SELECT COUNT(*) + 1 AS puesto
-        FROM usuario u2
-        JOIN jugador j2 ON j2.id = u2.id
-        WHERE j2.puntaje_alcanzado > (
-            SELECT j.puntaje_alcanzado 
-            FROM jugador j 
-            WHERE j.id = '$idUsuario'
-        )
+        SELECT *
+        FROM (
+            SELECT j.id, j.puntaje_alcanzado,
+                   ROW_NUMBER() OVER (ORDER BY j.puntaje_alcanzado DESC , id DESC) AS puesto
+            FROM jugador j
+        ) AS ranking
+        WHERE id = '$idUsuario'
     ";
         $resultado = $this->database->query($sql);
-        return $resultado[0]['puesto'] ?? null;
+        return isset($resultado[0]['puesto']) ? $resultado[0]['puesto'] : null;
     }
 
 
