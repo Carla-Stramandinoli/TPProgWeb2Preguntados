@@ -25,16 +25,20 @@ class EditorModel
     public function guardarPreguntaEnBaseDeDatos($id_sugerencia){
         $preguntaSugerida = $this->obtenerPreguntaSugerida($id_sugerencia);
 
-        $preguntaAgregada = $this->database->execute("INSERT INTO pregunta (enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
-                                    VALUES('{$preguntaSugerida["enunciado"]}', 0, 0, NOW(), 0, '{$preguntaSugerida["categoria"]}')");
-
+        $preguntaAgregada = $this->guardarPregunta($preguntaSugerida);
         if ($preguntaAgregada) {
-            $id_pregunta = $this->database->query("SELECT LAST_INSERT_ID() as id_pregunta;");
-            $this->guardarRespuestas($preguntaSugerida, $id_pregunta[0]['id_pregunta']);
+            $id_pregunta = $this->obtenerUltimoIdPregunta();
+            $this->guardarRespuestas($preguntaSugerida, $id_pregunta);
             return true;
         }
 
         return false;
+    }
+
+    public function guardarPregunta($id_sugerencia){
+        return $this->database->execute("INSERT INTO pregunta (enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
+                                    VALUES('{$id_sugerencia["enunciado"]}', 0, 0, NOW(), 0, '{$id_sugerencia["categoria"]}')");
+
     }
 
     public function guardarRespuestas($preguntaSugerida, $id_pregunta){
@@ -50,6 +54,11 @@ class EditorModel
 
         $this->database->execute("INSERT INTO respuesta (descripcion, es_correcta, id_pregunta)
                              VALUES ('{$preguntaSugerida['respuesta_3']}', 0, '$id_pregunta')");
+    }
+
+    public function obtenerUltimoIdPregunta(){
+        $resultado = $this->database->query("SELECT id FROM pregunta ORDER BY id DESC LIMIT 1");
+         return $resultado[0]['id'];
     }
 
     public function obtenerPreguntaSugerida($id_sugerencia){
