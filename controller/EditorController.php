@@ -83,11 +83,19 @@ class EditorController
     {
         $id_sugerencia = $_POST['id_sugerencia'] ?? null;
 
-        $resultado =  $this->model->eliminarPreguntaSugeridaModel($id_sugerencia);
+        $resultado = $this->model->eliminarPreguntaSugeridaModel($id_sugerencia);
 
         if ($resultado) {
             header("Location: /editor/mostrar");
             exit();
         }
+    }
+
+    public function buscarPreguntaEnBarraDeBusqueda()
+    {
+        $textoIngresado = $_GET['textoIngresado'] ?? '';
+
+        return $this->model->obtenerPreguntaBuscada($textoIngresado);
+
     }
 }
