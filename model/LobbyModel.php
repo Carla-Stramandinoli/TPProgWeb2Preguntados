@@ -28,7 +28,7 @@ class LobbyModel  {
         SELECT *
         FROM (
             SELECT j.id, MAX(p.resultado) AS racha,
-                   ROW_NUMBER() OVER (ORDER BY racha DESC , id DESC) AS puesto
+                   ROW_NUMBER() OVER (ORDER BY racha DESC, j.puntaje_alcanzado DESC , j.id DESC) AS puesto
             FROM jugador j JOIN partida p ON p.id_jugador = j.id
             GROUP BY j.id
         ) AS ranking

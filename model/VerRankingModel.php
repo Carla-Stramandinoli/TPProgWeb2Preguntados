@@ -13,12 +13,12 @@ class VerRankingModel
     {
 
 //        $this->database->query("SELECT MAX(resultado) AS mejor_resultado FROM partida WHERE id_jugador='$idJugador'")
-        $query = "SELECT usuario.id, usuario.nickname, MAX(partida.resultado) AS racha, jugador.foto_perfil 
+        $query = "SELECT usuario.id, usuario.nickname, MAX(partida.resultado) AS racha, jugador.foto_perfil
                   FROM usuario 
                   JOIN jugador ON jugador.id = usuario.id 
                   JOIN partida ON partida.id_jugador = jugador.id
                   GROUP BY jugador.id
-                  ORDER BY racha DESC, id DESC";
+                  ORDER BY racha DESC, jugador.puntaje_alcanzado DESC, usuario.id ASC";
 
         $resultado = $this->database->query($query);
 
