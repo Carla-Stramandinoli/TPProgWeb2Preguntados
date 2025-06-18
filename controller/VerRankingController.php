@@ -26,7 +26,7 @@ class VerRankingController
             "miPosicion" => $miPosicion,
             "miNombre" => $usuarioActual["nickname"] ?? '',
             "miFoto" => $usuarioActual["foto_perfil"] ?? '',
-            "miPuntaje" => $usuarioActual["puntaje_alcanzado"] ?? 0,
+            "miPuntaje" => $usuarioActual["racha"] ?? 0,
             "mostrarMiPosicionAbajo" => $mostrarMiPosicionAbajo,
              "showLogout" => true,
         ]);
