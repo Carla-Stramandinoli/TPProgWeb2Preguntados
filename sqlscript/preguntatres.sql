@@ -131,7 +131,7 @@ CREATE TABLE contesta (
 );
 
 CREATE TABLE sugerencia (
-    id_sugerencia INT NOT NULL AUTO_INCREMENT, -- ver que va a pasar cuando se apruebe la pregunta. (obtener ultimo de pregunta?)
+    id_sugerencia INT NOT NULL AUTO_INCREMENT,
     id_jugador INT NOT NULL,
     enunciado VARCHAR(255) NOT NULL,
     respuesta_correcta VARCHAR(255) NOT NULL,

@@ -94,7 +94,6 @@ class JugarPartidaController{
         ]);
     }
 
-
     public function validarResultado()
     {
         if (!$_POST['respuesta']) $this->redirectTo('/jugarPartida/timeOut');
@@ -158,6 +157,15 @@ class JugarPartidaController{
                 "racha" => $racha,
                 "showLogout" => true]);
         }
+    }
+
+    public function reportarPreguntaController(){
+        $idPregunta = $_POST['id'] ?? null;
+
+        $this->model->reportarPreguntaModel($idPregunta);
+
+        header("Location: /jugarPartida/jugar");
+        exit;
     }
 
 }

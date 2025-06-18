@@ -30,7 +30,6 @@ class PerfilController
             "showLogout" => $mostrarLogout
         ]);
     }
-
-
-
 }
+
+// deshabilitar, habilitar , eliminar

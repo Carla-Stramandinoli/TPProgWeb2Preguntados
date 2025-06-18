@@ -19,9 +19,12 @@
                 </div>
                 <div class="col">
                     <div class="d-flex align-items-center justify-content-center fs-4" style="min-height: 80px;">
-                        <button class="btn bg-danger bg-opacity-75 text-white rounded-pill w-100 py-2 fw-semibold shadow-sm">
-                            <i class="bi bi-exclamation-triangle fs-4 me-2"></i> Reportar pregunta
-                        </button>
+                        <form method="POST" action="/jugarPartida/reportarPreguntaController" style="display: inline;">
+                            <input type="hidden" name="id" value="{{id}}">
+                            <button type="submit" class="btn bg-danger bg-opacity-75 text-white rounded-pill w-100 py-2 fw-semibold shadow-sm">
+                                <i class="bi bi-exclamation-triangle fs-4 me-2"></i> Reportar pregunta
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

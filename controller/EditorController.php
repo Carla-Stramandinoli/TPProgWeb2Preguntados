@@ -46,7 +46,19 @@ class EditorController
         $resultado = $this->model->guardarPreguntaEnBaseDeDatos($id_sugerencia);
 
         if ($resultado) {
-            $this->model->eliminarPreguntaSugeridaAprobada($id_sugerencia);
+            $this->eliminarPreguntaSugeridaController();
+            header("Location: /editor/mostrar");
+            exit();
+        }
+    }
+
+    public function eliminarPreguntaSugeridaController()
+    {
+        $id_sugerencia = $_POST['id_sugerencia'] ?? null;
+
+        $resultado =  $this->model->eliminarPreguntaSugeridaModel($id_sugerencia);
+
+        if ($resultado) {
             header("Location: /editor/mostrar");
             exit();
         }

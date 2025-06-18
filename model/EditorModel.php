@@ -38,7 +38,6 @@ class EditorModel
     public function guardarPregunta($id_sugerencia){
         return $this->database->execute("INSERT INTO pregunta (enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
                                     VALUES('{$id_sugerencia["enunciado"]}', 0, 0, NOW(), 0, '{$id_sugerencia["categoria"]}')");
-
     }
 
     public function guardarRespuestas($preguntaSugerida, $id_pregunta){
@@ -66,7 +65,7 @@ class EditorModel
         return $resultado[0] ?? null;
     }
 
-    public function eliminarPreguntaSugeridaAprobada($id_sugerencia){
+    public function eliminarPreguntaSugeridaModel($id_sugerencia){
         return $this->database->execute("DELETE FROM sugerencia WHERE id_sugerencia = $id_sugerencia");
     }
 }

@@ -160,6 +160,10 @@ class JugarPartidaModel{
                                     VALUES ($idJugador, $id)");
     }
 
+    public function reportarPreguntaModel($idPregunta){
+        return $this->database->execute("UPDATE pregunta SET cantidad_reportes = cantidad_reportes + 1 WHERE id = $idPregunta");
+    }
+
     //De aca para abajo van los calculas de DIFICULTAD
     //Cantidad total de veces que se hizo una pregunta
     public function actualizarCantidadDeVecesJugadaPregunta($idPregunta)
