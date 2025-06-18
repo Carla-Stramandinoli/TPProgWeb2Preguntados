@@ -98,19 +98,26 @@
         </div>
 
         <!-- Preguntas existentes -->
+
         <div class="d-flex justify-content-center">
-            <div class="collapse collapse-horizontal" id="collapseWidthExisting">
+            <div class="collapse collapse-horizontal {{#collapseAbierto}}show{{/collapseAbierto}}"
+                 id="collapseWidthExisting">
                 <div class="card card-body" style="width: 100%;">
                     <div class="col-lg-12 mb-3">
                         <div class="card shadow-sm border-0 h-100">
                             <div class="card-header bg-info-subtle border-0">
-                                <h6 class="fw-bold mb-0 text-warning-emphasis mb-2"><i
-                                        class="bi bi-exclamation-diamond fs-5"></i> Preguntas existentes
+                                <h6 class="fw-bold mb-0 text-warning-emphasis mb-2">
+                                    <i class="bi bi-question-diamond fs-5"></i> Preguntas existentes
                                 </h6>
-                                    <form method="GET" action="editor/buscarPreguntaEnBarraDeBusqueda" class="d-flex" role="search">
-                                        <input class="form-control me-2" name="textoIngresado" type="search" placeholder="Search" aria-label="Search">
-                                        <button class="btn btn-sm btn-info" type="submit">Buscar</button>
-                                    </form>
+                                <form method="GET" action="/editor/mostrar" class="d-flex" role="search">
+                                    <input class="form-control me-2" name="textoIngresado" type="search"
+                                           placeholder="Buscar preguntas..." value="{{textoIngresado}}"
+                                           aria-label="Search">
+                                    <button class="btn btn-sm btn-info" type="submit">Buscar</button>
+                                    {{#hayBusqueda}}
+                                        <a href="/editor/mostrar" class="btn btn-sm btn-outline-secondary">Limpiar</a>
+                                    {{/hayBusqueda}}
+                                </form>
                             </div>
                             <div class="card-body p-0">
                                 <div class="table-responsive" style="max-height: 300px;">
@@ -177,7 +184,9 @@
                                         <thead class="table-light sticky-top">
                                         <tr>
                                             <th class="fw-bold" style="min-width: 250px;">Enunciado</th>
-                                            <th class="fw-bold text-success" style="min-width: 150px;">Respuesta correcta </th>
+                                            <th class="fw-bold text-success" style="min-width: 150px;">Respuesta
+                                                correcta
+                                            </th>
                                             <th class="fw-bold text-danger" style="min-width: 130px;">Respuesta 1</th>
                                             <th class="fw-bold text-danger" style="min-width: 130px;">Respuesta 2</th>
                                             <th class="fw-bold text-danger" style="min-width: 130px;">Respuesta 3</th>

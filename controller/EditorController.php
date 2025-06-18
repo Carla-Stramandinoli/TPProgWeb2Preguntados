@@ -15,13 +15,30 @@ class EditorController
 
     public function mostrar()
     {
-        $preguntasExistentes = $this->mostrarPreguntasExistentes();
-        $preguntasSugeridas = $this->mostrarPreguntasSugeridas();
-        $preguntasReportadas = $this->mostrarPreguntasReportadas();
+        $textoIngresado = $_GET['textoIngresado'] ?? '';
 
-        $this->view->render("editor", ["showLogout" => true, "noEsJugador" => true,
-            "preguntasExistentes" => $preguntasExistentes, "preguntasSugeridas" => $preguntasSugeridas,
-            "preguntasReportadas" => $preguntasReportadas]);
+        if (!empty($textoIngresado)) {
+            $preguntasExistentes = $this->model->obtenerPreguntaBuscada($textoIngresado);;
+            $hayBusqueda = true;
+            $collapseAbierto = true;
+        } else {
+            $preguntasExistentes = $this->model->obtenerPreguntasExistentes();
+            $hayBusqueda = false;
+            $collapseAbierto = false;
+        }
+
+        $preguntasSugeridas = $this->model->obtenerPreguntasSugeridas();
+        $preguntasReportadas = $this->model->obtenerPreguntasReportadas();
+
+        $this->view->render("editor", [
+            "showLogout" => true,
+            "noEsJugador" => true,
+            "preguntasExistentes" => $preguntasExistentes,
+            "preguntasSugeridas" => $preguntasSugeridas,
+            "preguntasReportadas" => $preguntasReportadas,
+            "hayBusqueda" => $hayBusqueda,
+            "collapseAbierto" => $collapseAbierto
+        ]);
     }
 
     public function mostrarPreguntasExistentes()
@@ -91,11 +108,4 @@ class EditorController
         }
     }
 
-    public function buscarPreguntaEnBarraDeBusqueda()
-    {
-        $textoIngresado = $_GET['textoIngresado'] ?? '';
-
-        return $this->model->obtenerPreguntaBuscada($textoIngresado);
-
-    }
 }

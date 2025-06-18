@@ -68,7 +68,7 @@ class EditorModel
         return $this->database->execute("DELETE FROM sugerencia WHERE id_sugerencia = $id_sugerencia");
     }
 
-    public function obtenerPreguntasPorCategoria($categoria) {
-        return $this->database->query("SELECT id, enunciado FROM pregunta WHERE id_categoria = '$categoria'");
+    public function obtenerPreguntaBuscada($textoIngresado) {
+        return $this->database->query("SELECT id, enunciado FROM pregunta WHERE enunciado LIKE '%$textoIngresado%'");
     }
 }
