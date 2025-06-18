@@ -11,10 +11,14 @@ class VerRankingModel
 
     public function obtenerRankingGlobalCompleto($idUsuarioActual)
     {
-        $query = "SELECT usuario.id, nickname, puntaje_alcanzado, foto_perfil 
+
+//        $this->database->query("SELECT MAX(resultado) AS mejor_resultado FROM partida WHERE id_jugador='$idJugador'")
+        $query = "SELECT usuario.id, usuario.nickname, MAX(partida.resultado) AS racha, jugador.foto_perfil
                   FROM usuario 
                   JOIN jugador ON jugador.id = usuario.id 
-                  ORDER BY puntaje_alcanzado DESC";
+                  JOIN partida ON partida.id_jugador = jugador.id
+                  GROUP BY jugador.id
+                  ORDER BY racha DESC, jugador.puntaje_alcanzado DESC, usuario.id ASC";
 
         $resultado = $this->database->query($query);
 
@@ -44,8 +48,4 @@ class VerRankingModel
         ];
     }
 
-    public function getDatabase()
-    {
-        return $this->database;
-    }
 }

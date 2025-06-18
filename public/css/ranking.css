@@ -1,0 +1,15 @@
+.rank-card {
+    background-color: #f8f9fa;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.mi-fila {
+    background-color: #d0ebff !important;
+    border: 2px solid #228be6;
+}
+.medalla {
+    font-size: 1.5rem;
+    font-weight: bold;
+}

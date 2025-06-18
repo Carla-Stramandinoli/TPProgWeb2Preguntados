@@ -11,9 +11,15 @@
             </div>
             <div class="col-md-4 offset-md-1">
                 <div class="card shadow-sm border-0 bg-success-subtle">
-                    <div class="card-body text-center">
-                        <h6 class="mb-0 text-success fw-semibold">Puntaje total:</h6>
-                        <span class="display-6 fw-bold text-success">{{puntaje_alcanzado}}</span>
+                    <div class="card-body text-center d-flex justify-content-evenly">
+                        <div>
+                            <h6 class="mb-0 text-success fw-semibold">Puntaje total:</h6>
+                            <span class="display-6 fw-bold text-success">{{puntaje_alcanzado}}</span>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 text-success fw-semibold">Racha mas larga:</h6>
+                            <span class="display-6 fw-bold text-success">{{rachaMasLarga}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,9 +87,9 @@
                 <!--Generara QR propio para que al escanearlo lleve a donde corresponde-->
                 <div class="mt-4">
                     <div class="text-center">
-                        <img src="/public/images/qr/qr-ejemplo.png" width="250" height="250"
+                        <img src="/perfil/generarQr?id={{id}}" width="250" height="250"
                              class="img-thumbnail rounded-2 shadow-sm border border-secondary-subtle" alt="QR ejemplo">
-                        <p class="mt-2 text-muted">Escaneá para más info</p>
+                        <p class="mt-2 text-muted">Comparte tu perfil con otros jugadores!</p>
                     </div>
                 </div>
             </div>

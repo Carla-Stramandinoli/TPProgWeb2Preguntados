@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Lobby - Preguntados</title>
-    <!-- Bootstrap CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-</head>
-<body class="bg-light">
 
 <div class="container py-4">
 {{#datosUsuario}}
@@ -198,24 +189,43 @@
             <p>Puntaje total: <strong>{{puntaje_alcanzado}}</strong></p>
         </div>
     </div>
-
-    <div class="card">
-        <div class="card-header">
-            <h2 class="mb-0">🕹️ Historial de partidas</h2>
+                <a href="/crearPregunta/mostrar" class="btn btn-outline-warning w-100 py-2 shadow-sm rounded-pill text-dark">
+                    ✍️ <strong>Crear preguntas</strong>
+                </a>
+            </div>
         </div>
-        <div class="card-body">
-            {{#historialPartidas}}
-                <div class="mb-3 border-bottom pb-2">
-                    Partida del {{fecha_partida}} – Puntaje: <strong>{{resultado}}</strong>
-                </div>
-            {{/historialPartidas}}
-
-            {{^historialPartidas}}
-                <p>No tenés partidas jugadas aún.</p>
-            {{/historialPartidas}}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2 class="mb-0">🏆 Posición en el Ranking Global de Rachas</h2>
+            </div>
+            <div class="card-body">
+                {{^puestoRanking}}
+                    <p>No tenés partidas jugadas aún.</p>
+                {{/puestoRanking}}
+                {{#puestoRanking}}
+                    <p>Puesto actual: <strong>{{puestoRanking}}</strong></p>
+                    <p>Racha mas larga: <strong>{{rachaMasLarga}}</strong></p>
+                {{/puestoRanking}}
+            </div>
         </div>
-    </div>
-{{/datosUsuario}}
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">🕹️ Historial de partidas</h2>
+            </div>
+            <div class="card-body" style="max-height: 200px; overflow-y: auto;">
+                {{#historialPartidas}}
+                    <div class="mb-3 border-bottom pb-2">
+                        Partida del {{fecha_partida}} – Puntaje: <strong>{{resultado}}</strong>
+                    </div>
+                {{/historialPartidas}}
+
+                {{^historialPartidas}}
+                    <p>No tenés partidas jugadas aún.</p>
+                {{/historialPartidas}}
+            </div>
+        </div>
+    {{/datosUsuario}}
 </div>
 
 

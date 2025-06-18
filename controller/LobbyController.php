@@ -18,11 +18,13 @@ class LobbyController
         $idUsuario = $_SESSION["usuarioId"];
         $datosUsuarioLobby = $this->model->obtenerDatosUsuarioLobby($idUsuario);
         $puestoRanking = $this->model->obtenerPuestoRanking($idUsuario);
+        $rachaMasLarga = $this->model->obtenerRachaMasLarga($idUsuario);
         $historialPartidas = $this->model->obtenerHistorialPartidas($idUsuario);
 
         $this->view->render("lobby", [
             "datosUsuario" => $datosUsuarioLobby,
             "puestoRanking" => $puestoRanking,
+            "rachaMasLarga" => $rachaMasLarga,
             "historialPartidas" => $historialPartidas,
             "showLogout" => true
         ]);

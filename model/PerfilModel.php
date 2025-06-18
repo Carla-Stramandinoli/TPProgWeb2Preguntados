@@ -9,10 +9,10 @@ class PerfilModel
     }
 
     public function obtenerDatosUsuario($idUsuario){
-        return $this->database->query("SELECT nickname, nombre_completo, fecha_registro, email, foto_perfil, pais, ciudad, puntaje_alcanzado, jugador.id as 'IdJugador' 
-                                        FROM usuario
-                                        JOIN jugador ON usuario.id = jugador.id
-                                        WHERE usuario.id='$idUsuario'");
+        return $this->database->query("SELECT u.id, u.nickname, u.nombre_completo, j.fecha_registro, j.email, j.foto_perfil, j.pais, j.ciudad, j.puntaje_alcanzado
+                                        FROM usuario u
+                                        JOIN jugador j ON u.id = j.id
+                                        WHERE u.id='$idUsuario'");
     }
 
     //Esta funcion lo que hace es recorrer la tabla de partidas buscando todas las de un jugador para sumar los puntajes de las mismas y almacenarlo
@@ -40,5 +40,16 @@ class PerfilModel
             $partidasYPuntajesConIndices[] = $registro;
         }
         return $partidasYPuntajesConIndices;
+    }
+
+    public function obtenerRachaMasLarga($idUsuario) {
+
+        $sql = "
+        SELECT MAX(p.resultado) AS racha
+        FROM jugador j JOIN partida p ON j.id = p.id_jugador
+        WHERE j.id = '$idUsuario'
+        ";
+        $resultado = $this->database->query($sql);
+        return isset($resultado[0]['racha']) ? $resultado[0]['racha'] : 0;
     }
 }

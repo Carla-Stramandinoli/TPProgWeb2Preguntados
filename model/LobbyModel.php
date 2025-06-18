@@ -16,18 +16,37 @@ class LobbyModel  {
     }
 
     public function obtenerPuestoRanking($idUsuario) {
+
+//        $query = "SELECT usuario.id, usuario.nickname, MAX(partida.resultado) AS racha, jugador.foto_perfil
+//                  FROM usuario
+//                  JOIN jugador ON jugador.id = usuario.id
+//                  JOIN partida ON partida.id_jugador = jugador.id
+//                  GROUP BY jugador.id
+//                  ORDER BY racha DESC, id DESC";
+
         $sql = "
-        SELECT COUNT(*) + 1 AS puesto
-        FROM usuario u2
-        JOIN jugador j2 ON j2.id = u2.id
-        WHERE j2.puntaje_alcanzado > (
-            SELECT j.puntaje_alcanzado 
-            FROM jugador j 
-            WHERE j.id = '$idUsuario'
-        )
+        SELECT *
+        FROM (
+            SELECT j.id, MAX(p.resultado) AS racha,
+                   ROW_NUMBER() OVER (ORDER BY racha DESC, j.puntaje_alcanzado DESC , j.id DESC) AS puesto
+            FROM jugador j JOIN partida p ON p.id_jugador = j.id
+            GROUP BY j.id
+        ) AS ranking
+        WHERE id = '$idUsuario'
     ";
         $resultado = $this->database->query($sql);
-        return $resultado[0]['puesto'] ?? null;
+        return isset($resultado[0]['puesto']) ? $resultado[0]['puesto'] : null;
+    }
+
+    public function obtenerRachaMasLarga($idUsuario) {
+
+        $sql = "
+        SELECT MAX(p.resultado) AS racha
+        FROM jugador j JOIN partida p ON j.id = p.id_jugador
+        WHERE j.id = '$idUsuario'
+        ";
+        $resultado = $this->database->query($sql);
+        return isset($resultado[0]['racha']) ? $resultado[0]['racha'] : null;
     }
 
 
