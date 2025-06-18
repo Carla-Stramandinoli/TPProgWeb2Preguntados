@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\SMTP;
 class EmailSender
 {
 
-    function send($usuario, $body)
+    public function send($usuario, $body)
     {
         $mail = new PHPMailer(true);
         try {

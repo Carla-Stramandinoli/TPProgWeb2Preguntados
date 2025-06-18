@@ -5,6 +5,7 @@ require_once("core/MustachePresenter.php");
 require_once("core/Router.php");
 require_once("core/Permisos.php");
 require_once("core/EmailSender.php");
+require_once("core/QrGenerator.php");
 
 require_once("controller/LobbyController.php");
 require_once("controller/IngresoController.php");
@@ -25,8 +26,9 @@ require_once("model/AdministradorModel.php");
 require_once("model/LobbyModel.php");
 
 
-include_once('vendor/mustache/src/Mustache/Autoloader.php');
-include_once('vendor/phpmailer/autoloader.php');
+require_once('vendor/mustache/src/Mustache/Autoloader.php');
+require_once('vendor/phpmailer/autoloader.php');
+require_once('vendor/phpqrcode/qrlib.php');
 
 class Configuration
 {
@@ -62,7 +64,7 @@ class Configuration
     }
 
     public function getPerfilController(){
-        return new PerfilController(new PerfilModel($this->getDatabase()) ,$this->getViewer());
+        return new PerfilController(new PerfilModel($this->getDatabase()) ,$this->getViewer(), $this->getQrGenerator(), $this->getIniConfig()['server']);
     }
 
     public function getJugarPartidaController()
@@ -109,5 +111,8 @@ class Configuration
         return new EmailSender();
     }
 
-
+    private function getQrGenerator()
+    {
+        return new QrGenerator();
+    }
 }
