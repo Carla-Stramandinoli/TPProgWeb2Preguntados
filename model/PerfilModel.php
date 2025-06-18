@@ -41,4 +41,15 @@ class PerfilModel
         }
         return $partidasYPuntajesConIndices;
     }
+
+    public function obtenerRachaMasLarga($idUsuario) {
+
+        $sql = "
+        SELECT MAX(p.resultado) AS racha
+        FROM jugador j JOIN partida p ON j.id = p.id_jugador
+        WHERE j.id = '$idUsuario'
+        ";
+        $resultado = $this->database->query($sql);
+        return isset($resultado[0]['racha']) ? $resultado[0]['racha'] : 0;
+    }
 }

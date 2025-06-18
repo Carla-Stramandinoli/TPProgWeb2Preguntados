@@ -29,8 +29,13 @@
                 <h2 class="mb-0">🏆 Posición en el Ranking Global de Rachas</h2>
             </div>
             <div class="card-body">
-                <p>Puesto actual: <strong>{{puestoRanking}}</strong></p>
-                <p>Racha mas larga: <strong>{{rachaMasLarga}}</strong></p>
+                {{^puestoRanking}}
+                    <p>No tenés partidas jugadas aún.</p>
+                {{/puestoRanking}}
+                {{#puestoRanking}}
+                    <p>Puesto actual: <strong>{{puestoRanking}}</strong></p>
+                    <p>Racha mas larga: <strong>{{rachaMasLarga}}</strong></p>
+                {{/puestoRanking}}
             </div>
         </div>
 

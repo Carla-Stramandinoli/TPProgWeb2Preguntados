@@ -19,11 +19,13 @@ class PerfilController
         $this->model->almacenarPuntajeAlcanzado($id);
 
         $datosUsuario = $this->model->obtenerDatosUsuario($id);
+        $rachaMasLarga = $this->model->obtenerRachaMasLarga($id);
         $puntajesDePartidasDelJugador = $this->model->obtenerPuntajesDePartidasDelJugador($id);
         $puntajesDePartidaConIndices = $this->model->agregarIndicesAPartidasYPuntajes($puntajesDePartidasDelJugador);
 
         $this->view->render("perfil", [
             "datosUsuario" => $datosUsuario,
+            "rachaMasLarga" => $rachaMasLarga,
             "partidasYPuntajesUsuario" => $puntajesDePartidaConIndices,
             "showLogout" => true
         ]);
