@@ -1,3 +1,3 @@
 setTimeout(() => {
     window.location.href = "/jugarPartida/redirect";
-}, 3000);
+}, 5000);

@@ -127,12 +127,14 @@ class JugarPartidaController{
     {
         $respuestaElegida = $_SESSION['ultima_respuesta'] ;
         $respuestas = $this->model->obtenerArrayDeRespuestasParaMostrar($respuestaElegida, $_SESSION['preguntas_array'] );
+        $idPregunta = $this->model->obtenerIdPregunta($_SESSION['ultimo_enunciado']);
 
         $this->view->render("resultado", [
             "categoria" => $_SESSION["categoria_actual"],
             "pregunta" => $_SESSION['ultimo_enunciado'],
             "respuestas" => $respuestas,
             "puntos" => $_SESSION["puntos"],
+            "id" => $idPregunta,
             "showLogout" => true] );
     }
     public function redirect()
@@ -164,8 +166,7 @@ class JugarPartidaController{
 
         $this->model->reportarPreguntaModel($idPregunta);
 
-        header("Location: /jugarPartida/jugar");
-        exit;
+        return $this->redirect();
     }
 
 }
