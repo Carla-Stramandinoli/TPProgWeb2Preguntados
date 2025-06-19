@@ -9,7 +9,7 @@ class PerfilModel
     }
 
     public function obtenerDatosUsuario($idUsuario){
-        return $this->database->query("SELECT u.id, u.nickname, u.nombre_completo, j.fecha_registro, j.email, j.foto_perfil, j.pais, j.ciudad, j.puntaje_alcanzado
+        return $this->database->query("SELECT u.id, u.nickname, u.nombre_completo, j.fecha_registro, j.email, j.foto_perfil, j.latitud, j.longitud, j.puntaje_alcanzado
                                         FROM usuario u
                                         JOIN jugador j ON u.id = j.id
                                         WHERE u.id='$idUsuario'");
