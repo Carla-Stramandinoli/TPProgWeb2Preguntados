@@ -65,7 +65,6 @@ class IngresoModel
 
             $resultado = $this->database->execute("INSERT INTO usuario (nickname, nombre_completo, contrasenia) 
                                                 VALUES ('$nickname', '$nombreCompleto', '$contraseniaHasheada')");
-            // falta pasarle pais y ciudad cuando vemaos el mapa.
             $idUsuario = $this->obtenerIdUsuario($nickname);
 
             $this->registrarJugador($idUsuario, $fechaNacimiento, $fechaActual, $imagenPerfilGuardada, $email, $genero, $nicknameHasheado, $latitud, $longitud, $pais);

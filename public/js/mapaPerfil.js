@@ -47,7 +47,6 @@ function inicializarMapaPerfil(){
             }
         })
         .catch(error => console.error(error));
-
 }
 
 inicializarMapaPerfil();
