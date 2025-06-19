@@ -42,6 +42,9 @@ class IngresoModel
                                      $contrasenia,
                                      $contraseniaRepetida,
                                      $genero,
+                                     $latitud,
+                                     $longitud,
+                                     $pais,
                                      $fotoPerfil){
 
         $formatoEmailValido = $this->validarFormatoEmail($email);
@@ -65,7 +68,7 @@ class IngresoModel
             // falta pasarle pais y ciudad cuando vemaos el mapa.
             $idUsuario = $this->obtenerIdUsuario($nickname);
 
-            $this->registrarJugador($idUsuario, $fechaNacimiento, $fechaActual, $imagenPerfilGuardada, $email, $genero, $nicknameHasheado);
+            $this->registrarJugador($idUsuario, $fechaNacimiento, $fechaActual, $imagenPerfilGuardada, $email, $genero, $nicknameHasheado, $latitud, $longitud, $pais);
             return $resultado;
         }
 
@@ -83,13 +86,13 @@ class IngresoModel
         return isset($resultado[0]['id']) ? $resultado[0]['id'] : false;
     }
 
-    public function registrarJugador($idUsuario, $fechaNacimiento, $fechaActual, $imagenPerfilGuardada, $email, $genero, $nicknameHasheado)
+    public function registrarJugador($idUsuario, $fechaNacimiento, $fechaActual, $imagenPerfilGuardada, $email, $genero, $nicknameHasheado, $latitud, $longitud, $pais)
     {
 
            return $this->database->execute("INSERT INTO jugador (id, anio_nacimiento, fecha_registro, foto_perfil, 
-                                                email, genero, nickname_hash, puntaje_alcanzado, qr, cantidad_jugada, cantidad_aciertos) 
+                                                email, genero, nickname_hash, puntaje_alcanzado, cantidad_jugada, cantidad_aciertos, latitud, longitud, pais) 
                                             VALUES ($idUsuario, '$fechaNacimiento', '$fechaActual', '$imagenPerfilGuardada', 
-                                                    '$email', '$genero', '$nicknameHasheado', 0, null, 0, 0)");
+                                                    '$email', '$genero', '$nicknameHasheado', 0, 0, 0, $latitud, $longitud, '$pais')");
     }
 
     public function activarJugador($idJugador){

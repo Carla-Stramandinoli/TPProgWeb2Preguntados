@@ -84,11 +84,11 @@ CREATE TABLE jugador (
     foto_perfil VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     genero VARCHAR(100) NOT NULL,
-    pais VARCHAR(100), -- NOT NULL,
-    ciudad VARCHAR(100), -- NOT NULL
+    pais VARCHAR(100) NOT NULL,
+    latitud DOUBLE NOT NULL,
+    longitud DOUBLE NOT NULL,
     cuenta_activada TINYINT DEFAULT 0,
     nickname_hash VARCHAR(250), -- NOT NULL,
-    qr VARCHAR(100),
     cantidad_jugada INT DEFAULT 0,
     cantidad_aciertos INT DEFAULT 0,
     FOREIGN KEY (id) REFERENCES usuario(id)
@@ -111,8 +111,8 @@ INSERT INTO administrador (id) VALUES (1);
 
 INSERT INTO editor (id) VALUES (2);
 
-INSERT INTO `jugador` (`id`, `puntaje_alcanzado`, `anio_nacimiento`, `fecha_registro`, `foto_perfil`, `email`, `genero`, `pais`, `ciudad`, `cuenta_activada`, `nickname_hash`, `qr`, `cantidad_jugada`, `cantidad_aciertos`) VALUES
-    (3, 0, '2025-06-04', '2025-06-04', 'foto_perfil.jpg', 'jugador@gmail.com', '3', 'Argentina', 'Buenos Aires', 1, NULL, NULL, 0, 0);
+INSERT INTO `jugador` (`id`, `puntaje_alcanzado`, `anio_nacimiento`, `fecha_registro`, `foto_perfil`, `email`, `genero`, `pais`, `latitud`, `longitud`, `cuenta_activada`, `nickname_hash`, `cantidad_jugada`, `cantidad_aciertos`) VALUES
+    (3, 0, '2025-06-04', '2025-06-04', 'foto_perfil.jpg', 'jugador@gmail.com', '3','Argentina', -34.67064, -58.562598, 1, NULL, 0, 0);
 
 CREATE TABLE partida (
     id_partida INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
