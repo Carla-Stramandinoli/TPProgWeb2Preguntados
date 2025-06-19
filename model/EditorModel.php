@@ -81,7 +81,8 @@ class EditorModel
 
     public function obtenerPreguntaBuscada($textoIngresado)
     {
-        return $this->database->query("SELECT id, enunciado FROM pregunta WHERE enunciado LIKE '%$textoIngresado%'");
+        return $this->database->query("SELECT P.id, P.enunciado, C.descripcion as categoria_descripcion 
+                                    FROM pregunta P JOIN categoria C ON C.id = P.id_categoria WHERE enunciado LIKE '%$textoIngresado%'");
     }
 
     public function eliminarPreguntaExistente($idPregunta)
