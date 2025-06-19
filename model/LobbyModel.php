@@ -8,7 +8,7 @@ class LobbyModel  {
         $this->database = $database;
     }
     public function obtenerDatosUsuarioLobby($idUsuario){
-        $resultado = $this->database->query("SELECT nickname, nombre_completo, fecha_registro, email, foto_perfil, pais, ciudad, puntaje_alcanzado  
+        $resultado = $this->database->query("SELECT nickname, nombre_completo, fecha_registro, email, foto_perfil, pais, puntaje_alcanzado  
                                          FROM usuario 
                                          JOIN jugador ON jugador.id = usuario.id 
                                          WHERE usuario.id='$idUsuario'");
