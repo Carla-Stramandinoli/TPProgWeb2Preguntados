@@ -34,7 +34,8 @@
 
         <!-- Preguntas reportadas -->
         <div class="d-flex justify-content-center">
-            <div class="collapse collapse-horizontal" id="collapseWidthReported">
+            <div class="collapse collapse-horizontal {{#collapseReportadaAbierto}}show{{/collapseReportadaAbierto}}"
+                 id="collapseWidthReported">
                 <div class="card card-body" style="width: 100%;">
                     <div class="col-lg-12 mb-3">
                         <div class="card shadow-sm border-0 h-100">
@@ -49,6 +50,7 @@
                                         <tr>
                                             <th class="fw-bold col-md-8">Enunciado</th>
                                             <th class="fw-bold text-center col-md-2">Reportes</th>
+                                            <th class="fw-bold text-center col-md-2" style="min-width: 130px;">Categoria</th>
                                             <th class="fw-bold text-center col-md-2">Acciones</th>
                                         </tr>
                                         </thead>
@@ -66,21 +68,40 @@
                                             </span>
                                                 </td>
                                                 <td class="text-center px-3 py-3">
+                                                    <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
+                                                        {{categoria_descripcion}}
+                                                    </span>
+                                                </td>
+                                                <td class="text-center px-3 py-3">
                                                     <div class="d-flex justify-content-center gap-1">
-                                                        <form action="/editor/editarPregunta/{{id}}">
+                                                        <form method="GET" action="/editor/mostrar">
+                                                            <input type="hidden" name="id" value="{{id}}">
+                                                            <input type="hidden" name="seccion" value="reportadas">
                                                             <button class="btn btn-outline-primary px-1 py-0 w-75"
-                                                                    style="font-size: 1rem;">
-                                                                Ver
+                                                                    style="font-size: 1rem;"
+                                                                    data-bs-target="#verDetallePregunta">
+                                                                Respuestas
                                                             </button>
                                                         </form>
 
                                                         <form method="POST" action="/editor/eliminarPregunta"
                                                               style="display: inline;">
                                                             <input type="hidden" name="id" value="{{id}}">
+                                                            <input type="hidden" name="seccion" value="reportadas">
                                                             <button type="submit"
                                                                     class="btn btn-outline-danger px-1 py-0 w-75"
                                                                     style="font-size: 1rem;">
                                                                 Eliminar
+                                                            </button>
+                                                        </form>
+                                                        <form method="POST" action="/editor/reiniciarReportes"
+                                                              style="display: inline;">
+                                                            <input type="hidden" name="id" value="{{id}}">
+                                                            <input type="hidden" name="seccion" value="reportadas">
+                                                            <button type="submit"
+                                                                    class="btn btn-warning px-2 py-1 text-white "
+                                                                    style="font-size: 1rem;">
+                                                                Reiniciar reportes
                                                             </button>
                                                         </form>
                                                     </div>
@@ -115,7 +136,8 @@
                                            aria-label="Search">
                                     <button class="btn btn-sm btn-info" type="submit">Buscar</button>
                                     {{#hayBusqueda}}
-                                        <a href="/editor/mostrar" class="btn btn-sm btn-outline-secondary">Limpiar</a>
+                                        <a href="/editor/mostrar?seccion=existentes"
+                                           class="btn btn-sm btn-outline-secondary">Limpiar</a>
                                     {{/hayBusqueda}}
                                 </form>
                             </div>
@@ -124,7 +146,8 @@
                                     <table class="table table-hover mb-0">
                                         <thead class="table-light sticky-top">
                                         <tr>
-                                            <th class="fw-bold col-md-8">Enunciado</th>
+                                            <th class="fw-bold col-md-7">Enunciado</th>
+                                            <th class="fw-bold text-center col-md-2" style="min-width: 130px;">Categoria</th>
                                             <th class="fw-bold text-center col-md-2">Acciones</th>
                                         </tr>
                                         </thead>
@@ -137,17 +160,26 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center px-3 py-3">
+                                                    <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
+                                                        {{categoria_descripcion}}
+                                                    </span>
+                                                </td>
+                                                <td class="text-center px-3 py-3">
                                                     <div class="d-flex justify-content-center gap-1">
-                                                        <form action="/editor/editarPregunta/{{id}}">
+                                                        <form method="GET" action="/editor/mostrar">
+                                                            <input type="hidden" name="id" value="{{id}}">
+                                                            <input type="hidden" name="seccion" value="existentes">
                                                             <button class="btn btn-outline-primary px-1 py-0 w-75"
-                                                                    style="font-size: 1rem;">
-                                                                Editar
+                                                                    style="font-size: 1rem;"
+                                                                    data-bs-target="#verDetallePregunta">
+                                                                Respuestas
                                                             </button>
                                                         </form>
 
                                                         <form method="POST" action="/editor/eliminarPregunta"
                                                               style="display: inline;">
                                                             <input type="hidden" name="id" value="{{id}}">
+                                                            <input type="hidden" name="seccion" value="existentes">
                                                             <button type="submit"
                                                                     class="btn btn-outline-danger px-1 py-0 w-75"
                                                                     style="font-size: 1rem;">
@@ -224,7 +256,7 @@
                                                 </td>
                                                 <td class="px-3 py-3">
                                         <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
-                                            {{categoria}}
+                                            {{categoria_descripcion}}
                                         </span>
                                                 </td>
                                                 <td class="text-center px-3 py-3">
@@ -365,8 +397,7 @@
                                                 <input class="form-check-input" type="radio" name="categoria"
                                                        id="geografia" value="1" required>
                                                 <label class="form-check-label fw-medium" for="geografia">
-                                                    <i class="bi bi-globe-americas fs-5"></i> Geografía
-                                                </label>
+                                                    <i class="bi bi-globe-americas fs-5"></i> Geografía </label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -399,6 +430,66 @@
             </div>
         </div>
     </div>
+
+    <!--  modal  -->
+    <div class="modal fade {{#abrirModal}}show d-block{{/abrirModal}}" id="verDetallePregunta" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            {{#seccionOrigen}}
+                <div class="modal-content shadow-lg border-0">
+                    <div class="modal-header bg-primary-subtle border-0">
+                        <h5 class="modal-title text-primary-emphasis fw-bold">
+                            <i class="bi bi-info-circle me-2"></i>Detalles de la Pregunta
+                        </h5>
+                        <a href="/editor/mostrar?seccion={{seccionOrigen}}" class="btn-close" aria-label="Close"></a>
+                    </div>
+                    <div class="modal-body p-4">
+                        {{#respuestasObtenidas}}
+                            {{#es_correcta}}
+                                <!-- Respuesta correcta -->
+                                <div class="mb-4">
+                                    <h6 class="text-success fw-semibold mb-2">
+                                        <i class="bi bi-check-circle-fill me-1"></i>Respuesta Correcta
+                                    </h6>
+                                    <div class="p-3 bg-success-subtle border border-success rounded-3">
+                                        <span class="text-success-emphasis fw-medium">{{descripcion}}</span>
+                                    </div>
+                                </div>
+                            {{/es_correcta}}
+                        {{/respuestasObtenidas}}
+
+                        <!-- Respuestas incorrectas -->
+                        <div class="mb-3">
+                            <h6 class="text-danger fw-semibold mb-2">
+                                <i class="bi bi-x-circle-fill me-1"></i>Respuestas Incorrectas
+                            </h6>
+                            <div class="row g-2">
+                                {{#respuestasObtenidas}}
+                                    {{^es_correcta}}
+                                        <div class="col-md-4">
+                                            <div class="p-2 bg-danger-subtle border border-danger rounded-3 text-center">
+                                                <small class="text-danger-emphasis">{{descripcion}}</small>
+                                            </div>
+                                        </div>
+                                    {{/es_correcta}}
+                                {{/respuestasObtenidas}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 bg-light p-3">
+                        <a href="/editor/mostrar?seccion={{seccionOrigen}}" class="btn btn-outline-secondary btn-sm
+                        px-3">
+                        <i class="bi bi-x-lg me-1"></i>Cerrar
+                        </a>
+                    </div>
+                </div>
+            {{/seccionOrigen}}
+        </div>
+    </div>
+
+    {{#abrirModal}}
+        <div class="modal-backdrop fade show"></div>
+    {{/abrirModal}}
+
 </main>
 
 <script src="/public/js/editor.js"></script>

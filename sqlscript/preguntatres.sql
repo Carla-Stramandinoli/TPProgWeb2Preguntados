@@ -140,7 +140,8 @@ CREATE TABLE sugerencia (
     respuesta_3 VARCHAR(255) NOT NULL,
     categoria INT NOT NULL,
     PRIMARY KEY (id_sugerencia),
-    FOREIGN KEY (id_jugador) REFERENCES jugador(id)
+    FOREIGN KEY (id_jugador) REFERENCES jugador(id),
+    FOREIGN KEY (categoria) REFERENCES categoria(id)
 )
 
 --

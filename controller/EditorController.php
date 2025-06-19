@@ -17,6 +17,13 @@ class EditorController
     {
         $textoIngresado = $_GET['textoIngresado'] ?? '';
 
+        $idPregunta = $_GET['id'] ?? null;
+        $seccion = $_GET['seccion'] ?? '';
+
+        $respuestasObtenidas = null;
+        $abrirModal = false;
+        $collapseReportadaAbierto = false;
+
         if (!empty($textoIngresado)) {
             $preguntasExistentes = $this->model->obtenerPreguntaBuscada($textoIngresado);;
             $hayBusqueda = true;
@@ -27,8 +34,21 @@ class EditorController
             $collapseAbierto = false;
         }
 
+        if ($idPregunta) {
+            $respuestasObtenidas = $this->verDetallePregunta($idPregunta);
+            $abrirModal = true;
+        }
+
+        if ($seccion === 'reportadas') {
+            $collapseReportadaAbierto = true;
+        }
+        if ($seccion === 'existentes') {
+            $collapseAbierto = true;
+        }
+
         $preguntasSugeridas = $this->model->obtenerPreguntasSugeridas();
         $preguntasReportadas = $this->model->obtenerPreguntasReportadas();
+
 
         $this->view->render("editor", [
             "showLogout" => true,
@@ -37,7 +57,11 @@ class EditorController
             "preguntasSugeridas" => $preguntasSugeridas,
             "preguntasReportadas" => $preguntasReportadas,
             "hayBusqueda" => $hayBusqueda,
-            "collapseAbierto" => $collapseAbierto
+            "collapseAbierto" => $collapseAbierto,
+            "respuestasObtenidas" => $respuestasObtenidas,
+            'abrirModal' => $abrirModal,
+            'collapseReportadaAbierto' => $collapseReportadaAbierto,
+            'seccionOrigen' => $seccion,
         ]);
     }
 
@@ -104,6 +128,36 @@ class EditorController
 
         if ($resultado) {
             header("Location: /editor/mostrar");
+            exit();
+        }
+    }
+
+    public function eliminarPregunta()
+    {
+        $idPregunta = $_POST['id'] ?? null;
+        $seccion = $_POST['seccion'] ?? '';
+
+
+        $resultado = $this->model->eliminarPreguntaRespuestas($idPregunta);
+
+        if ($resultado) {
+            header("Location: /editor/mostrar?seccion=$seccion");
+            exit();
+        }
+    }
+
+    public function verDetallePregunta($idPregunta)
+    {
+        return $this->model->obtenerDetallePregunta($idPregunta);
+    }
+
+    public function reiniciarReportes()
+    {
+        $idPregunta = $_POST['id'] ?? null;
+        $resultado = $this->model->reiniciarReportesEnBaseDeDatos($idPregunta);
+
+        if ($resultado) {
+            header("Location: /editor/mostrar?seccion=reportadas");
             exit();
         }
     }
