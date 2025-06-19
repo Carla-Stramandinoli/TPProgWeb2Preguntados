@@ -130,6 +130,20 @@ CREATE TABLE contesta (
     FOREIGN KEY (id_pregunta) REFERENCES pregunta(id)
 );
 
+CREATE TABLE sugerencia (
+    id_sugerencia INT NOT NULL AUTO_INCREMENT,
+    id_jugador INT NOT NULL,
+    enunciado VARCHAR(255) NOT NULL,
+    respuesta_correcta VARCHAR(255) NOT NULL,
+    respuesta_1 VARCHAR(255) NOT NULL,
+    respuesta_2 VARCHAR(255) NOT NULL,
+    respuesta_3 VARCHAR(255) NOT NULL,
+    categoria INT NOT NULL,
+    PRIMARY KEY (id_sugerencia),
+    FOREIGN KEY (id_jugador) REFERENCES jugador(id),
+    FOREIGN KEY (categoria) REFERENCES categoria(id)
+)
+
 --
 -- Volcado de datos para la tabla `usuario`
 --

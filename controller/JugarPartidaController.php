@@ -94,7 +94,6 @@ class JugarPartidaController{
         ]);
     }
 
-
     public function validarResultado()
     {
         if (!$_POST['respuesta']) $this->redirectTo('/jugarPartida/timeOut');
@@ -128,12 +127,14 @@ class JugarPartidaController{
     {
         $respuestaElegida = $_SESSION['ultima_respuesta'] ;
         $respuestas = $this->model->obtenerArrayDeRespuestasParaMostrar($respuestaElegida, $_SESSION['preguntas_array'] );
+        $idPregunta = $this->model->obtenerIdPregunta($_SESSION['ultimo_enunciado']);
 
         $this->view->render("resultado", [
             "categoria" => $_SESSION["categoria_actual"],
             "pregunta" => $_SESSION['ultimo_enunciado'],
             "respuestas" => $respuestas,
             "puntos" => $_SESSION["puntos"],
+            "id" => $idPregunta,
             "showLogout" => true] );
     }
     public function redirect()
@@ -158,6 +159,14 @@ class JugarPartidaController{
                 "racha" => $racha,
                 "showLogout" => true]);
         }
+    }
+
+    public function reportarPreguntaController(){
+        $idPregunta = $_POST['id'] ?? null;
+
+        $this->model->reportarPreguntaModel($idPregunta);
+
+        return $this->redirect();
     }
 
 }

@@ -1,8 +1,495 @@
-<main class="container-fluid flex-fill">
+<main class="container-fluid flex-fill py-4">
     <div class="d-flex flex-column align-items-center">
-        <h2>Editor</h2>
-        <h3>Proximamente!</h3>
+        <h2 class="mb-4 text-primary">Panel de Editor</h2>
+        <div>
+            <!-- Preguntas reportadas boton-->
+            <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseWidthReported"
+                    aria-expanded="false" aria-controls="collapseWidthExample">
+                Preguntas reportadas
+            </button>
+
+            <!-- Preguntas existentes boton-->
+
+            <button class="btn btn-info" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseWidthExisting"
+                    aria-expanded="false" aria-controls="collapseWidthExample">
+                Preguntas existentes
+            </button>
+
+            <!-- Preguntas sugeridas boton-->
+            <button class="btn btn-success text-black" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseWidthSuggested"
+                    aria-expanded="false" aria-controls="collapseWidthExample">
+                Preguntas sugeridas
+            </button>
+
+            <!-- Crear nueva pregunta boton-->
+            <button class="btn btn-secondary text-black" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseWidthCreateNewQuestion"
+                    aria-expanded="false" aria-controls="collapseWidthExample">
+                Crear nueva pregunta
+            </button>
+        </div>
+
+        <!-- Preguntas reportadas -->
+        <div class="d-flex justify-content-center">
+            <div class="collapse collapse-horizontal {{#collapseReportadaAbierto}}show{{/collapseReportadaAbierto}}"
+                 id="collapseWidthReported">
+                <div class="card card-body" style="width: 100%;">
+                    <div class="col-lg-12 mb-3">
+                        <div class="card shadow-sm border-0 h-100">
+                            <div class="card-header bg-warning-subtle border-0">
+                                <h6 class="fw-bold mb-0 text-warning-emphasis"><i
+                                        class="bi bi-exclamation-diamond fs-5"></i> Preguntas Reportadas</h6>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive" style="max-height: 300px;">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="table-light sticky-top">
+                                        <tr>
+                                            <th class="fw-bold col-md-8">Enunciado</th>
+                                            <th class="fw-bold text-center col-md-2">Reportes</th>
+                                            <th class="fw-bold text-center col-md-2" style="min-width: 130px;">Categoria</th>
+                                            <th class="fw-bold text-center col-md-2">Acciones</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {{#preguntasReportadas}}
+                                            <tr class="align-middle">
+                                                <td class="px-3 py-3">
+                                                    <div class="text-wrap fw-medium">
+                                                        {{enunciado}}
+                                                    </div>
+                                                </td>
+                                                <td class="text-center px-3 py-3">
+                                            <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
+                                                {{cantidad_reportes}}
+                                            </span>
+                                                </td>
+                                                <td class="text-center px-3 py-3">
+                                                    <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
+                                                        {{categoria_descripcion}}
+                                                    </span>
+                                                </td>
+                                                <td class="text-center px-3 py-3">
+                                                    <div class="d-flex justify-content-center gap-1">
+                                                        <form method="GET" action="/editor/mostrar">
+                                                            <input type="hidden" name="id" value="{{id}}">
+                                                            <input type="hidden" name="seccion" value="reportadas">
+                                                            <button class="btn btn-outline-primary px-1 py-0 w-75"
+                                                                    style="font-size: 1rem;"
+                                                                    data-bs-target="#verDetallePregunta">
+                                                                Respuestas
+                                                            </button>
+                                                        </form>
+
+                                                        <form method="POST" action="/editor/eliminarPregunta"
+                                                              style="display: inline;">
+                                                            <input type="hidden" name="id" value="{{id}}">
+                                                            <input type="hidden" name="seccion" value="reportadas">
+                                                            <button type="submit"
+                                                                    class="btn btn-outline-danger px-1 py-0 w-75"
+                                                                    style="font-size: 1rem;">
+                                                                Eliminar
+                                                            </button>
+                                                        </form>
+                                                        <form method="POST" action="/editor/reiniciarReportes"
+                                                              style="display: inline;">
+                                                            <input type="hidden" name="id" value="{{id}}">
+                                                            <input type="hidden" name="seccion" value="reportadas">
+                                                            <button type="submit"
+                                                                    class="btn btn-warning px-2 py-1 text-white "
+                                                                    style="font-size: 1rem;">
+                                                                Reiniciar reportes
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {{/preguntasReportadas}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preguntas existentes -->
+
+        <div class="d-flex justify-content-center">
+            <div class="collapse collapse-horizontal {{#collapseAbierto}}show{{/collapseAbierto}}"
+                 id="collapseWidthExisting">
+                <div class="card card-body" style="width: 100%;">
+                    <div class="col-lg-12 mb-3">
+                        <div class="card shadow-sm border-0 h-100">
+                            <div class="card-header bg-info-subtle border-0">
+                                <h6 class="fw-bold mb-0 text-warning-emphasis mb-2">
+                                    <i class="bi bi-question-diamond fs-5"></i> Preguntas existentes
+                                </h6>
+                                <form method="GET" action="/editor/mostrar" class="d-flex" role="search">
+                                    <input class="form-control me-2" name="textoIngresado" type="search"
+                                           placeholder="Buscar preguntas..." value="{{textoIngresado}}"
+                                           aria-label="Search">
+                                    <button class="btn btn-sm btn-info" type="submit">Buscar</button>
+                                    {{#hayBusqueda}}
+                                        <a href="/editor/mostrar?seccion=existentes"
+                                           class="btn btn-sm btn-outline-secondary">Limpiar</a>
+                                    {{/hayBusqueda}}
+                                </form>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive" style="max-height: 300px;">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="table-light sticky-top">
+                                        <tr>
+                                            <th class="fw-bold col-md-7">Enunciado</th>
+                                            <th class="fw-bold text-center col-md-2" style="min-width: 130px;">Categoria</th>
+                                            <th class="fw-bold text-center col-md-2">Acciones</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {{#preguntasExistentes}}
+                                            <tr class="align-middle">
+                                                <td class="px-3 py-3">
+                                                    <div class="text-wrap fw-medium">
+                                                        {{enunciado}}
+                                                    </div>
+                                                </td>
+                                                <td class="text-center px-3 py-3">
+                                                    <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
+                                                        {{categoria_descripcion}}
+                                                    </span>
+                                                </td>
+                                                <td class="text-center px-3 py-3">
+                                                    <div class="d-flex justify-content-center gap-1">
+                                                        <form method="GET" action="/editor/mostrar">
+                                                            <input type="hidden" name="id" value="{{id}}">
+                                                            <input type="hidden" name="seccion" value="existentes">
+                                                            <button class="btn btn-outline-primary px-1 py-0 w-75"
+                                                                    style="font-size: 1rem;"
+                                                                    data-bs-target="#verDetallePregunta">
+                                                                Respuestas
+                                                            </button>
+                                                        </form>
+
+                                                        <form method="POST" action="/editor/eliminarPregunta"
+                                                              style="display: inline;">
+                                                            <input type="hidden" name="id" value="{{id}}">
+                                                            <input type="hidden" name="seccion" value="existentes">
+                                                            <button type="submit"
+                                                                    class="btn btn-outline-danger px-1 py-0 w-75"
+                                                                    style="font-size: 1rem;">
+                                                                Eliminar
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {{/preguntasExistentes}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preguntas sugeridas -->
+        <div class="d-flex justify-content-center">
+            <div class="collapse collapse-horizontal" id="collapseWidthSuggested">
+                <div class="card card-body" style="width: 100%;">
+                    <div class="col-lg-12 mb-3">
+                        <div class="card shadow-sm border-0 h-100">
+                            <div class="card-header bg-success-subtle border-0">
+                                <h6 class="fw-bold mb-0 text-warning-emphasis"><i
+                                        class="bi bi-exclamation-diamond fs-5"></i> Preguntas sugeridas </h6>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive" style="max-height: 400px;">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="table-light sticky-top">
+                                        <tr>
+                                            <th class="fw-bold" style="min-width: 250px;">Enunciado</th>
+                                            <th class="fw-bold text-success" style="min-width: 150px;">Respuesta
+                                                correcta
+                                            </th>
+                                            <th class="fw-bold text-danger" style="min-width: 130px;">Respuesta 1</th>
+                                            <th class="fw-bold text-danger" style="min-width: 130px;">Respuesta 2</th>
+                                            <th class="fw-bold text-danger" style="min-width: 130px;">Respuesta 3</th>
+                                            <th class="fw-bold text-danger" style="min-width: 130px;">Categoria</th>
+                                            <th class="fw-bold text-center" style="min-width: 160px;">Acciones</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {{#preguntasSugeridas}}
+                                            <tr class="align-middle">
+                                                <td class="px-3 py-3">
+                                                    <div class="fw-medium text-wrap" style="max-width: 300px;">
+                                                        {{enunciado}}
+                                                    </div>
+                                                </td>
+                                                <td class="px-3 py-3">
+                                        <span class="badge bg-success-subtle text-success-emphasis px-2 py-2 rounded-pill text-wrap">
+                                            {{respuesta_correcta}}
+                                        </span>
+                                                </td>
+                                                <td class="px-3 py-3">
+                                        <span class="badge bg-danger-subtle text-danger-emphasis px-2 py-2 rounded-pill text-wrap">
+                                            {{respuesta_1}}
+                                        </span>
+                                                </td>
+                                                <td class="px-3 py-3">
+                                        <span class="badge bg-danger-subtle text-danger-emphasis px-2 py-2 rounded-pill text-wrap">
+                                            {{respuesta_2}}
+                                        </span>
+                                                </td>
+                                                <td class="px-3 py-3">
+                                        <span class="badge bg-danger-subtle text-danger-emphasis px-2 py-2 rounded-pill text-wrap">
+                                            {{respuesta_3}}
+                                        </span>
+                                                </td>
+                                                <td class="px-3 py-3">
+                                        <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
+                                            {{categoria_descripcion}}
+                                        </span>
+                                                </td>
+                                                <td class="text-center px-3 py-3">
+                                                    <div class="d-flex justify-content-center gap-1">
+                                                        <form method="POST" action="/editor/confirmarPreguntaJugador">
+                                                            <input type="hidden" name="id_sugerencia"
+                                                                   value="{{id_sugerencia}}">
+
+                                                            <button class="btn btn-outline-success px-1 py-0 w-75"
+                                                                    style="font-size: 1rem;">
+                                                                Aceptar
+                                                            </button>
+                                                        </form>
+
+                                                        <form method="POST"
+                                                              action="/editor/eliminarPreguntaSugeridaController"
+                                                              style="display: inline;">
+                                                            <input type="hidden" name="id_sugerencia"
+                                                                   value="{{id_sugerencia}}">
+                                                            <button type="submit"
+                                                                    class="btn btn-outline-danger px-1 py-0 w-75"
+                                                                    style="font-size: 1rem;">
+                                                                Denegar
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {{/preguntasSugeridas}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crear nueva pregunta -->
+        <div class="d-flex justify-content-center">
+            <div class="collapse collapse-horizontal" id="collapseWidthCreateNewQuestion">
+                <div class="card card-body" style="width: 100%;">
+                    <div class="col-lg-12 mb-3">
+                        <div class="card shadow-sm border-0 h-100">
+                            <form action="/editor/confirmarPreguntaEditor" method="POST" enctype="multipart/form-data">
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold text-dark">
+                                        <i class="bi bi-question-circle me-1"></i>Enunciado de la pregunta
+                                    </label>
+                                    <textarea name="enunciadoPregunta" class="form-control form-control-lg" rows="2"
+                                              placeholder="Enunciado de la pregunta..."
+                                              required></textarea>
+                                </div>
+
+                                <!-- Respuesta correcta -->
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold text-success">
+                                        <i class="bi bi-check-circle me-1"></i>Respuesta correcta
+                                    </label>
+                                    <input
+                                            type="text"
+                                            name="respuesta_correcta"
+                                            class="form-control border-success"
+                                            placeholder="Respuesta correcta..."
+                                            required>
+                                </div>
+
+                                <!-- Respuestas incorrectas -->
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold text-danger">
+                                        <i class="bi bi-x-circle me-1"></i>Respuestas incorrectas
+                                    </label>
+
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <input
+                                                    type="text"
+                                                    name="respuesta_1"
+                                                    class="form-control border-danger"
+                                                    placeholder="Opción incorrecta 1..."
+                                                    required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input
+                                                    type="text"
+                                                    name="respuesta_2"
+                                                    class="form-control border-danger"
+                                                    placeholder="Opción incorrecta 2..."
+                                                    required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input
+                                                    type="text"
+                                                    name="respuesta_3"
+                                                    class="form-control border-danger"
+                                                    placeholder="Opción incorrecta 3..."
+                                                    required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Categorías -->
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold text-info">
+                                        <i class="bi bi-tags me-1"></i>Categoría
+                                    </label>
+                                    <div class="row g-2">
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="categoria"
+                                                       id="arte" value="3" required>
+                                                <label class="form-check-label fw-medium" for="arte">
+                                                    <i class="bi bi-brush fs-5"></i> Arte
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-check"><input class="form-check-input" type="radio"
+                                                                           name="categoria"
+                                                                           id="entretenimiento" value="4" required>
+                                                <label class="form-check-label fw-medium" for="entretenimiento">
+                                                    <i class="bi bi-joystick fs-5"></i> Entretenimiento
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-check"><input class="form-check-input" type="radio"
+                                                                           name="categoria"
+                                                                           id="deportes" value="6" required>
+                                                <label class="form-check-label fw-medium" for="deportes">
+                                                    <i class="bi bi-dribbble fs-5"></i> Deportes
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="categoria"
+                                                       id="geografia" value="1" required>
+                                                <label class="form-check-label fw-medium" for="geografia">
+                                                    <i class="bi bi-globe-americas fs-5"></i> Geografía </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="categoria"
+                                                       id="ciencia" value="5" required>
+                                                <label class="form-check-label fw-medium" for="ciencia">
+                                                    <i class="bi bi-flask fs-5"></i> Ciencia
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="categoria"
+                                                       id="historia" value="2" required>
+                                                <label class="form-check-label fw-medium" for="historia">
+                                                    <i class="bi bi-book fs-5"></i> Historia
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer border-0 bg-light p-4">
+                                    <button type="submit" class="btn btn-md btn-primary px-4">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!--  modal  -->
+    <div class="modal fade {{#abrirModal}}show d-block{{/abrirModal}}" id="verDetallePregunta" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            {{#seccionOrigen}}
+                <div class="modal-content shadow-lg border-0">
+                    <div class="modal-header bg-primary-subtle border-0">
+                        <h5 class="modal-title text-primary-emphasis fw-bold">
+                            <i class="bi bi-info-circle me-2"></i>Detalles de la Pregunta
+                        </h5>
+                        <a href="/editor/mostrar?seccion={{seccionOrigen}}" class="btn-close" aria-label="Close"></a>
+                    </div>
+                    <div class="modal-body p-4">
+                        {{#respuestasObtenidas}}
+                            {{#es_correcta}}
+                                <!-- Respuesta correcta -->
+                                <div class="mb-4">
+                                    <h6 class="text-success fw-semibold mb-2">
+                                        <i class="bi bi-check-circle-fill me-1"></i>Respuesta Correcta
+                                    </h6>
+                                    <div class="p-3 bg-success-subtle border border-success rounded-3">
+                                        <span class="text-success-emphasis fw-medium">{{descripcion}}</span>
+                                    </div>
+                                </div>
+                            {{/es_correcta}}
+                        {{/respuestasObtenidas}}
+
+                        <!-- Respuestas incorrectas -->
+                        <div class="mb-3">
+                            <h6 class="text-danger fw-semibold mb-2">
+                                <i class="bi bi-x-circle-fill me-1"></i>Respuestas Incorrectas
+                            </h6>
+                            <div class="row g-2">
+                                {{#respuestasObtenidas}}
+                                    {{^es_correcta}}
+                                        <div class="col-md-4">
+                                            <div class="p-2 bg-danger-subtle border border-danger rounded-3 text-center">
+                                                <small class="text-danger-emphasis">{{descripcion}}</small>
+                                            </div>
+                                        </div>
+                                    {{/es_correcta}}
+                                {{/respuestasObtenidas}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 bg-light p-3">
+                        <a href="/editor/mostrar?seccion={{seccionOrigen}}" class="btn btn-outline-secondary btn-sm
+                        px-3">
+                        <i class="bi bi-x-lg me-1"></i>Cerrar
+                        </a>
+                    </div>
+                </div>
+            {{/seccionOrigen}}
+        </div>
+    </div>
+
+    {{#abrirModal}}
+        <div class="modal-backdrop fade show"></div>
+    {{/abrirModal}}
+
 </main>
 
-
+<script src="/public/js/editor.js"></script>
