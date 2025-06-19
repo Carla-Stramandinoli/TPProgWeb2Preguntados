@@ -142,7 +142,7 @@ CREATE TABLE sugerencia (
     PRIMARY KEY (id_sugerencia),
     FOREIGN KEY (id_jugador) REFERENCES jugador(id),
     FOREIGN KEY (categoria) REFERENCES categoria(id)
-)
+);
 
 --
 -- Volcado de datos para la tabla `usuario`

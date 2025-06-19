@@ -32,6 +32,14 @@
             </button>
         </div>
 
+        {{#msjExito}}
+            <p class="alert alert-success w-75 text-center msj">{{msjExito}}</p>
+        {{/msjExito}}
+
+        {{#msjError}}
+            <p class="alert alert-danger w-75 text-center msj">{{msjError}}</p>
+        {{/msjError}}
+
         <!-- Preguntas reportadas -->
         <div class="d-flex justify-content-center">
             <div class="collapse collapse-horizontal {{#collapseReportadaAbierto}}show{{/collapseReportadaAbierto}}"

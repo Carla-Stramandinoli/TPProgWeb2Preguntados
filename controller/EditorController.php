@@ -50,6 +50,7 @@ class EditorController
         $preguntasReportadas = $this->model->obtenerPreguntasReportadas();
 
 
+
         $this->view->render("editor", [
             "showLogout" => true,
             "noEsJugador" => true,
@@ -62,6 +63,8 @@ class EditorController
             'abrirModal' => $abrirModal,
             'collapseReportadaAbierto' => $collapseReportadaAbierto,
             'seccionOrigen' => $seccion,
+            'msjExito' => $_GET['msjExito'],
+            'msjError' => $_GET['msjError'],
         ]);
     }
 
@@ -88,9 +91,16 @@ class EditorController
 
         $resultado = $this->model->guardarPreguntaEnBaseDeDatos($preguntaSugerida);
 
+        $msj = '';
+
         if ($resultado) {
-            $this->eliminarPreguntaSugeridaController();
-            header("Location: /editor/mostrar");
+            $msj = 'La pregunta sugerida fue aceptada.';
+            $this->model->eliminarPreguntaSugeridaModel($id_sugerencia);
+            header("Location: /editor/mostrar?msjExito=" . urlencode($msj));
+            exit();
+        } else {
+            $msj = 'No se pudo confirmar la pregunta sugerida.';
+            header("Location: /editor/mostrar?msjError=" . urlencode($msj));
             exit();
         }
     }
@@ -126,8 +136,19 @@ class EditorController
 
         $resultado = $this->model->eliminarPreguntaSugeridaModel($id_sugerencia);
 
+        $msj = '';
+
         if ($resultado) {
-            header("Location: /editor/mostrar");
+//            if($_GET['msjExito'] == 'La pregunta sugerida fue aceptada.'){
+//                header("Location: /editor/mostrar");
+//                exit();
+//            }
+            $msj = 'La pregunta sugerida fue descartada.';
+            header("Location: /editor/mostrar?msjExito="  . urlencode($msj));
+            exit();
+        } else {
+            $msj = 'No se pudo eliminar la pregunta sugerida.';
+            header("Location: /editor/mostrar?msjError=" . urlencode($msj));
             exit();
         }
     }
@@ -137,11 +158,17 @@ class EditorController
         $idPregunta = $_POST['id'] ?? null;
         $seccion = $_POST['seccion'] ?? '';
 
-
         $resultado = $this->model->eliminarPreguntaRespuestas($idPregunta);
 
+        $msj = '';
+
         if ($resultado) {
-            header("Location: /editor/mostrar?seccion=$seccion");
+            $msj = 'La pregunta se ha eliminado correctamente.';
+            header("Location: /editor/mostrar?seccion=$seccion&msjExito=" . urlencode($msj));
+            exit();
+        } else {
+            $msj = 'Error al eliminar la pregunta.';
+            header("Location: /editor/mostrar?seccion=reportadas&msjError=" . urlencode($msj));
             exit();
         }
     }
@@ -156,8 +183,15 @@ class EditorController
         $idPregunta = $_POST['id'] ?? null;
         $resultado = $this->model->reiniciarReportesEnBaseDeDatos($idPregunta);
 
+        $msj = '';
+
         if ($resultado) {
-            header("Location: /editor/mostrar?seccion=reportadas");
+            $msj = 'Reportes reiniciados.';
+            header("Location: /editor/mostrar?seccion=reportadas&msjExito=" . urlencode($msj));
+            exit();
+        } else {
+            $msj = 'Error al reiniciar los reportes.';
+            header("Location: /editor/mostrar?seccion=reportadas&msjError=" . urlencode($msj));
             exit();
         }
     }

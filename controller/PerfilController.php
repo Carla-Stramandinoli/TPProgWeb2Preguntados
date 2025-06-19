@@ -41,7 +41,4 @@ class PerfilController
         $url = 'http://'.$this->hostData['host'].':'.$this->hostData['port'].'/perfil/mostrar?id='.$id;
         return $this->qrGenerator->generate($url);
     }
-
-
-
 }
