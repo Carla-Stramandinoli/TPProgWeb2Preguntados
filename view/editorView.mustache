@@ -245,8 +245,12 @@
                                         <thead class="table-light sticky-top">
                                         <tr style="height: 40px;">
                                             <th class="fw-bold col-md-6 py-2">Enunciado</th>
-                                            <th class="fw-bold text-success text-center col-md-2 py-2">Respuesta correcta </th>
-                                            <th class="fw-bold text-danger text-center col-md-2 py-2">Respuestas incorrectas </th>
+                                            <th class="fw-bold text-success text-center col-md-2 py-2">Respuesta
+                                                correcta
+                                            </th>
+                                            <th class="fw-bold text-danger text-center col-md-2 py-2">Respuestas
+                                                incorrectas
+                                            </th>
                                             <th class="fw-bold text-center col-md-2 py-2">Categoría</th>
                                             <th class="fw-bold text-center col-md-2 py-2">Acciones</th>
                                         </tr>
@@ -261,8 +265,8 @@
                                                 </td>
                                                 <td class="text-center px-2 py-2">
                                                   <span class="badge bg-success-subtle text-success-emphasis px-2 py-1 fs-6">
-                                                {{respuesta_correcta}}
-                                            </span>
+                                                      {{respuesta_correcta}}
+                                                  </span>
                                                 </td>
                                                 <td class="text-center px-2 py-2">
                                                     <div class="d-flex flex-column gap-1">
@@ -322,15 +326,18 @@
 
         <!-- Crear nueva pregunta -->
         <div class="d-flex justify-content-center">
-            <div class="collapse collapse-horizontal {{#collapseCrearPreguntaAbierto}}show{{/collapseCrearPreguntaAbierto}}" id="collapseWidthCreateNewQuestion" style="width: 100%;">
+            <div class="collapse collapse-horizontal {{#collapseCrearPreguntaAbierto}}show{{/collapseCrearPreguntaAbierto}}"
+                 id="collapseWidthCreateNewQuestion" style="width: 100%;">
                 <div class="card shadow-sm border-0 h-100">
                     <div class="col-lg-12 mb-3">
-                        <form action="/editor/confirmarPreguntaEditor" method="POST" enctype="multipart/form-data" class="p-4">
+                        <form action="/editor/confirmarPreguntaEditor" method="POST" enctype="multipart/form-data"
+                              class="p-4">
                             <div class="mb-4">
                                 <label class="form-label fw-semibold text-dark">
                                     <i class="bi bi-question-circle me-1"></i> Enunciado de la pregunta
                                 </label>
-                                <textarea name="enunciadoPregunta" class="form-control form-control-lg" rows="2" placeholder="Enunciado de la pregunta..." required></textarea>
+                                <textarea name="enunciadoPregunta" class="form-control form-control-lg" rows="2"
+                                          placeholder="Enunciado de la pregunta..." required></textarea>
                             </div>
 
                             <!-- Respuesta correcta -->
@@ -338,7 +345,8 @@
                                 <label class="form-label fw-semibold text-success">
                                     <i class="bi bi-check-circle me-1"></i> Respuesta correcta
                                 </label>
-                                <input type="text" name="respuesta_correcta" class="form-control border-success" placeholder="Respuesta correcta..." required>
+                                <input type="text" name="respuesta_correcta" class="form-control border-success"
+                                       placeholder="Respuesta correcta..." required>
                             </div>
 
                             <!-- Respuestas incorrectas -->
@@ -348,13 +356,16 @@
                                 </label>
                                 <div class="row g-3">
                                     <div class="col-md-4">
-                                        <input type="text" name="respuesta_1" class="form-control border-danger" placeholder="Opción incorrecta 1..." required>
+                                        <input type="text" name="respuesta_1" class="form-control border-danger"
+                                               placeholder="Opción incorrecta 1..." required>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" name="respuesta_2" class="form-control border-danger" placeholder="Opción incorrecta 2..." required>
+                                        <input type="text" name="respuesta_2" class="form-control border-danger"
+                                               placeholder="Opción incorrecta 2..." required>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" name="respuesta_3" class="form-control border-danger" placeholder="Opción incorrecta 3..." required>
+                                        <input type="text" name="respuesta_3" class="form-control border-danger"
+                                               placeholder="Opción incorrecta 3..." required>
                                     </div>
                                 </div>
                             </div>
@@ -367,7 +378,8 @@
                                 <div class="row g-2">
                                     <div class="col-md-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="categoria" id="arte" value="3" required>
+                                            <input class="form-check-input" type="radio" name="categoria" id="arte"
+                                                   value="3" required>
                                             <label class="form-check-label fw-medium" for="arte">
                                                 <i class="bi bi-brush fs-5"></i> Arte
                                             </label>
@@ -375,7 +387,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="categoria" id="entretenimiento" value="4" required>
+                                            <input class="form-check-input" type="radio" name="categoria"
+                                                   id="entretenimiento" value="4" required>
                                             <label class="form-check-label fw-medium" for="entretenimiento">
                                                 <i class="bi bi-joystick fs-5"></i> Entretenimiento
                                             </label>
@@ -383,7 +396,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="categoria" id="deportes" value="6" required>
+                                            <input class="form-check-input" type="radio" name="categoria" id="deportes"
+                                                   value="6" required>
                                             <label class="form-check-label fw-medium" for="deportes">
                                                 <i class="bi bi-dribbble fs-5"></i> Deportes
                                             </label>
@@ -391,7 +405,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="categoria" id="geografia" value="1" required>
+                                            <input class="form-check-input" type="radio" name="categoria" id="geografia"
+                                                   value="1" required>
                                             <label class="form-check-label fw-medium" for="geografia">
                                                 <i class="bi bi-globe-americas fs-5"></i> Geografía
                                             </label>
@@ -399,7 +414,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="categoria" id="ciencia" value="5" required>
+                                            <input class="form-check-input" type="radio" name="categoria" id="ciencia"
+                                                   value="5" required>
                                             <label class="form-check-label fw-medium" for="ciencia">
                                                 <i class="bi bi-flask fs-5"></i> Ciencia
                                             </label>
@@ -407,7 +423,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="categoria" id="historia" value="2" required>
+                                            <input class="form-check-input" type="radio" name="categoria" id="historia"
+                                                   value="2" required>
                                             <label class="form-check-label fw-medium" for="historia">
                                                 <i class="bi bi-book fs-5"></i> Historia
                                             </label>
@@ -427,65 +444,78 @@
         </div>
 
         <!-- Modal -->
-    <div class="modal fade {{#abrirModal}}show d-block{{/abrirModal}}" id="verDetallePregunta" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            {{#seccionOrigen}}
-                <div class="modal-content shadow border-0">
-                    <div class="modal-header bg-primary-subtle border-0">
-                        <h5 class="modal-title text-primary-emphasis fw-bold">
-                            <i class="bi bi-info-circle me-2"></i> Detalles de la Pregunta
-                        </h5>
-                        <a href="/editor/mostrar?seccion={{seccionOrigen}}" class="btn-close" aria-label="Close"></a>
-                    </div>
-                    <div class="modal-body p-4">
+        <div class="modal fade {{#abrirModal}}show d-block{{/abrirModal}}" id="verDetallePregunta" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                {{#seccionOrigen}}
+                    <div class="modal-content shadow border-0">
+                        <div class="modal-header bg-primary-subtle border-0">
+                            <h5 class="modal-title text-primary-emphasis fw-bold">
+                                <i class="bi bi-info-circle me-2"></i> Detalles de la Pregunta
+                            </h5>
+                            <a href="/editor/mostrar?seccion={{seccionOrigen}}" class="btn-close"
+                            aria-label="Close"></a>
+                        </div>
+                        <div class="modal-body p-4">
 
-                        <!-- Respuesta Correcta -->
-                        {{#respuestasObtenidas}}
-                            {{#es_correcta}}
-                                <div class="mb-4">
-                                    <h6 class="text-success fw-semibold mb-2">
-                                        <i class="bi bi-check-circle-fill me-1"></i> Respuesta Correcta
-                                    </h6>
-                                    <div class="bg-success-subtle border border-success rounded-3 p-3">
-                                        <span class="text-success-emphasis fw-medium">{{descripcion}}</span>
-                                    </div>
-                                </div>
-                            {{/es_correcta}}
-                        {{/respuestasObtenidas}}
-
-                        <!-- Respuestas Incorrectas -->
-                        <div class="mb-3">
-                            <h6 class="text-danger fw-semibold mb-2">
-                                <i class="bi bi-x-circle-fill me-1"></i> Respuestas Incorrectas
-                            </h6>
-                            <div class="row g-3">
-                                {{#respuestasObtenidas}}
-                                    {{^es_correcta}}
-                                        <div class="col-md-4">
-                                            <div class="p-2 bg-danger-subtle border border-danger rounded-3 text-center">
-                                                <small class="text-danger-emphasis">{{descripcion}}</small>
-                                            </div>
+                            <!-- Respuesta Correcta -->
+                            {{#respuestasObtenidas}}
+                                {{#es_correcta}}
+                                    <div class="mb-4">
+                                        <h6 class="text-success fw-semibold mb-2">
+                                            <i class="bi bi-check-circle-fill me-1"></i> Respuesta Correcta
+                                        </h6>
+                                        <div class="bg-success-subtle border border-success rounded-3 p-3">
+                                            <span class="text-success-emphasis fw-medium">{{descripcion}}</span>
                                         </div>
-                                    {{/es_correcta}}
-                                {{/respuestasObtenidas}}
+                                    </div>
+                                {{/es_correcta}}
+                            {{/respuestasObtenidas}}
+
+                            <!-- Respuestas Incorrectas -->
+                            <div class="mb-3">
+                                <h6 class="text-danger fw-semibold mb-2">
+                                    <i class="bi bi-x-circle-fill me-1"></i> Respuestas Incorrectas
+                                </h6>
+                                <div class="row g-3">
+                                    {{#respuestasObtenidas}}
+                                        {{^es_correcta}}
+                                            <div class="col-md-4">
+                                                <div class="p-2 bg-danger-subtle border border-danger rounded-3 text-center">
+                                                    <small class="text-danger-emphasis">{{descripcion}}</small>
+                                                </div>
+                                            </div>
+                                        {{/es_correcta}}
+                                    {{/respuestasObtenidas}}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="modal-footer border-0 bg-light p-3">
-                        <a href="/editor/mostrar?seccion={{seccionOrigen}}" class="btn btn-outline-secondary btn-sm px-3">
-                        <i class="bi bi-x-lg me-1"></i> Cerrar
-                        </a>
+                        <div class="modal-footer border-0 bg-light p-3">
+                            <a href="/editor/mostrar?seccion={{seccionOrigen}}" class="btn btn-outline-secondary btn-sm
+                            px-3">
+                            <i class="bi bi-x-lg me-1"></i> Cerrar
+                            </a>
+                        </div>
                     </div>
-                </div>
-            {{/seccionOrigen}}
+                {{/seccionOrigen}}
+            </div>
         </div>
+
+        {{#abrirModal}}
+            <div class="modal-backdrop fade show"></div>
+        {{/abrirModal}}
     </div>
-
-    {{#abrirModal}}
-        <div class="modal-backdrop fade show"></div>
-    {{/abrirModal}}
-
 </main>
 
 <script src="/public/js/editor.js"></script>
+<script>
+    // script para limpiar la url despues de hacer una accion de editar/eliminar/aceptar/buscar
+    // tiene que ir aca y no en un js aparte porque el js se cargaria antes de que mustache renderize
+    setTimeout(() => {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('msjExito');
+        url.searchParams.delete('seccion');
+        url.searchParams.delete('textoIngresado');
+        window.history.replaceState(null, '', url.pathname + (url.search ? '?' + url.searchParams.toString() : ''));
+    }, 2000);
+</script>

@@ -1,4 +1,4 @@
-//funcion para que se cierren los collapse de bootstrap cuando abrir otro
+//funcion para que se cierren los collapse de bootstrap cuando se abre otro
 
 document.addEventListener('DOMContentLoaded', function () {
     const collapseButtons = document.querySelectorAll('[data-bs-toggle="collapse"]');
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
+// funcion para que sacar los msj de exito/error de la pantalla
 setTimeout(function () {
     const mensajes = document.getElementsByClassName('msj');
     for (let i = 0; i < mensajes.length; i++) {
