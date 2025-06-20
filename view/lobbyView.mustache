@@ -10,18 +10,18 @@
         <div class="row justify-content-center mb-4">
             <div class="col-md-3 mb-2">
                 <a href="/jugarPartida/mostrar" class="btn btn-outline-primary w-100 py-2 shadow-sm rounded-pill">
-                    🎮 <strong>Jugar una partida</strong>
+                    <i class="bi bi-controller fs-5"></i> <strong>Jugar una partida</strong>
                 </a>
             </div>
             <div class="col-md-3 mb-2">
                 <a href="/verRanking/mostrar" class="btn btn-outline-success w-100 py-2 shadow-sm rounded-pill">
-                    📈 <strong>Ver ranking</strong>
+                    <i class="bi bi-clipboard-data fs-5"></i> <strong>Ver ranking</strong>
                 </a>
             </div>
             <div class="col-md-3 mb-2">
-                <button type="button" class="btn btn-outline-warning w-100 py-2 shadow-sm rounded-pill text-dark"
+                <button type="button" class="btn btn-outline-warning w-100 py-2 shadow-sm rounded-pill text-warning"
                         data-bs-toggle="modal" data-bs-target="#modalSugerirPregunta">
-                    <i class="bi bi-pencil"></i> Crear pregunta nueva
+                    <i class="bi bi-pencil fs-5"></i> Crear pregunta nueva
                 </button>
             </div>
             {{#msjExito}}
@@ -185,7 +185,7 @@
     </div>
         <div class="card mb-4">
             <div class="card-header">
-                <h2 class="mb-0">🏆 Posición en el Ranking Global de Rachas</h2>
+                <h2 class="mb-0"><i class="bi bi-trophy"></i> Posición en el Ranking Global de Rachas</h2>
             </div>
             <div class="card-body">
                 {{^puestoRanking}}
@@ -200,7 +200,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h2 class="mb-0">🕹️ Historial de partidas</h2>
+                <h2 class="mb-0"><i class="bi bi-controller"></i> Historial de partidas</h2>
             </div>
             <div class="card-body" style="max-height: 200px; overflow-y: auto;">
                 {{#historialPartidas}}
