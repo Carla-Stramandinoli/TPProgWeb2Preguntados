@@ -1,0 +1,125 @@
+<main class="container-fluid py-4 d-flex justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary-subtle border-0">
+                <h5 class="fw-bold text-primary-emphasis mb-0">
+                    <i class="bi bi-pencil-square me-2"></i>Editar Pregunta
+                </h5>
+            </div>
+            <div class="card-body">
+                <form action="/editarPregunta/actualizarDatos" method="POST" enctype="multipart/form-data">
+                    {{#preguntaAEditar}}
+                        <input type="hidden" name="idPregunta" value="{{id}}">
+                        <input type="hidden" name="idRespuestaCorrecta" value="{{idRespuestaCorrecta}}">
+                        <input type="hidden" name="idRespuesta_1" value="{{idRespuesta_1}}">
+                        <input type="hidden" name="idRespuesta_2" value="{{idRespuesta_2}}">
+                        <input type="hidden" name="idRespuesta_3" value="{{idRespuesta_3}}">
+
+                        <!-- Enunciado -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-dark">
+                                <i class="bi bi-question-circle me-1"></i> Enunciado de la pregunta
+                            </label>
+                            <textarea name="enunciadoPregunta" class="form-control form-control-lg" rows="2"
+                                      placeholder="{{enunciado}}">{{enunciado}}</textarea>
+                        </div>
+
+                        <!-- Respuesta correcta -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-success">
+                                <i class="bi bi-check-circle me-1"></i> Respuesta correcta
+                            </label>
+                            <input type="text" name="respuesta_correcta" class="form-control border-success"
+                                   placeholder="{{respuesta_correcta}}" value="{{respuesta_correcta}}">
+                        </div>
+
+                        <!-- Respuestas incorrectas -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-danger">
+                                <i class="bi bi-x-circle me-1"></i> Respuestas incorrectas
+                            </label>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <input type="text" name="respuesta_1" class="form-control border-danger"
+                                           placeholder="{{respuesta_1}}" value="{{respuesta_1}}">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" name="respuesta_2" class="form-control border-danger"
+                                           placeholder="{{respuesta_2}}" value="{{respuesta_2}}">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" name="respuesta_3" class="form-control border-danger"
+                                           placeholder="{{respuesta_3}}" value="{{respuesta_3}}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Categoría -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-info">
+                                <i class="bi bi-tags me-1"></i> Categoría
+                            </label>
+                            <div class="row g-2">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="categoria" id="arte" value="3" {{#categoria_3}}checked{{/categoria_3}}>
+                                        <label class="form-check-label fw-medium" for="arte">
+                                            <i class="bi bi-brush fs-5"></i> Arte
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="categoria" id="entretenimiento" value="4" {{#categoria_4}}checked{{/categoria_4}}>
+                                        <label class="form-check-label fw-medium" for="entretenimiento">
+                                            <i class="bi bi-joystick fs-5"></i> Entretenimiento
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="categoria" id="deportes" value="6" {{#categoria_6}}checked{{/categoria_6}}>
+                                        <label class="form-check-label fw-medium" for="deportes">
+                                            <i class="bi bi-dribbble fs-5"></i> Deportes
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="categoria" id="geografia" value="1" {{#categoria_1}}checked{{/categoria_1}}>
+                                        <label class="form-check-label fw-medium" for="geografia">
+                                            <i class="bi bi-globe-americas fs-5"></i> Geografía
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="categoria" id="ciencia" value="5" {{#categoria_5}}checked{{/categoria_5}}>
+                                        <label class="form-check-label fw-medium" for="ciencia">
+                                            <i class="bi bi-flask fs-5"></i> Ciencia
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="categoria" id="historia" value="2" {{#categoria_2}}checked{{/categoria_2}}>
+                                        <label class="form-check-label fw-medium" for="historia">
+                                            <i class="bi bi-book fs-5"></i> Historia
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botón -->
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary btn-md px-4 mt-3">
+                                Guardar
+                            </button>
+                        </div>
+                    {{/preguntaAEditar}}
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

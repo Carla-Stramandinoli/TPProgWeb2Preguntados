@@ -26,6 +26,8 @@ class LobbyController
             "puestoRanking" => $puestoRanking,
             "rachaMasLarga" => $rachaMasLarga,
             "historialPartidas" => $historialPartidas,
+            'msjExito' => $_GET['msjExito'],
+            'msjError' => $_GET['msjError'],
             "showLogout" => true
         ]);
     }
@@ -48,8 +50,16 @@ class LobbyController
 
         $registrarPregunta = $this->model->registrarPreguntaSugerida($idJugador, $enunciadoSugerido, $respuestaCorrecta, $respuestaIncorrecta1, $respuestaIncorrecta2, $respuestaIncorrecta3, $categoria);
 
+        $msj = '';
+
         if ($registrarPregunta) {
-            $this->redirectTo("/lobby/mostrar");
+            $msj = 'La pregunta sugerida fue creada correctamente.';
+            header("Location: /lobby/mostrar?msjExito=" . urlencode($msj));
+            exit();
+        } else {
+            $msj = 'No se pudo crear la pregunta.';
+            header("Location: /lobby/mostrar?msjError=" . urlencode($msj));
+            exit();
         }
     }
 }

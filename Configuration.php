@@ -15,6 +15,7 @@ require_once ("controller/EditorController.php");
 require_once ("controller/AdministradorController.php");
 require_once ("controller/CerrarSesionController.php");
 require_once ("controller/VerRankingController.php");
+require_once ("controller/EditarPreguntaController.php");
 
 
 require_once ("model/VerRankingModel.php");
@@ -24,6 +25,7 @@ require_once ("model/JugarPartidaModel.php");
 require_once ("model/EditorModel.php");
 require_once("model/AdministradorModel.php");
 require_once("model/LobbyModel.php");
+require_once("model/EditarPreguntaModel.php");
 
 
 require_once('vendor/mustache/src/Mustache/Autoloader.php');
@@ -80,6 +82,11 @@ class Configuration
     public function getAdministradorController()
     {
         return new AdministradorController(new AdministradorModel($this->getDatabase()) ,$this->getViewer());
+    }
+
+    public function getEditarPreguntaController()
+    {
+        return new EditarPreguntaController(new EditarPreguntaModel($this->getDatabase()) ,$this->getViewer());
     }
 
     public function getCerrarSesionController()

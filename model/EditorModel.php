@@ -114,4 +114,5 @@ class EditorModel
     {
         return $this->database->execute("UPDATE pregunta SET cantidad_reportes = 0 WHERE id = '$idPregunta'");
     }
+
 }
