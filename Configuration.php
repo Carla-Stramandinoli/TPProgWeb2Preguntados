@@ -96,7 +96,7 @@ class Configuration
 
     public function getRouter()
     {
-        return new Router('getIngresoController', 'login', $this);
+        return new Router('getIngresoController', 'mostrar', $this);
     }
 
     public function getViewer()
