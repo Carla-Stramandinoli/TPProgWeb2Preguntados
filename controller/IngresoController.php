@@ -17,6 +17,10 @@ class IngresoController
         $this->hostData = $hostData;
     }
 
+    public function mostrar(){
+        $this->login();
+    }
+
     public function login(){
         if (isset($_GET['msjError'])) $this->view->render('login', ['msjError' => $_GET['msjError']]);
         if (isset($_GET['msjExito'])) $this->view->render('login', ['msjExito' => $_GET['msjExito']]);

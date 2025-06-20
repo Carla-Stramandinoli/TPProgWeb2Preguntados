@@ -16,10 +16,9 @@ class Permisos
 
         $controladoresPermitidos = $this->permisos[$rol]['controladores'];
 
-        $method = isset($method) ? $method : $this->permisos[$rol]['metodoDefault'];
+        $validMethod = isset($method) ? $method : $this->permisos[$rol]['metodoDefault'];
 
-        if (in_array($controller, $controladoresPermitidos)) $this->router->go($controller, $method);
-//        else $this->router->go($this->permisos[$rol]['controladorDefault'], $this->permisos[$rol]['metodoDefault']); // hacemos uso de los controller y method default que tiene el .ini
+        if (in_array($controller, $controladoresPermitidos)) $this->router->go($controller, $validMethod);
         else $this->redirectTo('/'.$this->permisos[$rol]['controladorDefault'].'/'.$this->permisos[$rol]['metodoDefault']);
     }
 

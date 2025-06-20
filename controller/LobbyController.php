@@ -26,8 +26,8 @@ class LobbyController
             "puestoRanking" => $puestoRanking,
             "rachaMasLarga" => $rachaMasLarga,
             "historialPartidas" => $historialPartidas,
-            'msjExito' => $_GET['msjExito'],
-            'msjError' => $_GET['msjError'],
+            'msjExito' => (isset($_GET['msjExito'])) ? $_GET['msjExito'] : null,
+            'msjError' => (isset($_GET['msjError'])) ? $_GET['msjError'] : null,
             "showLogout" => true
         ]);
     }
