@@ -20,9 +20,17 @@ class EditorController
         $idPregunta = $_GET['id'] ?? null;
         $seccion = $_GET['seccion'] ?? '';
 
-        $respuestasObtenidas = null;
         $abrirModal = false;
+        $respuestasObtenidas = null;
+
+        if ($idPregunta) {
+            $respuestasObtenidas = $this->verDetallePregunta($idPregunta);
+            $abrirModal = true;
+        }
+
         $collapseReportadaAbierto = false;
+        $collapseSugerenciaAbierto = false;
+        $collapseCrearPreguntaAbierto = false;
 
         if (!empty($textoIngresado)) {
             $preguntasExistentes = $this->model->obtenerPreguntaBuscada($textoIngresado);;
@@ -34,22 +42,23 @@ class EditorController
             $collapseAbierto = false;
         }
 
-        if ($idPregunta) {
-            $respuestasObtenidas = $this->verDetallePregunta($idPregunta);
-            $abrirModal = true;
-        }
-
-        if ($seccion === 'reportadas') {
-            $collapseReportadaAbierto = true;
-        }
-        if ($seccion === 'existentes') {
-            $collapseAbierto = true;
-        }
-
         $preguntasSugeridas = $this->model->obtenerPreguntasSugeridas();
         $preguntasReportadas = $this->model->obtenerPreguntasReportadas();
 
-
+        switch ($seccion) {
+            case 'reportadas':
+                $collapseReportadaAbierto = true;
+                break;
+            case 'existentes':
+                $collapseAbierto = true;
+                break;
+            case 'sugerencia':
+                $collapseSugerenciaAbierto = true;
+                break;
+            case 'crearPregunta':
+                $collapseCrearPreguntaAbierto = true;
+                break;
+        }
 
         $this->view->render("editor", [
             "showLogout" => true,
@@ -58,13 +67,15 @@ class EditorController
             "preguntasSugeridas" => $preguntasSugeridas,
             "preguntasReportadas" => $preguntasReportadas,
             "hayBusqueda" => $hayBusqueda,
-            "collapseAbierto" => $collapseAbierto,
             "respuestasObtenidas" => $respuestasObtenidas,
             'abrirModal' => $abrirModal,
+            "collapseAbierto" => $collapseAbierto,
             'collapseReportadaAbierto' => $collapseReportadaAbierto,
-            'seccionOrigen' => $seccion,
-            'msjExito' => $_GET['msjExito'],
-            'msjError' => $_GET['msjError'],
+            'collapseSugerenciaAbierto' => $collapseSugerenciaAbierto,
+            'collapseCrearPreguntaAbierto' => $collapseCrearPreguntaAbierto,
+            'seccionOrigen' => $seccion, // al cerrar el modal de respuestas deja abierto el de la seccion correspondiente
+            'msjExito' => $_GET['msjExito'] ?? null,
+            'msjError' => $_GET['msjError'] ?? null,
         ]);
     }
 
@@ -96,11 +107,11 @@ class EditorController
         if ($resultado) {
             $msj = 'La pregunta sugerida fue aceptada.';
             $this->model->eliminarPreguntaSugeridaModel($id_sugerencia);
-            header("Location: /editor/mostrar?msjExito=" . urlencode($msj));
+            header("Location: /editor/mostrar?seccion=sugerencia&msjExito=" . urlencode($msj));
             exit();
         } else {
             $msj = 'No se pudo confirmar la pregunta sugerida.';
-            header("Location: /editor/mostrar?msjError=" . urlencode($msj));
+            header("Location: /editor/mostrar?seccion=sugerencia&msjError=" . urlencode($msj));
             exit();
         }
     }
@@ -120,12 +131,20 @@ class EditorController
             'respuesta_1' => $respuestaIncorrecta1,
             'respuesta_2' => $respuestaIncorrecta2,
             'respuesta_3' => $respuestaIncorrecta3,
-            'categoria' => $categoria];
+            'categoria' => $categoria
+        ];
 
         $resultado = $this->model->guardarPreguntaEnBaseDeDatos($pregunta);
 
+        $msj = '';
+
         if ($resultado) {
-            header("Location: /editor/mostrar");
+            $msj = 'La pregunta fue creada correctamente.';
+            header("Location: /editor/mostrar?seccion=crearPregunta&msjExito=" . urlencode($msj));
+            exit();
+        } else {
+            $msj = 'La pregunta no pudo ser creada.';
+            header("Location: /editor/mostrar?seccion=crearPregunta&msjExito=" . urlencode($msj));
             exit();
         }
     }
@@ -139,16 +158,12 @@ class EditorController
         $msj = '';
 
         if ($resultado) {
-//            if($_GET['msjExito'] == 'La pregunta sugerida fue aceptada.'){
-//                header("Location: /editor/mostrar");
-//                exit();
-//            }
             $msj = 'La pregunta sugerida fue descartada.';
-            header("Location: /editor/mostrar?msjExito="  . urlencode($msj));
+            header("Location: /editor/mostrar?seccion=sugerencia&msjExito=" . urlencode($msj));
             exit();
         } else {
             $msj = 'No se pudo eliminar la pregunta sugerida.';
-            header("Location: /editor/mostrar?msjError=" . urlencode($msj));
+            header("Location: /editor/mostrar?seccion=sugerencia&msjError=" . urlencode($msj));
             exit();
         }
     }
@@ -168,7 +183,7 @@ class EditorController
             exit();
         } else {
             $msj = 'Error al eliminar la pregunta.';
-            header("Location: /editor/mostrar?seccion=reportadas&msjError=" . urlencode($msj));
+            header("Location: /editor/mostrar?seccion=$seccion&msjError=" . urlencode($msj));
             exit();
         }
     }

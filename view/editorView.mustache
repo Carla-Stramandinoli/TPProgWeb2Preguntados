@@ -1,6 +1,6 @@
 <main class="container-fluid flex-fill py-4">
     <div class="d-flex flex-column align-items-center">
-        <h2 class="mb-4 text-primary">Panel de Editor</h2>
+        <h2 class="mb-4 text-primary">Panel de editor</h2>
         <div>
             <!-- Preguntas reportadas boton-->
             <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
@@ -47,68 +47,75 @@
                 <div class="card card-body" style="width: 100%;">
                     <div class="col-lg-12 mb-3">
                         <div class="card shadow-sm border-0 h-100">
-                            <div class="card-header bg-warning-subtle border-0">
-                                <h6 class="fw-bold mb-0 text-warning-emphasis"><i
-                                        class="bi bi-exclamation-diamond fs-5"></i> Preguntas Reportadas</h6>
+                            <div class="card-header bg-warning-subtle border-0 pb-2">
+                                <h6 class="fw-bold mb-2 text-warning-emphasis">
+                                    <i class="bi bi-exclamation-diamond fs-5"></i> Preguntas reportadas
+                                </h6>
                             </div>
                             <div class="card-body p-0">
-                                <div class="table-responsive" style="max-height: 300px;">
-                                    <table class="table table-hover mb-0">
+                                <div class="table-responsive" style="max-height: 350px;">
+                                    <table class="table table-hover mb-0 table-sm">
                                         <thead class="table-light sticky-top">
-                                        <tr>
-                                            <th class="fw-bold col-md-8">Enunciado</th>
+                                        <tr style="height: 40px;">
+                                            <th class="fw-bold col-md-7 py-2">Enunciado</th>
                                             <th class="fw-bold text-center col-md-2">Reportes</th>
-                                            <th class="fw-bold text-center col-md-2" style="min-width: 130px;">Categoria</th>
+                                            <th class="fw-bold text-center col-md-2 py-2">Categoría</th>
                                             <th class="fw-bold text-center col-md-2">Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         {{#preguntasReportadas}}
-                                            <tr class="align-middle">
-                                                <td class="px-3 py-3">
-                                                    <div class="text-wrap fw-medium">
+                                            <tr class="align-middle" style="height: 50px;">
+                                                <td class="px-3 py-2">
+                                                    <div class="text-wrap fw-medium" style="line-height: 1.3;">
                                                         {{enunciado}}
                                                     </div>
                                                 </td>
-                                                <td class="text-center px-3 py-3">
+                                                <td class="text-center px-3 py-2">
                                             <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
                                                 {{cantidad_reportes}}
                                             </span>
                                                 </td>
-                                                <td class="text-center px-3 py-3">
-                                                    <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
-                                                        {{categoria_descripcion}}
-                                                    </span>
+                                                <td class="text-center px-3 py-2">
+                                            <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
+                                                {{categoria_descripcion}}
+                                            </span>
                                                 </td>
-                                                <td class="text-center px-3 py-3">
-                                                    <div class="d-flex justify-content-center gap-1">
-                                                        <form method="GET" action="/editor/mostrar">
+                                                <td class="text-center px-3 py-2">
+                                                    <div class="d-flex justify-content-center align-items-center gap-1 flex-nowrap">
+                                                        <form method="GET" action="/editor/mostrar" class="m-0">
                                                             <input type="hidden" name="id" value="{{id}}">
-                                                            <input type="hidden" name="seccion" value="reportadas">
-                                                            <button class="btn btn-outline-primary px-1 py-0 w-75"
-                                                                    style="font-size: 1rem;"
-                                                                    data-bs-target="#verDetallePregunta">
+                                                            <input type="hidden" name="seccion" value="existentes">
+                                                            <button class="btn btn-outline-info btn-sm px-2 py-1 w-auto"
+                                                                    style="font-size: 0.9rem;">
                                                                 Respuestas
                                                             </button>
                                                         </form>
-
-                                                        <form method="POST" action="/editor/eliminarPregunta"
-                                                              style="display: inline;">
+                                                        <form method="POST" action="/editarPregunta/mostrar"
+                                                              class="m-0">
                                                             <input type="hidden" name="id" value="{{id}}">
-                                                            <input type="hidden" name="seccion" value="reportadas">
+                                                            <button class="btn btn-outline-primary btn-sm px-2 py-1 w-auto"
+                                                                    style="font-size: 0.9rem;">
+                                                                Editar
+                                                            </button>
+                                                        </form>
+                                                        <form method="POST" action="/editor/eliminarPregunta"
+                                                              class="m-0">
+                                                            <input type="hidden" name="id" value="{{id}}">
+                                                            <input type="hidden" name="seccion" value="existentes">
                                                             <button type="submit"
-                                                                    class="btn btn-outline-danger px-1 py-0 w-75"
-                                                                    style="font-size: 1rem;">
+                                                                    class="btn btn-outline-danger btn-sm px-2 py-1 w-auto"
+                                                                    style="font-size: 0.9rem;">
                                                                 Eliminar
                                                             </button>
                                                         </form>
                                                         <form method="POST" action="/editor/reiniciarReportes"
-                                                              style="display: inline;">
+                                                              class="m-0">
                                                             <input type="hidden" name="id" value="{{id}}">
                                                             <input type="hidden" name="seccion" value="reportadas">
                                                             <button type="submit"
-                                                                    class="btn btn-warning px-2 py-1 text-white "
-                                                                    style="font-size: 1rem;">
+                                                                    class="btn btn-warning text-white btn-sm px-2 py-1 w-auto"
+                                                                    style="font-size: 0.9rem;">
                                                                 Reiniciar reportes
                                                             </button>
                                                         </form>
@@ -127,70 +134,82 @@
         </div>
 
         <!-- Preguntas existentes -->
-
         <div class="d-flex justify-content-center">
             <div class="collapse collapse-horizontal {{#collapseAbierto}}show{{/collapseAbierto}}"
                  id="collapseWidthExisting">
                 <div class="card card-body" style="width: 100%;">
                     <div class="col-lg-12 mb-3">
                         <div class="card shadow-sm border-0 h-100">
-                            <div class="card-header bg-info-subtle border-0">
-                                <h6 class="fw-bold mb-0 text-warning-emphasis mb-2">
+                            <div class="card-header bg-info-subtle border-0 pb-2">
+                                <h6 class="fw-bold mb-2 text-warning-emphasis">
                                     <i class="bi bi-question-diamond fs-5"></i> Preguntas existentes
                                 </h6>
-                                <form method="GET" action="/editor/mostrar" class="d-flex" role="search">
-                                    <input class="form-control me-2" name="textoIngresado" type="search"
+                                <form method="GET" action="/editor/mostrar" class="d-flex align-items-center"
+                                      role="search">
+                                    <input class="form-control form-control-sm me-2" name="textoIngresado" type="search"
                                            placeholder="Buscar preguntas..." value="{{textoIngresado}}"
-                                           aria-label="Search">
-                                    <button class="btn btn-sm btn-info" type="submit">Buscar</button>
+                                           aria-label="Search" style="height: 32px;">
+                                    <button class="btn btn-sm btn-info d-flex align-items-center justify-content-center"
+                                            type="submit" style="height: 32px; padding: 0 12px; white-space: nowrap;">
+                                        Buscar
+                                    </button>
                                     {{#hayBusqueda}}
                                         <a href="/editor/mostrar?seccion=existentes"
-                                           class="btn btn-sm btn-outline-secondary">Limpiar</a>
+                                           class="btn btn-sm btn-outline-secondary ms-1 d-flex align-items-center justify-content-center"
+                                           style="height: 32px; padding: 0 12px; white-space: nowrap;">
+                                            Limpiar
+                                        </a>
                                     {{/hayBusqueda}}
                                 </form>
                             </div>
                             <div class="card-body p-0">
-                                <div class="table-responsive" style="max-height: 300px;">
-                                    <table class="table table-hover mb-0">
+                                <div class="table-responsive" style="max-height: 350px;">
+                                    <table class="table table-hover mb-0 table-sm">
                                         <thead class="table-light sticky-top">
-                                        <tr>
-                                            <th class="fw-bold col-md-7">Enunciado</th>
-                                            <th class="fw-bold text-center col-md-2" style="min-width: 130px;">Categoria</th>
-                                            <th class="fw-bold text-center col-md-2">Acciones</th>
+                                        <tr style="height: 40px;">
+                                            <th class="fw-bold col-md-7 py-2">Enunciado</th>
+                                            <th class="fw-bold text-center col-md-2 py-2">Categoria</th>
+                                            <th class="fw-bold text-center col-md-2 py-2">Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         {{#preguntasExistentes}}
-                                            <tr class="align-middle">
-                                                <td class="px-3 py-3">
-                                                    <div class="text-wrap fw-medium">
+                                            <tr class="align-middle" style="height: 50px;">
+                                                <td class="px-3 py-2">
+                                                    <div class="text-wrap fw-medium" style="line-height: 1.3;">
                                                         {{enunciado}}
                                                     </div>
                                                 </td>
-                                                <td class="text-center px-3 py-3">
+                                                <td class="text-center px-3 py-2">
                                                     <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
                                                         {{categoria_descripcion}}
                                                     </span>
                                                 </td>
-                                                <td class="text-center px-3 py-3">
+                                                <td class="text-center px-3 py-2">
                                                     <div class="d-flex justify-content-center gap-1">
                                                         <form method="GET" action="/editor/mostrar">
                                                             <input type="hidden" name="id" value="{{id}}">
                                                             <input type="hidden" name="seccion" value="existentes">
-                                                            <button class="btn btn-outline-primary px-1 py-0 w-75"
-                                                                    style="font-size: 1rem;"
+                                                            <button class="btn btn-outline-info btn-sm px-2 py-1"
+                                                                    style="font-size: 0.8rem;"
                                                                     data-bs-target="#verDetallePregunta">
                                                                 Respuestas
                                                             </button>
                                                         </form>
-
+                                                        <form method="POST" action="/editarPregunta/mostrar">
+                                                            <input type="hidden" name="id" value="{{id}}">
+                                                            <button class="btn btn-outline-primary btn-sm px-2 py-1"
+                                                                    style="font-size: 0.8rem;">
+                                                                Editar
+                                                            </button>
+                                                        </form>
                                                         <form method="POST" action="/editor/eliminarPregunta"
                                                               style="display: inline;">
                                                             <input type="hidden" name="id" value="{{id}}">
                                                             <input type="hidden" name="seccion" value="existentes">
                                                             <button type="submit"
-                                                                    class="btn btn-outline-danger px-1 py-0 w-75"
-                                                                    style="font-size: 1rem;">
+                                                                    class="btn btn-outline-danger btn-sm px-2 py-1"
+                                                                    style="font-size: 0.8rem;">
                                                                 Eliminar
                                                             </button>
                                                         </form>
@@ -209,84 +228,81 @@
         </div>
 
         <!-- Preguntas sugeridas -->
-        <div class="d-flex justify-content-center">
-            <div class="collapse collapse-horizontal" id="collapseWidthSuggested">
-                <div class="card card-body" style="width: 100%;">
+        <div class=" w-100">
+            <div class="collapse collapse-horizontal {{#collapseSugerenciaAbierto}}show{{/collapseSugerenciaAbierto}}"
+                 id="collapseWidthSuggested">
+                <div class="card card-body w-100" style="width: 100%;">
                     <div class="col-lg-12 mb-3">
                         <div class="card shadow-sm border-0 h-100">
-                            <div class="card-header bg-success-subtle border-0">
-                                <h6 class="fw-bold mb-0 text-warning-emphasis"><i
-                                        class="bi bi-exclamation-diamond fs-5"></i> Preguntas sugeridas </h6>
+                            <div class="card-header bg-success-subtle border-0 pb-2">
+                                <h6 class="fw-bold mb-2 text-warning-emphasis">
+                                    <i class="bi bi-exclamation-diamond fs-5"></i> Preguntas sugeridas
+                                </h6>
                             </div>
                             <div class="card-body p-0">
-                                <div class="table-responsive" style="max-height: 400px;">
-                                    <table class="table table-hover mb-0">
+                                <div class="table-responsive" style="max-height: 350px;">
+                                    <table class="table table-hover mb-0 table-sm">
                                         <thead class="table-light sticky-top">
-                                        <tr>
-                                            <th class="fw-bold" style="min-width: 250px;">Enunciado</th>
-                                            <th class="fw-bold text-success" style="min-width: 150px;">Respuesta
-                                                correcta
-                                            </th>
-                                            <th class="fw-bold text-danger" style="min-width: 130px;">Respuesta 1</th>
-                                            <th class="fw-bold text-danger" style="min-width: 130px;">Respuesta 2</th>
-                                            <th class="fw-bold text-danger" style="min-width: 130px;">Respuesta 3</th>
-                                            <th class="fw-bold text-danger" style="min-width: 130px;">Categoria</th>
-                                            <th class="fw-bold text-center" style="min-width: 160px;">Acciones</th>
+                                        <tr style="height: 40px;">
+                                            <th class="fw-bold col-md-6 py-2">Enunciado</th>
+                                            <th class="fw-bold text-success text-center col-md-2 py-2">Respuesta correcta </th>
+                                            <th class="fw-bold text-danger text-center col-md-2 py-2">Respuestas incorrectas </th>
+                                            <th class="fw-bold text-center col-md-2 py-2">Categoría</th>
+                                            <th class="fw-bold text-center col-md-2 py-2">Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         {{#preguntasSugeridas}}
-                                            <tr class="align-middle">
-                                                <td class="px-3 py-3">
-                                                    <div class="fw-medium text-wrap" style="max-width: 300px;">
+                                            <tr class="align-middle" style="height: 50px;">
+                                                <td class="px-3 py-2">
+                                                    <div class="fw-medium text-wrap" style="line-height: 1.3;">
                                                         {{enunciado}}
                                                     </div>
                                                 </td>
-                                                <td class="px-3 py-3">
-                                        <span class="badge bg-success-subtle text-success-emphasis px-2 py-2 rounded-pill text-wrap">
-                                            {{respuesta_correcta}}
-                                        </span>
+                                                <td class="text-center px-2 py-2">
+                                                  <span class="badge bg-success-subtle text-success-emphasis px-2 py-1 fs-6">
+                                                {{respuesta_correcta}}
+                                            </span>
                                                 </td>
-                                                <td class="px-3 py-3">
-                                        <span class="badge bg-danger-subtle text-danger-emphasis px-2 py-2 rounded-pill text-wrap">
-                                            {{respuesta_1}}
-                                        </span>
+                                                <td class="text-center px-2 py-2">
+                                                    <div class="d-flex flex-column gap-1">
+                                                <span class="badge bg-danger-subtle text-danger-emphasis px-2 py-1 fs-6">
+                                                    {{respuesta_1}}
+                                                </span>
+                                                        <span class="badge bg-danger-subtle text-danger-emphasis px-2 py-1 fs-6">
+                                                            {{respuesta_2}}
+                                                        </span>
+                                                        <span class="badge bg-danger-subtle text-danger-emphasis px-2 py-1 fs-6">
+                                                            {{respuesta_3}}
+                                                        </span>
+                                                    </div>
                                                 </td>
-                                                <td class="px-3 py-3">
-                                        <span class="badge bg-danger-subtle text-danger-emphasis px-2 py-2 rounded-pill text-wrap">
-                                            {{respuesta_2}}
-                                        </span>
+                                                <td class="text-center px-2 py-2">
+                                            <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
+                                                {{categoria_descripcion}}
+                                            </span>
                                                 </td>
-                                                <td class="px-3 py-3">
-                                        <span class="badge bg-danger-subtle text-danger-emphasis px-2 py-2 rounded-pill text-wrap">
-                                            {{respuesta_3}}
-                                        </span>
-                                                </td>
-                                                <td class="px-3 py-3">
-                                        <span class="badge bg-warning-subtle text-warning-emphasis fs-6">
-                                            {{categoria_descripcion}}
-                                        </span>
-                                                </td>
-                                                <td class="text-center px-3 py-3">
-                                                    <div class="d-flex justify-content-center gap-1">
-                                                        <form method="POST" action="/editor/confirmarPreguntaJugador">
+                                                <td class="text-center px-2 py-2">
+                                                    <div class="d-flex justify-content-center align-items-center gap-1 flex-nowrap">
+                                                        <form method="POST" action="/editor/confirmarPreguntaJugador"
+                                                              class="m-0">
                                                             <input type="hidden" name="id_sugerencia"
                                                                    value="{{id_sugerencia}}">
-
-                                                            <button class="btn btn-outline-success px-1 py-0 w-75"
-                                                                    style="font-size: 1rem;">
+                                                            <input type="hidden" name="seccion" value="sugerencia">
+                                                            <button class="btn btn-outline-success btn-sm px-2 py-1 w-auto"
+                                                                    style="font-size: 0.85rem;">
                                                                 Aceptar
                                                             </button>
                                                         </form>
-
                                                         <form method="POST"
                                                               action="/editor/eliminarPreguntaSugeridaController"
-                                                              style="display: inline;">
+                                                              class="m-0">
                                                             <input type="hidden" name="id_sugerencia"
                                                                    value="{{id_sugerencia}}">
+                                                            <input type="hidden" name="seccion" value="sugerencia">
                                                             <button type="submit"
-                                                                    class="btn btn-outline-danger px-1 py-0 w-75"
-                                                                    style="font-size: 1rem;">
+                                                                    class="btn btn-outline-danger btn-sm px-2 py-1 w-auto"
+                                                                    style="font-size: 0.85rem;">
                                                                 Denegar
                                                             </button>
                                                         </form>
@@ -306,171 +322,143 @@
 
         <!-- Crear nueva pregunta -->
         <div class="d-flex justify-content-center">
-            <div class="collapse collapse-horizontal" id="collapseWidthCreateNewQuestion">
-                <div class="card card-body" style="width: 100%;">
+            <div class="collapse collapse-horizontal {{#collapseCrearPreguntaAbierto}}show{{/collapseCrearPreguntaAbierto}}" id="collapseWidthCreateNewQuestion" style="width: 100%;">
+                <div class="card shadow-sm border-0 h-100">
                     <div class="col-lg-12 mb-3">
-                        <div class="card shadow-sm border-0 h-100">
-                            <form action="/editor/confirmarPreguntaEditor" method="POST" enctype="multipart/form-data">
-                                <div class="mb-4">
-                                    <label class="form-label fw-semibold text-dark">
-                                        <i class="bi bi-question-circle me-1"></i>Enunciado de la pregunta
-                                    </label>
-                                    <textarea name="enunciadoPregunta" class="form-control form-control-lg" rows="2"
-                                              placeholder="Enunciado de la pregunta..."
-                                              required></textarea>
+                        <form action="/editor/confirmarPreguntaEditor" method="POST" enctype="multipart/form-data" class="p-4">
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-question-circle me-1"></i> Enunciado de la pregunta
+                                </label>
+                                <textarea name="enunciadoPregunta" class="form-control form-control-lg" rows="2" placeholder="Enunciado de la pregunta..." required></textarea>
+                            </div>
+
+                            <!-- Respuesta correcta -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold text-success">
+                                    <i class="bi bi-check-circle me-1"></i> Respuesta correcta
+                                </label>
+                                <input type="text" name="respuesta_correcta" class="form-control border-success" placeholder="Respuesta correcta..." required>
+                            </div>
+
+                            <!-- Respuestas incorrectas -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold text-danger">
+                                    <i class="bi bi-x-circle me-1"></i> Respuestas incorrectas
+                                </label>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <input type="text" name="respuesta_1" class="form-control border-danger" placeholder="Opción incorrecta 1..." required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="respuesta_2" class="form-control border-danger" placeholder="Opción incorrecta 2..." required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="respuesta_3" class="form-control border-danger" placeholder="Opción incorrecta 3..." required>
+                                    </div>
                                 </div>
+                            </div>
 
-                                <!-- Respuesta correcta -->
-                                <div class="mb-4">
-                                    <label class="form-label fw-semibold text-success">
-                                        <i class="bi bi-check-circle me-1"></i>Respuesta correcta
-                                    </label>
-                                    <input
-                                            type="text"
-                                            name="respuesta_correcta"
-                                            class="form-control border-success"
-                                            placeholder="Respuesta correcta..."
-                                            required>
-                                </div>
-
-                                <!-- Respuestas incorrectas -->
-                                <div class="mb-4">
-                                    <label class="form-label fw-semibold text-danger">
-                                        <i class="bi bi-x-circle me-1"></i>Respuestas incorrectas
-                                    </label>
-
-                                    <div class="row g-3">
-                                        <div class="col-md-4">
-                                            <input
-                                                    type="text"
-                                                    name="respuesta_1"
-                                                    class="form-control border-danger"
-                                                    placeholder="Opción incorrecta 1..."
-                                                    required>
+                            <!-- Categorías -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold text-info">
+                                    <i class="bi bi-tags me-1"></i> Categoría
+                                </label>
+                                <div class="row g-2">
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="categoria" id="arte" value="3" required>
+                                            <label class="form-check-label fw-medium" for="arte">
+                                                <i class="bi bi-brush fs-5"></i> Arte
+                                            </label>
                                         </div>
-                                        <div class="col-md-4">
-                                            <input
-                                                    type="text"
-                                                    name="respuesta_2"
-                                                    class="form-control border-danger"
-                                                    placeholder="Opción incorrecta 2..."
-                                                    required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="categoria" id="entretenimiento" value="4" required>
+                                            <label class="form-check-label fw-medium" for="entretenimiento">
+                                                <i class="bi bi-joystick fs-5"></i> Entretenimiento
+                                            </label>
                                         </div>
-                                        <div class="col-md-4">
-                                            <input
-                                                    type="text"
-                                                    name="respuesta_3"
-                                                    class="form-control border-danger"
-                                                    placeholder="Opción incorrecta 3..."
-                                                    required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="categoria" id="deportes" value="6" required>
+                                            <label class="form-check-label fw-medium" for="deportes">
+                                                <i class="bi bi-dribbble fs-5"></i> Deportes
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="categoria" id="geografia" value="1" required>
+                                            <label class="form-check-label fw-medium" for="geografia">
+                                                <i class="bi bi-globe-americas fs-5"></i> Geografía
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="categoria" id="ciencia" value="5" required>
+                                            <label class="form-check-label fw-medium" for="ciencia">
+                                                <i class="bi bi-flask fs-5"></i> Ciencia
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="categoria" id="historia" value="2" required>
+                                            <label class="form-check-label fw-medium" for="historia">
+                                                <i class="bi bi-book fs-5"></i> Historia
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Categorías -->
-                                <div class="mb-4">
-                                    <label class="form-label fw-semibold text-info">
-                                        <i class="bi bi-tags me-1"></i>Categoría
-                                    </label>
-                                    <div class="row g-2">
-                                        <div class="col-md-4">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="categoria"
-                                                       id="arte" value="3" required>
-                                                <label class="form-check-label fw-medium" for="arte">
-                                                    <i class="bi bi-brush fs-5"></i> Arte
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-check"><input class="form-check-input" type="radio"
-                                                                           name="categoria"
-                                                                           id="entretenimiento" value="4" required>
-                                                <label class="form-check-label fw-medium" for="entretenimiento">
-                                                    <i class="bi bi-joystick fs-5"></i> Entretenimiento
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-check"><input class="form-check-input" type="radio"
-                                                                           name="categoria"
-                                                                           id="deportes" value="6" required>
-                                                <label class="form-check-label fw-medium" for="deportes">
-                                                    <i class="bi bi-dribbble fs-5"></i> Deportes
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="categoria"
-                                                       id="geografia" value="1" required>
-                                                <label class="form-check-label fw-medium" for="geografia">
-                                                    <i class="bi bi-globe-americas fs-5"></i> Geografía </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="categoria"
-                                                       id="ciencia" value="5" required>
-                                                <label class="form-check-label fw-medium" for="ciencia">
-                                                    <i class="bi bi-flask fs-5"></i> Ciencia
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="categoria"
-                                                       id="historia" value="2" required>
-                                                <label class="form-check-label fw-medium" for="historia">
-                                                    <i class="bi bi-book fs-5"></i> Historia
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer border-0 bg-light p-4">
-                                    <button type="submit" class="btn btn-md btn-primary px-4">Guardar</button>
-                                </div>
-                            </form>
-                        </div>
+                            <div class="modal-footer border-0 bg-light p-4">
+                                <input type="hidden" name="seccion" value="crearPregunta">
+                                <button type="submit" class="btn btn-md btn-primary px-4">Guardar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!--  modal  -->
+        <!-- Modal -->
     <div class="modal fade {{#abrirModal}}show d-block{{/abrirModal}}" id="verDetallePregunta" tabindex="-1">
         <div class="modal-dialog modal-lg">
             {{#seccionOrigen}}
-                <div class="modal-content shadow-lg border-0">
+                <div class="modal-content shadow border-0">
                     <div class="modal-header bg-primary-subtle border-0">
                         <h5 class="modal-title text-primary-emphasis fw-bold">
-                            <i class="bi bi-info-circle me-2"></i>Detalles de la Pregunta
+                            <i class="bi bi-info-circle me-2"></i> Detalles de la Pregunta
                         </h5>
                         <a href="/editor/mostrar?seccion={{seccionOrigen}}" class="btn-close" aria-label="Close"></a>
                     </div>
                     <div class="modal-body p-4">
+
+                        <!-- Respuesta Correcta -->
                         {{#respuestasObtenidas}}
                             {{#es_correcta}}
-                                <!-- Respuesta correcta -->
                                 <div class="mb-4">
                                     <h6 class="text-success fw-semibold mb-2">
-                                        <i class="bi bi-check-circle-fill me-1"></i>Respuesta Correcta
+                                        <i class="bi bi-check-circle-fill me-1"></i> Respuesta Correcta
                                     </h6>
-                                    <div class="p-3 bg-success-subtle border border-success rounded-3">
+                                    <div class="bg-success-subtle border border-success rounded-3 p-3">
                                         <span class="text-success-emphasis fw-medium">{{descripcion}}</span>
                                     </div>
                                 </div>
                             {{/es_correcta}}
                         {{/respuestasObtenidas}}
 
-                        <!-- Respuestas incorrectas -->
+                        <!-- Respuestas Incorrectas -->
                         <div class="mb-3">
                             <h6 class="text-danger fw-semibold mb-2">
-                                <i class="bi bi-x-circle-fill me-1"></i>Respuestas Incorrectas
+                                <i class="bi bi-x-circle-fill me-1"></i> Respuestas Incorrectas
                             </h6>
-                            <div class="row g-2">
+                            <div class="row g-3">
                                 {{#respuestasObtenidas}}
                                     {{^es_correcta}}
                                         <div class="col-md-4">
@@ -483,10 +471,10 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="modal-footer border-0 bg-light p-3">
-                        <a href="/editor/mostrar?seccion={{seccionOrigen}}" class="btn btn-outline-secondary btn-sm
-                        px-3">
-                        <i class="bi bi-x-lg me-1"></i>Cerrar
+                        <a href="/editor/mostrar?seccion={{seccionOrigen}}" class="btn btn-outline-secondary btn-sm px-3">
+                        <i class="bi bi-x-lg me-1"></i> Cerrar
                         </a>
                     </div>
                 </div>
