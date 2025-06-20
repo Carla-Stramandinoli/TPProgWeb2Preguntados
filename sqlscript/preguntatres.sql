@@ -47,6 +47,7 @@ CREATE TABLE pregunta (
     cantidad_aciertos INT DEFAULT 0,
     fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
     cantidad_reportes INT DEFAULT 0,
+    pregunta_creada TINYINT DEFAULT 0,
     id_categoria INT NOT NULL,
     FOREIGN KEY (id_categoria) REFERENCES categoria(id)
 );

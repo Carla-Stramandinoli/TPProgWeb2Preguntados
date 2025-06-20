@@ -17,4 +17,9 @@ class AdministradorController
     {
         $this->view->render("administrador", ["showLogout" => true, "noEsJugador" => true]);
     }
+
+    public function estadisticas()
+    {
+        $this->view->render("estadisticas", ["showLogout" => true, "noEsJugador" => true]);
+    }
 }
