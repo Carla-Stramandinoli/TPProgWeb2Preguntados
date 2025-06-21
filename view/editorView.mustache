@@ -41,7 +41,7 @@
         {{/msjError}}
 
         <!-- Preguntas reportadas -->
-        <div class="d-flex justify-content-center">
+        <div class="w-100">
             <div class="collapse collapse-horizontal {{#collapseReportadaAbierto}}show{{/collapseReportadaAbierto}}"
                  id="collapseWidthReported">
                 <div class="card card-body" style="width: 100%;">
@@ -57,10 +57,10 @@
                                     <table class="table table-hover mb-0 table-sm w-100">
                                         <thead class="table-light sticky-top">
                                         <tr style="height: 40px;">
-                                            <th class="fw-bold col-md-7 py-2">Enunciado</th>
-                                            <th class="fw-bold text-center col-md-2">Reportes</th>
+                                            <th class="fw-bold col-md-7 px-2 py-2">Enunciado</th>
+                                            <th class="fw-bold text-center col-md-2 py-2">Reportes</th>
                                             <th class="fw-bold text-center col-md-2 py-2">Categoría</th>
-                                            <th class="fw-bold text-center col-md-2">Acciones</th>
+                                            <th class="fw-bold text-center col-md-2 py-2">Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -237,7 +237,7 @@
         </div>
 
         <!-- Preguntas sugeridas -->
-        <div class=" w-100">
+        <div class="w-100">
             <div class="collapse collapse-horizontal {{#collapseSugerenciaAbierto}}show{{/collapseSugerenciaAbierto}}"
                  id="collapseWidthSuggested">
                 <div class="card card-body w-100" style="width: 100%;">
@@ -253,7 +253,7 @@
                                     <table class="table table-hover mb-0 table-sm">
                                         <thead class="table-light sticky-top">
                                         <tr style="height: 40px;">
-                                            <th class="fw-bold col-md-6 py-2">Enunciado</th>
+                                            <th class="fw-bold col-md-6 px-2 py-2">Enunciado</th>
                                             <th class="fw-bold text-success text-center col-md-2 py-2">Respuesta
                                                 correcta
                                             </th>
@@ -261,10 +261,19 @@
                                                 incorrectas
                                             </th>
                                             <th class="fw-bold text-center col-md-2 py-2">Categoría</th>
-                                            <th class="fw-bold text-center col-md-2 py-2">Acciones</th>
+                                            <th class="fw-bold text-center col-md-2 px-2 py-2">Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        {{^preguntasSugeridas}}
+                                            <tr>
+                                                <td colspan="4" class="text-center py-4 text-muted" style="width: 100%;">
+                                                    <i class="bi bi-info-circle fs-5 me-2"></i>
+                                                    No hay preguntas sugeridas
+                                                </td>
+                                            </tr>
+                                        {{/preguntasSugeridas}}
+
                                         {{#preguntasSugeridas}}
                                             <tr class="align-middle" style="height: 50px;">
                                                 <td class="px-3 py-2">
