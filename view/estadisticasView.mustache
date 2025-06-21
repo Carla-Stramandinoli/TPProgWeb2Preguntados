@@ -1,6 +1,125 @@
-<main class="container-fluid flex-fill">
-    <div class="d-flex flex-column align-items-center">
-        <h2>Dashboard</h2>
+<main class="container py-4">
+    <h2 class="text-center mb-4">Dashboard</h2>
 
+    <!-- Formulario de filtro -->
+    <form action="/administrador/estadisticas" method="POST" class="mb-4 d-flex flex-column align-items-center">
+        <div class="mb-2">
+            <label for="filtro" class="form-label">Filtrar por:</label>
+            <select name="filtro" id="filtro" class="form-select" onchange="mostrarCampoFecha()">
+                <option value="historico">Histórico</option>
+                <option value="dia">Día</option>
+                <option value="mes">Mes</option>
+                <option value="anio">Año</option>
+            </select>
+        </div>
+
+        <div id="filtro-dia" class="filtro-fecha mb-2" style="display: none;">
+            <label for="fecha-dia" class="form-label">Elegí el día:</label>
+            <input type="date" name="fecha_dia" id="fecha-dia" class="form-control">
+        </div>
+
+        <div id="filtro-mes" class="filtro-fecha mb-2" style="display: none;">
+            <label for="fecha-mes" class="form-label">Elegí el mes:</label>
+            <input type="month" name="fecha_mes" id="fecha-mes" class="form-control">
+        </div>
+
+        <div id="filtro-anio" class="filtro-fecha mb-2" style="display: none;">
+            <label for="fecha-anio" class="form-label">Elegí el año:</label>
+            <input type="number" name="fecha_anio" id="fecha-anio" class="form-control" min="2000" max="2099" value="2025">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </form>
+
+    <!-- Tarjetas con datos -->
+    <div class="row text-center mb-4">
+        <div class="col-md-4 mb-2"><div class="card"><div class="card-body">Jugadores Totales: <strong>{{numJugadoresTotales}}</strong></div></div></div>
+        <div class="col-md-4 mb-2"><div class="card"><div class="card-body">Preguntas Totales: <strong>{{numPreguntasTotales}}</strong></div></div></div>
+        <div class="col-md-4 mb-2"><div class="card"><div class="card-body">Preguntas Creadas: <strong>{{numPreguntasCreadas}}</strong></div></div></div>
+        <div class="col-md-4 mb-2"><div class="card"><div class="card-body">% de Aciertos: <strong>{{numPorcentajeAciertos}}%</strong></div></div></div>
+        <div class="col-md-4 mb-2"><div class="card"><div class="card-body">Jugadores Nuevos: <strong>{{jugadoresNuevos}}</strong></div></div></div>
+        <div class="col-md-4 mb-2"><div class="card"><div class="card-body">Jugadores por País: <strong>{{paises}}</strong></div></div></div>
     </div>
+
+    <!-- Google Charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart', 'bar'] });
+        google.charts.setOnLoadCallback(drawCharts);
+
+        function drawCharts() {
+            drawGeneroChart();
+            drawEdadChart();
+            drawDataChart();
+        }
+
+        function drawGeneroChart() {
+            const data = google.visualization.arrayToDataTable([
+                ['Género', 'Cantidad'],
+                ['Hombres', {{numHombres}}],
+                ['Mujeres', {{numMujeres}}],
+                ['Otros', {{numOtros}}]
+            ]);
+            const options = { title: 'Distribución por Género', is3D: true };
+            new google.visualization.PieChart(document.getElementById('chart_genero')).draw(data, options);
+        }
+
+        function drawEdadChart() {
+            const data = google.visualization.arrayToDataTable([
+                ['Edad', 'Cantidad'],
+                ['Menores', {{numMenores}}],
+                ['Mayores', {{numMayores}}],
+                ['Jubilados', {{numJubilados}}]
+            ]);
+            const options = { title: 'Distribución por Edad', is3D: true };
+            new google.visualization.PieChart(document.getElementById('chart_edad')).draw(data, options);
+        }
+
+        function drawDataChart() {
+            const data = google.visualization.arrayToDataTable([
+                ['Métrica', 'Cantidad'],
+                ['Jugadores Totales', {{numJugadoresTotales}}],
+                ['Preguntas Totales', {{numPreguntasTotales}}],
+                ['Preguntas Creadas', {{numPreguntasCreadas}}],
+                ['% Aciertos', {{numPorcentajeAciertos}}],
+                ['Jugadores Nuevos', {{jugadoresNuevos}}]
+            ]);
+            const options = {
+                chart: {
+                    title: 'Resumen de Métricas'
+                },
+                bars: 'horizontal',
+                height: 400
+            };
+            new google.charts.Bar(document.getElementById('chart_data')).draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+
+    <!-- Contenedor de gráficos -->
+    <div class="row">
+        <div class="col-md-4 mb-4"><div id="chart_genero" style="width:100%; height: 400px;"></div></div>
+        <div class="col-md-4 mb-4"><div id="chart_edad" style="width:100%; height: 400px;"></div></div>
+        <div class="col-md-4 mb-4"><div id="chart_data" style="width:100%; height: 400px;"></div></div>
+    </div>
+
+    <!-- Script para mostrar campos -->
+    <script>
+        function mostrarCampoFecha() {
+            const filtro = document.getElementById('filtro').value;
+            document.querySelectorAll('.filtro-fecha').forEach(div => div.style.display = 'none');
+
+            if (filtro === 'dia') {
+                document.getElementById('filtro-dia').style.display = 'block';
+                document.getElementById('fecha-dia').valueAsDate = new Date();
+            } else if (filtro === 'mes') {
+                document.getElementById('filtro-mes').style.display = 'block';
+                const hoy = new Date();
+                document.getElementById('fecha-mes').value = hoy.toISOString().slice(0, 7);
+            } else if (filtro === 'anio') {
+                document.getElementById('filtro-anio').style.display = 'block';
+                document.getElementById('fecha-anio').value = new Date().getFullYear();
+            }
+        }
+        document.addEventListener("DOMContentLoaded", mostrarCampoFecha);
+    </script>
 </main>
