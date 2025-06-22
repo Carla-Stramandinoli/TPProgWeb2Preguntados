@@ -13,6 +13,7 @@ function drawGeneroChart() {
     const numHombres = document.getElementById('numHombres').value;
     const numMujeres = document.getElementById('numMujeres').value;
     const numOtros = document.getElementById('numOtros').value;
+    const fecha = document.getElementById('leyenda').value;
 
     const data = google.visualization.arrayToDataTable([
         ['Género', 'Cantidad'],
@@ -22,6 +23,7 @@ function drawGeneroChart() {
     ]);
 
     const options = {
+        title: `${fecha}`,
         height: 300,
         is3D: true,
         pieSliceText: 'value',
@@ -40,6 +42,7 @@ function drawEdadChart() {
     const numMenores = document.getElementById('numMenores').value;
     const numMayores = document.getElementById('numMayores').value;
     const numJubilados = document.getElementById('numJubilados').value;
+    const fecha = document.getElementById('leyenda').value;
 
     const data = google.visualization.arrayToDataTable([
         ['Edad', 'Cantidad'],
@@ -49,11 +52,17 @@ function drawEdadChart() {
     ]);
 
     const options = {
+        title: `${fecha}`,
         height: 300,
         is3D: true,
         pieSliceText: 'value',
         pieSliceTextStyle: { fontSize: 18 },
         titleTextStyle: { fontSize: 20 },
+        hAxis: {
+            title: `Datos  ${fecha}`,
+            titleTextStyle: { fontName: 'Arial', bold: true, fontSize: 14 },
+            textStyle: { fontName: 'Arial', bold: true, fontSize: 12 }
+        },
         legend: { position: 'right', textStyle: { fontName: 'Arial',
                 bold: true,
                 fontSize: 15} }
@@ -66,11 +75,14 @@ function drawEdadChart() {
 function drawJugadoresChart() {
     const jugadoresTotales = document.getElementById('numJugadoresTotales').value;
     const jugadoresNuevos = document.getElementById('jugadoresNuevos').value;
+    const numPartidasJugadas = document.getElementById('numPartidasJugadas').value;
+    const fecha = document.getElementById('leyenda').value;
 
     const data = google.visualization.arrayToDataTable([
         ['Jugadores', 'Cantidad', { role: 'style' }],
         [`Jugadores Totales ${jugadoresTotales}`, Number(jugadoresTotales), '#1b9e77'],
-        [`Jugadores Nuevos ${jugadoresNuevos}`, Number(jugadoresNuevos), '#d95f02']
+        [`Jugadores Nuevos  ${jugadoresNuevos}`, Number(jugadoresNuevos), '#d95f02'],
+        [`Partidas  ${numPartidasJugadas}`, Number(numPartidasJugadas), '#2f0d79']
     ]);
 
     const options = {
@@ -86,7 +98,7 @@ function drawJugadoresChart() {
         },
         bar: { groupWidth: '60%' },
         hAxis: {
-            title: 'Cantidad',
+            title: `Jugadores nuevos y partidas desde ${fecha}`,
             titleTextStyle: { fontName: 'Arial', bold: true, fontSize: 14 },
             textStyle: { fontName: 'Arial', bold: true, fontSize: 12 }
         },
@@ -106,6 +118,8 @@ function drawDataChart() {
     const preguntasTotales = document.getElementById('numPreguntasTotales').value;
     const preguntasCreadas = document.getElementById('numPreguntasCreadas').value;
     const porcentajeAciertos = document.getElementById('numPorcentajeAciertos').value;
+    const fecha = document.getElementById('leyenda').value;
+
 
     const data = google.visualization.arrayToDataTable([
         ['Preguntas', 'Cantidad', { role: 'style' }],
@@ -127,7 +141,7 @@ function drawDataChart() {
         },
         bar: { groupWidth: '60%' },
         hAxis: {
-            title: 'Cantidad',
+            title: `Preguntas creadas y % de aciertos desde ${fecha}`,
             titleTextStyle: { fontName: 'Arial', bold: true, fontSize: 14 },
             textStyle: { fontName: 'Arial', bold: true, fontSize: 12 }
         },
