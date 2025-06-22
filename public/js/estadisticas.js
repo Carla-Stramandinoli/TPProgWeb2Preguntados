@@ -204,31 +204,32 @@ function drawDataChart() {
 
         const { jsPDF } = window.jspdf;
 
-        document.getElementById('btn-imprimir').addEventListener('click', async function (e) {
-            e.preventDefault();
-            const contenido = document.getElementById('contenido-imprimible');
+document.getElementById('btn-imprimir').addEventListener('click', async function (e) {
+    e.preventDefault();
+    const contenido = document.getElementById('contenido-imprimible');
+    const btn = document.getElementById('btn-imprimir');
+    const loader = document.getElementById('pdf-loading');
 
-            // Ocultamos el botón antes de capturar
-            document.getElementById('btn-imprimir').style.display = 'none';
+    btn.style.display = 'none';
+    loader.style.display = 'block'; // Mostrar spinner
 
-            // Esperamos que los gráficos se terminen de renderizar
-            await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise(resolve => setTimeout(resolve, 50)); // pequeño delay para que el DOM pinte el mensaje
 
-            const canvas = await html2canvas(contenido, { scale: 2 });
-            const imgData = canvas.toDataURL('image/png');
+    const canvas = await html2canvas(contenido, { scale: 1 });
+    const imgData = canvas.toDataURL('image/jpeg', 0.7);
 
-            // Restauramos el botón
-            document.getElementById('btn-imprimir').style.display = 'inline-block';
+    btn.style.display = 'inline-block';
+    loader.style.display = 'none'; // Ocultar spinner
 
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const imgProps = pdf.getImageProperties(imgData);
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
 
-            const pdfBlob = pdf.output('blob');
-            const pdfUrl = URL.createObjectURL(pdfBlob);
+    const pdfBlob = pdf.output('blob');
+    const pdfUrl = URL.createObjectURL(pdfBlob);
 
-            window.open(pdfUrl, '_blank');
-        });
+    window.open(pdfUrl, '_blank');
+});
