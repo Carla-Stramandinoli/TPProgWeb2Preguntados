@@ -64,10 +64,10 @@ class AdministradorController
         }
         $numJugadoresTotales = $this->model->obtenerCantidadTotalDeJugadoresActivos();
         $numPreguntasTotales = $this->model->obtenerCantidadTotalDePreguntasEnJuego();
-        $numCantidadDePartidasJugadas = $this->model->obtenerCantidadTotalDePartidasJugadas();
+        $numCantidadDePartidasJugadas = $this->model->obtenerCantidadTotalDePartidasJugadasDesdeUnaFecha($fechaStringQuery);
         $numPorcentajeAciertos = $this->model->obtenerPorcentajeDeAciertosDePreguntasJugadasPorJugadoresDesdeUnaFecha($fechaStringQuery);
         $numPorcentajeAciertos = number_format($numPorcentajeAciertos,1);
-        $numCantidadTotalDePreguntasCreadas = $this->model->obtenerCantidadTotalDePreguntasCreadas();
+        $numCantidadTotalDePreguntasCreadas = $this->model->obtenerCantidadTotalDePreguntasCreadasDesdeUnaFecha($fechaStringQuery);
         $numHombres = $mapaGeneros['1'] ?? 0;
         $numMujeres = $mapaGeneros['2'] ?? 0;
         $numOtros = $mapaGeneros['3'] ?? 0; // o como se llame en tu base

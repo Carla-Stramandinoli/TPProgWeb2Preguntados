@@ -14,20 +14,22 @@ class AdministradorModel
         $resultado = $this->database->query("SELECT COUNT(*) as cantidad FROM jugador WHERE cuenta_activada = 1");
         return isset($resultado[0]['cantidad']) ? $resultado[0]['cantidad'] : false;
     }
-    public function obtenerCantidadTotalDePartidasJugadas()
+    public function obtenerCantidadTotalDePartidasJugadasDesdeUnaFecha($fechaInicio)
     {
-        $resultado = $this->database->query("SELECT COUNT(*) as cantidad FROM partida");
-        return isset($resultado[0]['cantidad']) ? $resultado[0]['cantidad'] : false;
+        $sql = "SELECT COUNT(*) as cantidad FROM partida WHERE fecha_partida >= ?";
+        $resultado = $this->database->queryWithParams($sql, [$fechaInicio]);
+        return $resultado[0]['cantidad'] ?? 0;
     }
     public function obtenerCantidadTotalDePreguntasEnJuego()
     {
         $resultado = $this->database->query("SELECT COUNT(*) as cantidad FROM pregunta");
         return isset($resultado[0]['cantidad']) ? $resultado[0]['cantidad'] : false;
     }
-    public function obtenerCantidadTotalDePreguntasCreadas()
+    public function obtenerCantidadTotalDePreguntasCreadasDesdeUnaFecha($fechaInicio)
     {
-        $resultado = $this->database->query("SELECT COUNT(*) as cantidad FROM pregunta WHERE pregunta_creada = 1");
-        return isset($resultado[0]['cantidad']) ? $resultado[0]['cantidad'] : false;
+        $sql = "SELECT COUNT(*) as cantidad FROM pregunta WHERE pregunta_creada = 1 AND fecha_creacion >= ?";
+        $resultado = $this->database->queryWithParams($sql, [$fechaInicio]);
+        return $resultado[0]['cantidad'] ?? 0;
     }
     public function obtenerPorcentajeDeAciertosDePreguntasJugadasPorJugadoresDesdeUnaFecha($fechaInicio)
     {
