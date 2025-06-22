@@ -29,12 +29,14 @@ class AdministradorModel
         $resultado = $this->database->query("SELECT COUNT(*) as cantidad FROM pregunta WHERE pregunta_creada = 1");
         return isset($resultado[0]['cantidad']) ? $resultado[0]['cantidad'] : false;
     }
-    public function obtenerPorcentajeDeAciertosDePreguntasJugadasPorJugadores()
+    public function obtenerPorcentajeDeAciertosDePreguntasJugadasPorJugadoresDesdeUnaFecha($fechaInicio)
     {
-        $resultado = $this->database->query("SELECT AVG(porcentaje) AS promedio
+        $sql = ("SELECT AVG(porcentaje) AS promedio
                                 FROM (SELECT(cantidad_aciertos / cantidad_jugada) * 100 AS porcentaje
-                                FROM jugador WHERE cantidad_jugada > 0) AS subconsulta");
-        return $resultado[0]["promedio"] ?? 0;
+                                FROM jugador WHERE cantidad_jugada > 0 AND fecha_registro >= ?) AS subconsulta");
+        $resultado = $this->database->queryWithParams($sql, [$fechaInicio]);
+        return $resultado[0]['promedio'] ?? 0;
+
     }
 
     public function construirFiltroFecha($columnaFecha, $anio = null, $mes = null, $dia = null) {
@@ -77,6 +79,22 @@ class AdministradorModel
 
         $resultado = $this->database->queryWithParams($sql, $parametros);
         return isset($resultado[0]['cantidad']) ? $resultado[0]['cantidad'] : false;
+    }
+
+    public function obtenerCantidadDeJugadoresPorPaisFiltradosPorFecha($anio = null, $mes = null, $dia = null)
+    {
+        $columnaFecha = "fecha_registro";
+        $filtroFecha = $this->construirFiltroFecha($columnaFecha, $anio, $mes, $dia);
+        $condiciones = $filtroFecha["condiciones"];
+        $parametros = $filtroFecha["parametros"];
+
+        $sql = "SELECT pais, COUNT(*) as cantidad FROM jugador";
+        if (!empty($condiciones)) {
+            $sql .= " WHERE " . implode(" AND ", $condiciones);
+        }
+        $sql .= " GROUP BY pais";
+
+        return $this->database->queryWithParams($sql, $parametros);
     }
     public function obtenerCantidadDeJugadoresPorSexosFiltradosPorFecha($anio = null, $mes = null, $dia = null)
     {
