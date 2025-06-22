@@ -1,0 +1,120 @@
+<main class="container py-4" >
+    <h2 class="text-center mb-4">Dashboard</h2>
+
+    <!-- Filtro -->
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8 text-center">
+            <form action="/administrador/estadisticas" method="POST" class="d-flex flex-column align-items-center">
+                <label for="filtro" class="fs-5">Filtrar por:</label>
+                <select name="filtro" id="filtro" class="form-select w-50" onchange="mostrarCampoFecha()">>
+                    <option value="historico" {{#esHistorico}}selected{{/esHistorico}}>Histórico</option>
+                    <option value="dia" {{#esDia}}selected{{/esDia}}>Día</option>
+                    <option value="mes" {{#esMes}}selected{{/esMes}}>Mes</option>
+                    <option value="anio" {{#esAnio}}selected{{/esAnio}}>Año</option>
+                </select>
+
+                <div id="filtro-dia" class="filtro-fecha mt-2" style="display: none;">
+                    <input type="date" name="fecha_dia" id="fecha-dia" class="form-control" value="{{fechaDia}}">
+                </div>
+
+                <div id="filtro-mes" class="filtro-fecha mt-2" style="display: none;">
+                    <input type="month" name="fecha_mes" id="fecha-mes" class="form-control" value="{{fechaMes}}">
+                </div>
+
+                <div id="filtro-anio" class="filtro-fecha mt-2" style="display: none;">
+                     <input type="number" name="fecha_anio" id="fecha-anio" class="form-control" value="{{fechaAnio}}">
+                </div>
+                <input type="hidden" name="leyenda_fecha" id="leyenda_fecha_oculta">
+                <p id="leyenda-fecha" class="mt-2 fw-bold text-primary"></p>
+                <div class="col-md-8 text-center">
+               <button type="submit" class="btn btn-primary mt-3 col-md-4">Filtrar</button>
+                    <button class="btn btn-primary mt-3 col-md-4" id="btn-imprimir">Imprimir PDF</button></div>
+                    <!--                    <a href="/administrador/imprimirPdf" type="submit" class="btn btn-primary mt-3 col-md-4">Imprimir pdf</a></div>-->
+            </form>
+            <div id="pdf-loading" style="display: none; position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); background: white; padding: 20px 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3); z-index: 9999; font-weight: bold;">
+                Generando PDF, por favor espere...
+            </div>
+
+        </div>
+    </div>
+    <div class="text-center " id="contenido-imprimible">
+        {{^filtroPorFecha}}
+            <h3 class="py-3 fw-bold mb-3"> Datos Historicos  </h3>{{/filtroPorFecha}}
+        {{#filtroPorFecha}}
+            <h3 class="py-3 fw-bold mb-3"> {{leyenda}}  </h3>{{/filtroPorFecha}}
+
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h4 class="text-center fw-bold mb-3">Comparativa de Jugadores</h4>
+                <div class="d-flex">
+                    <div id="chart_jugadores" style="flex-grow: 1;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4 class="text-center fw-bold mb-3">Distribución por Edad</h4>
+                <div class="d-flex">
+                    <div id="chart_edad" style="flex-grow: 1; height: 250px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h4 class="text-center fw-bold mb-3">Datos de Preguntas</h4>
+                <div class="d-flex">
+                    <div id="chart_data" style="flex-grow: 1;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4 class="text-center fw-bold mb-3">Distribución por Género</h4>
+                <div class="d-flex">
+                    <div id="chart_genero" style="flex-grow: 1; height: 250px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GeoChart -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="text-center fw-bold mb-3">Jugadores por País</h4>
+            <div id="chart_geo" style="height: 500px;"></div>
+        </div>
+    </div>
+    </div>
+    <input type="hidden" id="numHombres" value="{{numHombres}}">
+    <input type="hidden" id="numMujeres" value="{{numMujeres}}">
+    <input type="hidden" id="numOtros" value="{{numOtros}}">
+    <input type="hidden" id="numJugadoresTotales" value="{{numJugadoresTotales}}">
+    <input type="hidden" id="numPreguntasTotales" value="{{numPreguntasTotales}}">
+    <input type="hidden" id="numPartidasJugadas" value="{{numPartidasJugadas}}">
+    <input type="hidden" id="numPorcentajeAciertos" value="{{numPorcentajeAciertos}}">
+    <input type="hidden" id="numPreguntasCreadas" value="{{numPreguntasCreadas}}">
+    <input type="hidden" id="numMenores" value="{{numMenores}}">
+    <input type="hidden" id="numJubilados" value="{{numJubilados}}">
+    <input type="hidden" id="jugadoresNuevos" value="{{jugadoresNuevos}}">
+    <input type="hidden" id="numMayores" value="{{numMayores}}">
+
+</main>
+    <!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/public/js/estadisticas.js"></script>
+<script>
+    function drawGeoChart() {
+         const data = google.visualization.arrayToDataTable([
+             ['Country', 'Jugadores'],
+             {{#paises}}
+         ['{{pais}}', {{cantidad}}],
+         {{/paises}}
+         ]);
+             const options = {
+                 colorAxis: {colors: ['#aec7e8', '#1f77b4']}
+             };
+             new google.visualization.GeoChart(document.getElementById('chart_geo')).draw(data, options);
+         }
+</script>
+
+</main>

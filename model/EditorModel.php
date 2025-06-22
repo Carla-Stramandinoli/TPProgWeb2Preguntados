@@ -42,8 +42,8 @@ class EditorModel
 
     public function guardarPregunta($pregunta)
     {
-        return $this->database->execute("INSERT INTO pregunta (enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria)
-                                    VALUES('{$pregunta["enunciado"]}', 0, 0, NOW(), 0, '{$pregunta["categoria"]}')");
+        return $this->database->execute("INSERT INTO pregunta (enunciado, cantidad_jugada, cantidad_aciertos, fecha_creacion, cantidad_reportes, id_categoria, pregunta_creada)
+                                    VALUES('{$pregunta["enunciado"]}', 0, 0, NOW(), 0, '{$pregunta["categoria"]}', 1)");
     }
 
     public function guardarRespuestas($respuestas, $id_pregunta)

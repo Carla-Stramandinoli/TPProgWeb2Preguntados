@@ -6,6 +6,7 @@ require_once("core/Router.php");
 require_once("core/Permisos.php");
 require_once("core/EmailSender.php");
 require_once("core/QrGenerator.php");
+require_once("core/GeneradorDeGraficos.php");
 
 require_once("controller/LobbyController.php");
 require_once("controller/IngresoController.php");
@@ -27,7 +28,8 @@ require_once("model/AdministradorModel.php");
 require_once("model/LobbyModel.php");
 require_once("model/EditarPreguntaModel.php");
 
-
+require_once('vendor/jpgraph/src/jpgraph.php');
+require_once('vendor/jpgraph/src/jpgraph_line.php');
 require_once('vendor/mustache/src/Mustache/Autoloader.php');
 require_once('vendor/phpmailer/autoloader.php');
 require_once('vendor/phpqrcode/qrlib.php');
@@ -79,9 +81,14 @@ class Configuration
         return new EditorController(new EditorModel($this->getDatabase()) ,$this->getViewer());
     }
 
-    public function getAdministradorController()
+    public function getAdministradorController( )
     {
-        return new AdministradorController(new AdministradorModel($this->getDatabase()) ,$this->getViewer());
+        return new AdministradorController(new AdministradorModel($this->getDatabase()) ,$this->getViewer(), $this->getGeneradorDeGraficos());
+    }
+
+    public function getGeneradorDeGraficos()
+    {
+        return new GeneradorDeGraficos();
     }
 
     public function getEditarPreguntaController()
