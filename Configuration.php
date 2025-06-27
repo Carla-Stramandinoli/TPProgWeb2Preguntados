@@ -28,8 +28,6 @@ require_once("model/AdministradorModel.php");
 require_once("model/LobbyModel.php");
 require_once("model/EditarPreguntaModel.php");
 
-require_once('vendor/jpgraph/src/jpgraph.php');
-require_once('vendor/jpgraph/src/jpgraph_line.php');
 require_once('vendor/mustache/src/Mustache/Autoloader.php');
 require_once('vendor/phpmailer/autoloader.php');
 require_once('vendor/phpqrcode/qrlib.php');
