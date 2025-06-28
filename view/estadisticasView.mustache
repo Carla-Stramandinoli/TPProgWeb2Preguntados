@@ -202,6 +202,32 @@
                     <h4 class="text-center fw-bold mb-3">Jugadores por País</h4>
                     <div id="chart_geo" style="height: 500px;"></div>
                 </div>
+                <div class="col-md-6">
+                    <table class="table table-hover mb-0 table-sm" style="height: 250px;">
+                        <thead class="table-light sticky-top">
+                        <tr style="height: 40px;">
+                            <th class="fw-bold col-md-7 px-2 py-2">Dato</th>
+                            <th class="fw-bold text-center col-md-2 py-2">Resultado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#arrayPaisesIterable}}
+                            <tr class="align-middle" style="height: 50px;">
+                                <td class="px-3 py-2">
+                                    <div class="text-wrap fw-medium" style="line-height: 1.3;">
+                                        {{dato}}
+                                    </div>
+                                </td>
+                                <td class="px-3 py-2">
+                                    <div class="text-wrap fw-medium" style="line-height: 1.3;">
+                                        {{valor}}
+                                    </div>
+                                </td>
+                            </tr>
+                        {{/arrayPaisesIterable}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <input type="hidden" id="numHombres" value="{{numHombres}}">
