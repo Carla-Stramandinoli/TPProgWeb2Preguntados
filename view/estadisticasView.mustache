@@ -1,4 +1,4 @@
-<main class="container py-4" >
+<main class="container-fluid py-4">
     <h2 class="text-center mb-4">Dashboard</h2>
 
     <!-- Filtro -->
@@ -22,14 +22,15 @@
                 </div>
 
                 <div id="filtro-anio" class="filtro-fecha mt-2" style="display: none;">
-                     <input type="number" name="fecha_anio" id="fecha-anio" class="form-control" value="{{fechaAnio}}">
+                    <input type="number" name="fecha_anio" id="fecha-anio" class="form-control" value="{{fechaAnio}}">
                 </div>
                 <input type="hidden" name="leyenda_fecha" id="leyenda_fecha_oculta">
                 <p id="leyenda-fecha" class="mt-2 fw-bold text-primary"></p>
                 <div class="col-md-8 text-center">
-               <button type="submit" class="btn btn-primary mt-3 col-md-4">Filtrar</button>
-                    <button class="btn btn-primary mt-3 col-md-4" id="btn-imprimir">Imprimir PDF</button></div>
-                    <!--                    <a href="/administrador/imprimirPdf" type="submit" class="btn btn-primary mt-3 col-md-4">Imprimir pdf</a></div>-->
+                    <button type="submit" class="btn btn-primary mt-3 col-md-4">Filtrar</button>
+                    <button class="btn btn-primary mt-3 col-md-4" id="btn-imprimir">Imprimir PDF</button>
+                </div>
+                <!--                    <a href="/administrador/imprimirPdf" type="submit" class="btn btn-primary mt-3 col-md-4">Imprimir pdf</a></div>-->
             </form>
             <div id="pdf-loading" style="display: none; position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%); background: white; padding: 20px 40px;
@@ -45,77 +46,197 @@
         {{#filtroPorFecha}}
             <h3 class="py-3 fw-bold mb-3"> {{leyenda}}  </h3>{{/filtroPorFecha}}
 
-
-        <div class="row mb-4">
+        <div class="row mb-4 col-md-12">
             <div class="col-md-6">
                 <h4 class="text-center fw-bold mb-3">Comparativa de Jugadores</h4>
-                <div class="d-flex">
-                    <div id="chart_jugadores" style="flex-grow: 1;"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <div id="chart_jugadores" style="flex-grow: 1;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-hover mb-0 table-sm">
+                            <thead class="table-light sticky-top">
+                            <tr style="height: 40px;">
+                                <th class="fw-bold col-md-7 px-2 py-2">Dato</th>
+                                <th class="fw-bold text-center col-md-2 py-2">Resultado</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#comparativaJugadoresIterable}}
+                                <tr class="align-middle" style="height: 50px;">
+                                    <td class="px-3 py-2">
+                                        <div class="text-wrap fw-medium" style="line-height: 1.3;">
+                                            {{dato}}
+                                        </div>
+                                    </td>
+                                    <td class="px-3 py-2">
+                                        <div class="text-wrap fw-medium" style="line-height: 1.3;">
+                                            {{valor}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {{/comparativaJugadoresIterable}}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+
             <div class="col-md-6">
                 <h4 class="text-center fw-bold mb-3">Distribución por Edad</h4>
-                <div class="d-flex">
-                    <div id="chart_edad" style="flex-grow: 1; height: 250px;"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <div id="chart_edad" style="flex-grow: 1; height: 250px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-hover mb-0 table-sm">
+                            <thead class="table-light sticky-top">
+                            <tr style="height: 40px;">
+                                <th class="fw-bold col-md-7 px-2 py-2">Dato</th>
+                                <th class="fw-bold text-center col-md-2 py-2">Resultado</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#distribucionPorEdadIterable}}
+                                <tr class="align-middle" style="height: 50px;">
+                                    <td class="px-3 py-2">
+                                        <div class="text-wrap fw-medium" style="line-height: 1.3;">
+                                            {{dato}}
+                                        </div>
+                                    </td>
+                                    <td class="px-3 py-2">
+                                        <div class="text-wrap fw-medium" style="line-height: 1.3;">
+                                            {{valor}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {{/distribucionPorEdadIterable}}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row mb-4">
+
+        <div class="row mb-4 col-md-12">
             <div class="col-md-6">
                 <h4 class="text-center fw-bold mb-3">Datos de Preguntas</h4>
-                <div class="d-flex">
-                    <div id="chart_data" style="flex-grow: 1;"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <div id="chart_data" style="flex-grow: 1;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-hover mb-0 table-sm">
+                            <thead class="table-light sticky-top">
+                            <tr style="height: 40px;">
+                                <th class="fw-bold col-md-7 px-2 py-2">Dato</th>
+                                <th class="fw-bold text-center col-md-2 py-2">Resultado</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#distribucionPorDatosPreguntasIterable}}
+                                <tr class="align-middle" style="height: 50px;">
+                                    <td class="px-3 py-2">
+                                        <div class="text-wrap fw-medium" style="line-height: 1.3;">
+                                            {{dato}}
+                                        </div>
+                                    </td>
+                                    <td class="px-3 py-2">
+                                        <div class="text-wrap fw-medium" style="line-height: 1.3;">
+                                            {{valor}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {{/distribucionPorDatosPreguntasIterable}}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <h4 class="text-center fw-bold mb-3">Distribución por Género</h4>
-                <div class="d-flex">
-                    <div id="chart_genero" style="flex-grow: 1; height: 250px;"></div>
+                <div class="row">
+                    <h4 class="text-center fw-bold mb-3">Distribución por Genero</h4>
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <div id="chart_genero" style="flex-grow: 1; height: 250px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-hover mb-0 table-sm" style="height: 250px;">
+                            <thead class="table-light sticky-top">
+                            <tr style="height: 40px;">
+                                <th class="fw-bold col-md-7 px-2 py-2">Dato</th>
+                                <th class="fw-bold text-center col-md-2 py-2">Resultado</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#distribucionPorGeneroIterable}}
+                                <tr class="align-middle" style="height: 50px;">
+                                    <td class="px-3 py-2">
+                                        <div class="text-wrap fw-medium" style="line-height: 1.3;">
+                                            {{dato}}
+                                        </div>
+                                    </td>
+                                    <td class="px-3 py-2">
+                                        <div class="text-wrap fw-medium" style="line-height: 1.3;">
+                                            {{valor}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {{/distribucionPorGeneroIterable}}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- GeoChart -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <h4 class="text-center fw-bold mb-3">Jugadores por País</h4>
-            <div id="chart_geo" style="height: 500px;"></div>
-        </div>
-    </div>
-    </div>
-    <input type="hidden" id="numHombres" value="{{numHombres}}">
-    <input type="hidden" id="numMujeres" value="{{numMujeres}}">
-    <input type="hidden" id="numOtros" value="{{numOtros}}">
-    <input type="hidden" id="numJugadoresTotales" value="{{numJugadoresTotales}}">
-    <input type="hidden" id="numPreguntasTotales" value="{{numPreguntasTotales}}">
-    <input type="hidden" id="numPartidasJugadas" value="{{numPartidasJugadas}}">
-    <input type="hidden" id="numPorcentajeAciertos" value="{{numPorcentajeAciertos}}">
-    <input type="hidden" id="numPreguntasCreadas" value="{{numPreguntasCreadas}}">
-    <input type="hidden" id="numMenores" value="{{numMenores}}">
-    <input type="hidden" id="numJubilados" value="{{numJubilados}}">
-    <input type="hidden" id="jugadoresNuevos" value="{{jugadoresNuevos}}">
-    <input type="hidden" id="numMayores" value="{{numMayores}}">
-    <input type="hidden" id="leyenda" value="{{leyenda}}">
+            <!-- GeoChart -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h4 class="text-center fw-bold mb-3">Jugadores por País</h4>
+                    <div id="chart_geo" style="height: 500px;"></div>
+                </div>
+            </div>
+
+            <input type="hidden" id="numHombres" value="{{numHombres}}">
+            <input type="hidden" id="numMujeres" value="{{numMujeres}}">
+            <input type="hidden" id="numOtros" value="{{numOtros}}">
+            <input type="hidden" id="numJugadoresTotales" value="{{numJugadoresTotales}}">
+            <input type="hidden" id="numPreguntasTotales" value="{{numPreguntasTotales}}">
+            <input type="hidden" id="numPartidasJugadas" value="{{numPartidasJugadas}}">
+            <input type="hidden" id="numPorcentajeAciertos" value="{{numPorcentajeAciertos}}">
+            <input type="hidden" id="numPreguntasCreadas" value="{{numPreguntasCreadas}}">
+            <input type="hidden" id="numMenores" value="{{numMenores}}">
+            <input type="hidden" id="numJubilados" value="{{numJubilados}}">
+            <input type="hidden" id="jugadoresNuevos" value="{{jugadoresNuevos}}">
+            <input type="hidden" id="numMayores" value="{{numMayores}}">
+            <input type="hidden" id="leyenda" value="{{leyenda}}">
 
 </main>
-    <!-- Scripts -->
+<!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="/public/js/estadisticas.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="/public/js/estadisticas.js"></script>
 <script>
     function drawGeoChart() {
-         const data = google.visualization.arrayToDataTable([
-             ['Country', 'Jugadores'],
-             {{#paises}}
-         ['{{pais}}', {{cantidad}}],
-         {{/paises}}
-         ]);
-             const options = {
-                 colorAxis: {colors: ['#aec7e8', '#1f77b4']}
-             };
-             new google.visualization.GeoChart(document.getElementById('chart_geo')).draw(data, options);
-         }
+        const data = google.visualization.arrayToDataTable([
+            ['Country', 'Jugadores'],
+            {{#paises}}
+                ['{{pais}}', {{cantidad}}],
+            {{/paises}}
+        ]);
+        const options = {
+            colorAxis: {colors: ['#aec7e8', '#1f77b4']}
+        };
+        new google.visualization.GeoChart(document.getElementById('chart_geo')).draw(data, options);
+    }
 </script>
 
 </main>
