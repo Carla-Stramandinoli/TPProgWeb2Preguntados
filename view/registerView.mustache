@@ -9,11 +9,13 @@
                 <div class="col-6">
                     <input class="w-100 h-100 border border-secondary rounded-1" type="date" name="fecha-nacimiento" placeholder="Fecha de nacimiento" required>
                 </div>
-                <div class="col-6 mt-3">
-                    <input class="w-100 h-100 border border-secondary rounded-1" type="email" name="email" placeholder="Email" required>
+                <div class="col-6 mt-3 d-flex flex-column">
+                    <input  id="email" class="w-100 h-auto border border-secondary rounded-1" type="email" name="email" placeholder="Email" required>
+                    <label id="label-email" class="fs-6" for="email"></label>
                 </div>
-                <div class="col-6 mt-3">
-                    <input class="w-100 h-100 border border-secondary rounded-1" type="text" name="nickname" placeholder="Nombre de usuario" required>
+                <div class="col-6 mt-3 d-flex flex-column">
+                    <input id="nickname" class="w-100 h-auto border border-secondary rounded-1" type="text" name="nickname" placeholder="Nombre de usuario" required>
+                    <label id="label-nickname" class="fs-6" for="nickname"></label>
                 </div>
                 <div class="col-6 mt-3">
                     <input class="w-100 h-100 border border-secondary rounded-1" type="password" name="contrasenia" placeholder="Contraseña" required>

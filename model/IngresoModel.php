@@ -111,7 +111,7 @@ class IngresoModel
         return empty($emailDeLaBd);
     }
 
-    private function validarNicknameNuevo($nickname)
+    public function validarNicknameNuevo($nickname)
     {
         $nicknameDeLaBd = $this->database->query("SELECT nickname FROM usuario WHERE nickname = '$nickname'");
         return empty($nicknameDeLaBd);
