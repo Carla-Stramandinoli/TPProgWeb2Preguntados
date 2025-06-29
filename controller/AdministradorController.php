@@ -132,16 +132,13 @@ class AdministradorController
                 'valor' => $value
             ];
         }
-//        $arrayPaisesIterable = [];
-//        foreach ($arrayPaises as $key => $value) {
-//            $arrayPaisesIterable[] = [
-//                'pais' => $key,
-//                'valor' => $value,
-//                'cantidad' => $key,
-//                'valor' => $value
-//            ];
-//        }
-
+        $arrayPaisesIterable = [];
+        foreach ($arrayPaises as $value) {
+            $arrayPaisesIterable[] = [
+                 'dato' => $value['pais'],
+                 'valor' => $value['cantidad']
+            ];
+        }
 
         //$numJugadoresPorPais = $this->model->obtenerCantidadDeUsuariosPorPaisFiltradosPorFecha("Arg", $anio, $mes, $dia);
 
@@ -170,9 +167,8 @@ class AdministradorController
             "distribucionPorEdadIterable" => $distribucionPorEdadIterable,
             "distribucionPorDatosPreguntasIterable" => $distribucionPorDatosPreguntasIterable,
             "distribucionPorGeneroIterable" => $distribucionPorGeneroIterable,
-//            "arrayPaisesIterable" => $arrayPaisesIterable
+            "arrayPaisesIterable" => $arrayPaisesIterable
         ]);
-        echo json_encode($arrayPaises);
     }
 
     public function imprimirPdf()
