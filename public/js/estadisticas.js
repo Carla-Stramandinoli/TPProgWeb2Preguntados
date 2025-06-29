@@ -220,6 +220,12 @@ function drawDataChart() {
 
 document.getElementById('btn-imprimir').addEventListener('click', async function (e) {
     e.preventDefault();
+
+    const paisesTabla = document.getElementById("tabla-paises");
+    console.log(paisesTabla);
+
+    paisesTabla.removeAttribute('style');
+
     const contenido = document.getElementById('contenido-imprimible');
     const btn = document.getElementById('btn-imprimir');
     const loader = document.getElementById('pdf-loading');
@@ -229,13 +235,13 @@ document.getElementById('btn-imprimir').addEventListener('click', async function
 
     await new Promise(resolve => setTimeout(resolve, 50)); // pequeño delay para que el DOM pinte el mensaje
 
-    const canvas = await html2canvas(contenido, { scale: 1 });
+    const canvas = await html2canvas(contenido, { scale: 1,  useCORS: true, width: contenido.scrollWidth, height: contenido.scrollHeight});
     const imgData = canvas.toDataURL('image/jpeg', 0.7);
 
     btn.style.display = 'inline-block';
     loader.style.display = 'none'; // Ocultar spinner
 
-    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pdf = new jsPDF('p', 'px', [contenido.scrollWidth, contenido.scrollHeight]);
     const imgProps = pdf.getImageProperties(imgData);
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
@@ -246,4 +252,7 @@ document.getElementById('btn-imprimir').addEventListener('click', async function
     const pdfUrl = URL.createObjectURL(pdfBlob);
 
     window.open(pdfUrl, '_blank');
+
+    paisesTabla.style.overflowY = 'auto';
+    paisesTabla.style.maxHeight = '500px';
 });
