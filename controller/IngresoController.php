@@ -161,4 +161,32 @@ class IngresoController
                 </div>';
     }
 
+    // funciones ajax
+
+    public function validarEmailUnicoAjax(){
+
+        $correoLibre = false;
+
+        $correo = isset($_GET['email']) ? trim($_GET['email']) : '';
+
+        if ($correo != '') $correoLibre = $this->model->correoLibreEnLaBd($correo);
+
+        $response['disponible'] = $correoLibre;
+
+        echo json_encode($response);
+    }
+
+    public function validarNicknameUnicoAjax(){
+
+        $nicknameLibre = false;
+
+        $nickname = isset($_GET['nickname']) ? trim($_GET['nickname']) : '';
+
+        if ($nickname != '') $nicknameLibre = $this->model->validarNicknameNuevo($nickname);
+
+        $response['disponible'] = $nicknameLibre;
+
+        echo json_encode($response);
+    }
+
 }
