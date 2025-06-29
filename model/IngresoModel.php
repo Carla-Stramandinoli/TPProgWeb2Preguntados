@@ -52,6 +52,7 @@ class IngresoModel
         $nicknameValido = $this->validarNicknameNuevo($nickname);
         $contraseniaValida = $this->validarContraseniasIguales($contrasenia, $contraseniaRepetida);
         $imagenValida = $this->validarFormatoImagen($fotoPerfil);
+        $pais = strtoupper($pais);
 
         if ($formatoEmailValido && $emailLibre && $nicknameValido && $contraseniaValida && $imagenValida) {
 

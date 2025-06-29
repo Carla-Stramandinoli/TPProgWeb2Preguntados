@@ -51,9 +51,10 @@ function inicializarMapa(){
                     const direccion = data.address;
                     const ciudad = direccion.city || direccion.town || direccion.village || direccion.hamlet || direccion.municipality || direccion.state || "Ciudad desconocida";
                     const pais = direccion.country || "País desconocido";
+                    const country_code = direccion.country_code || "País desconocido";
 
                     document.getElementById("direccion").innerText = `Pais: ${pais}, Ciudad: ${ciudad}`;
-                    document.getElementById("pais").value = pais;
+                    document.getElementById("pais").value = country_code;
                     document.getElementById("latitud").value = lat;
                     document.getElementById("longitud").value = lng;
                 }

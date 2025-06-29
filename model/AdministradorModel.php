@@ -94,7 +94,7 @@ class AdministradorModel
         if (!empty($condiciones)) {
             $sql .= " WHERE " . implode(" AND ", $condiciones);
         }
-        $sql .= " GROUP BY pais";
+        $sql .= " GROUP BY pais ORDER BY cantidad DESC";
 
         return $this->database->queryWithParams($sql, $parametros);
     }

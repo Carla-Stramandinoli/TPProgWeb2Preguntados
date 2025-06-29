@@ -113,7 +113,7 @@ INSERT INTO administrador (id) VALUES (1);
 INSERT INTO editor (id) VALUES (2);
 
 INSERT INTO `jugador` (`id`, `puntaje_alcanzado`, `anio_nacimiento`, `fecha_registro`, `foto_perfil`, `email`, `genero`, `pais`, `latitud`, `longitud`, `cuenta_activada`, `nickname_hash`, `cantidad_jugada`, `cantidad_aciertos`) VALUES
-    (3, 0, '2025-06-04', '2025-06-04', 'foto_perfil.jpg', 'jugador@gmail.com', '3','Argentina', -34.67064, -58.562598, 1, NULL, 0, 0);
+    (3, 0, '2025-06-04', '2025-06-04', 'foto_perfil.jpg', 'jugador@gmail.com', '3','AR', -34.67064, -58.562598, 1, NULL, 0, 0);
 
 CREATE TABLE partida (
     id_partida INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -208,36 +208,36 @@ INSERT INTO `usuario` (`id`, `nickname`, `nombre_completo`, `contrasenia`, `rol`
 (33, 'jugador30', 'jugador30', '$2y$10$lxvkOdDdJOeRT/4B6mfvme4vZHZV1RasEzJ0qzWaVVY8uxhtOUBHa', 'jugador');
 
 INSERT INTO `jugador` (`id`, `puntaje_alcanzado`, `anio_nacimiento`, `fecha_registro`, `foto_perfil`, `email`, `genero`, `pais`, `latitud`, `longitud`, `cuenta_activada`, `nickname_hash`, `cantidad_jugada`, `cantidad_aciertos`) VALUES
-(4, 32, '2005-06-01', '2022-06-01', 'foto1.jpg', 'jugador1@gmail.com', '1', 'AR', -34.6, -58.4, 1, NULL, 15, 32),
-(5, 25, '1990-07-11', '2020-04-12', 'foto2.jpg', 'jugador2@gmail.com', '2', 'CL', -33.4, -70.6, 1, NULL, 12, 25),
-(6, 14, '1980-12-21', '2019-12-22', 'foto3.jpg', 'jugador3@gmail.com', '1', 'BR', -15.7, -47.9, 1, NULL, 10, 14),
-(7, 42, '2000-11-01', '2023-11-03', 'foto4.jpg', 'jugador4@gmail.com', '3', 'UY', -34.9, -56.2, 1, NULL, 20, 42),
-(8, 10, '2010-01-05', '2021-10-21', 'foto5.jpg', 'jugador5@gmail.com', '2', 'PY', -25.3, -57.6, 1, NULL, 9, 10),
-(9, 19, '1995-08-02', '2018-06-10', 'foto6.jpg', 'jugador6@gmail.com', '1', 'PE', -12.0, -77.0, 1, NULL, 11, 19),
-(10, 8, '2003-04-07', '2025-07-03', 'foto7.jpg', 'jugador7@gmail.com', '2', 'IT', 4.7, -74.1, 1, NULL, 7, 8),
-(11, 15, '1985-03-12', '2020-03-14', 'foto8.jpg', 'jugador8@gmail.com', '1', 'EC', -0.2, -78.5, 1, NULL, 9, 15),
-(12, 5, '1965-10-17', '2020-09-14', 'foto9.jpg', 'jugador9@gmail.com', '2', 'US', -16.5, -68.1, 1, NULL, 6, 5),
-(13, 30, '1998-02-26', '2021-06-12', 'foto10.jpg', 'jugador10@gmail.com', '3', 'MX', 19.4, -99.1, 1, NULL, 15, 30),
-(14, 13, '2006-11-12', '2018-10-04', 'foto11.jpg', 'jugador11@gmail.com', '1', 'ES', 40.4, -3.7, 1, NULL, 10, 13),
-(15, 39, '2001-09-02', '2023-11-24', 'foto12.jpg', 'jugador12@gmail.com', '2', 'US', 41.9, 12.5, 1, NULL, 18, 39),
-(16, 9, '2009-07-17', '2021-02-01', 'foto13.jpg', 'jugador13@gmail.com', '1', 'RU', 48.8, 2.3, 1, NULL, 8, 9),
-(17, 34, '1988-05-10', '2024-01-22', 'foto14.jpg', 'jugador14@gmail.com', '2', 'DE', 52.5, 13.4, 1, NULL, 16, 34),
-(18, 22, '1993-01-10', '2019-08-04', 'foto15.jpg', 'jugador15@gmail.com', '3', 'CA', 45.4, -75.6, 1, NULL, 13, 22),
-(19, 37, '1975-12-08', '2018-09-11', 'foto16.jpg', 'jugador16@gmail.com', '1', 'CN', 38.9, -77.0, 1, NULL, 19, 37),
-(20, 11, '1999-10-17', '2021-05-15', 'foto17.jpg', 'jugador17@gmail.com', '2', 'CU', 23.1, -82.3, 1, NULL, 8, 11),
-(21, 26, '1997-07-02', '2020-05-04', 'foto18.jpg', 'jugador18@gmail.com', '3', 'PA', 8.9, -79.5, 1, NULL, 12, 26),
-(22, 29, '2002-08-22', '2023-07-25', 'foto19.jpg', 'jugador19@gmail.com', '1', 'HN', 14.0, -87.2, 1, NULL, 14, 29),
-(23, 35, '2007-01-18', '2018-08-05', 'foto20.jpg', 'jugador20@gmail.com', '2', 'NI', 12.1, -86.3, 1, NULL, 17, 35),
-(24, 6, '2008-09-13', '2018-10-11', 'foto21.jpg', 'jugador21@gmail.com', '1', 'CR', 9.9, -84.1, 1, NULL, 5, 6),
-(25, 16, '2008-05-28', '2018-01-28', 'foto22.jpg', 'jugador22@gmail.com', '3', 'VE', 10.5, -66.9, 1, NULL, 11, 16),
-(26, 18, '1992-06-06', '2021-02-13', 'foto23.jpg', 'jugador23@gmail.com', '2', 'GT', 14.6, -90.5, 1, NULL, 10, 18),
-(27, 21, '1982-03-12', '2020-03-10', 'foto24.jpg', 'jugador24@gmail.com', '1', 'FI', 13.7, -89.2, 1, NULL, 13, 21),
-(28, 40, '1978-04-11', '2019-12-21', 'foto25.jpg', 'jugador25@gmail.com', '3', 'HT', 18.5, -72.3, 1, NULL, 20, 40),
-(29, 45, '2004-08-21', '2021-11-04', 'foto26.jpg', 'jugador26@gmail.com', '1', 'PT', 38.7, -9.1, 1, NULL, 21, 45),
-(30, 23, '1989-07-26', '2020-10-25', 'foto27.jpg', 'jugador27@gmail.com', '2', 'CH', 46.2, 6.1, 1, NULL, 13, 23),
-(31, 17, '1994-11-10', '2025-04-18', 'foto28.jpg', 'jugador28@gmail.com', '1', 'NO', 59.9, 10.8, 1, NULL, 10, 17),
-(32, 36, '1987-06-13', '2024-07-21', 'foto29.jpg', 'jugador29@gmail.com', '3', 'SE	', 59.3, 18.0, 1, NULL, 18, 36),
-(33, 27,'1991-09-19', '2022-03-27', 'foto30.jpg', 'jugador30@gmail.com', '2', 'FI', 60.2, 24.9, 1, NULL, 15, 27);
+(4, 32, '2005-06-01', '2022-06-01', 'foto_perfil.jpg', 'jugador1@gmail.com', '1', 'AR', -34.6, -58.4, 1, NULL, 15, 32),
+(5, 25, '1990-07-11', '2020-04-12', 'foto_perfil.jpg', 'jugador2@gmail.com', '2', 'CL', -33.4, -70.6, 1, NULL, 12, 25),
+(6, 14, '1980-12-21', '2019-12-22', 'foto_perfil.jpg', 'jugador3@gmail.com', '1', 'BR', -15.7, -47.9, 1, NULL, 10, 14),
+(7, 42, '2000-11-01', '2023-11-03', 'foto_perfil.jpg', 'jugador4@gmail.com', '3', 'UY', -34.9, -56.2, 1, NULL, 20, 42),
+(8, 10, '2010-01-05', '2021-10-21', 'foto_perfil.jpg', 'jugador5@gmail.com', '2', 'PY', -25.3, -57.6, 1, NULL, 9, 10),
+(9, 19, '1995-08-02', '2018-06-10', 'foto_perfil.jpg', 'jugador6@gmail.com', '1', 'PE', -12.0, -77.0, 1, NULL, 11, 19),
+(10, 8, '2003-04-07', '2025-07-03', 'foto_perfil.jpg', 'jugador7@gmail.com', '2', 'IT', 4.7, -74.1, 1, NULL, 7, 8),
+(11, 15, '1985-03-12', '2020-03-14', 'foto_perfil.jpg', 'jugador8@gmail.com', '1', 'EC', -0.2, -78.5, 1, NULL, 9, 15),
+(12, 5, '1965-10-17', '2020-09-14', 'foto_perfil.jpg', 'jugador9@gmail.com', '2', 'US', -16.5, -68.1, 1, NULL, 6, 5),
+(13, 30, '1998-02-26', '2021-06-12', 'foto_perfil.jpg', 'jugador10@gmail.com', '3', 'MX', 19.4, -99.1, 1, NULL, 15, 30),
+(14, 13, '2006-11-12', '2018-10-04', 'foto_perfil.jpg', 'jugador11@gmail.com', '1', 'ES', 40.4, -3.7, 1, NULL, 10, 13),
+(15, 39, '2001-09-02', '2023-11-24', 'foto_perfil.jpg', 'jugador12@gmail.com', '2', 'US', 41.9, 12.5, 1, NULL, 18, 39),
+(16, 9, '2009-07-17', '2021-02-01', 'foto_perfil.jpg', 'jugador13@gmail.com', '1', 'RU', 48.8, 2.3, 1, NULL, 8, 9),
+(17, 34, '1988-05-10', '2024-01-22', 'foto_perfil.jpg', 'jugador14@gmail.com', '2', 'DE', 52.5, 13.4, 1, NULL, 16, 34),
+(18, 22, '1993-01-10', '2019-08-04', 'foto_perfil.jpg', 'jugador15@gmail.com', '3', 'CA', 45.4, -75.6, 1, NULL, 13, 22),
+(19, 37, '1975-12-08', '2018-09-11', 'foto_perfil.jpg', 'jugador16@gmail.com', '1', 'CN', 38.9, -77.0, 1, NULL, 19, 37),
+(20, 11, '1999-10-17', '2021-05-15', 'foto_perfil.jpg', 'jugador17@gmail.com', '2', 'CU', 23.1, -82.3, 1, NULL, 8, 11),
+(21, 26, '1997-07-02', '2020-05-04', 'foto_perfil.jpg', 'jugador18@gmail.com', '3', 'PA', 8.9, -79.5, 1, NULL, 12, 26),
+(22, 29, '2002-08-22', '2023-07-25', 'foto_perfil.jpg', 'jugador19@gmail.com', '1', 'HN', 14.0, -87.2, 1, NULL, 14, 29),
+(23, 35, '2007-01-18', '2018-08-05', 'foto_perfil.jpg', 'jugador20@gmail.com', '2', 'NI', 12.1, -86.3, 1, NULL, 17, 35),
+(24, 6, '2008-09-13', '2018-10-11', 'foto_perfil.jpg', 'jugador21@gmail.com', '1', 'CR', 9.9, -84.1, 1, NULL, 5, 6),
+(25, 16, '2008-05-28', '2018-01-28', 'foto_perfil.jpg', 'jugador22@gmail.com', '3', 'VE', 10.5, -66.9, 1, NULL, 11, 16),
+(26, 18, '1992-06-06', '2021-02-13', 'foto_perfil.jpg', 'jugador23@gmail.com', '2', 'GT', 14.6, -90.5, 1, NULL, 10, 18),
+(27, 21, '1982-03-12', '2020-03-10', 'foto_perfil.jpg', 'jugador24@gmail.com', '1', 'FI', 13.7, -89.2, 1, NULL, 13, 21),
+(28, 40, '1978-04-11', '2019-12-21', 'foto_perfil.jpg', 'jugador25@gmail.com', '3', 'HT', 18.5, -72.3, 1, NULL, 20, 40),
+(29, 45, '2004-08-21', '2021-11-04', 'foto_perfil.jpg', 'jugador26@gmail.com', '1', 'PT', 38.7, -9.1, 1, NULL, 21, 45),
+(30, 23, '1989-07-26', '2020-10-25', 'foto_perfil.jpg', 'jugador27@gmail.com', '2', 'CH', 46.2, 6.1, 1, NULL, 13, 23),
+(31, 17, '1994-11-10', '2025-04-18', 'foto_perfil.jpg', 'jugador28@gmail.com', '1', 'NO', 59.9, 10.8, 1, NULL, 10, 17),
+(32, 36, '1987-06-13', '2024-07-21', 'foto_perfil.jpg', 'jugador29@gmail.com', '3', 'SE', 59.3, 18.0, 1, NULL, 18, 36),
+(33, 27,'1991-09-19', '2022-03-27', 'foto_perfil.jpg', 'jugador30@gmail.com', '2', 'FI', 60.2, 24.9, 1, NULL, 15, 27);
 
 
 -- Geografia

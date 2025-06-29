@@ -69,7 +69,7 @@ class IngresoController
         $contraseniaRepetida = isset($_POST['contrasenia-repetida']) ? trim($_POST['contrasenia-repetida']) : '';
         $genero = isset($_POST['genero']) ? trim($_POST['genero']) : '';
 
-        $pais = isset($_POST['pais']) && !empty($_POST['pais']) ? trim($_POST['pais']) : 'Argentina';
+        $pais = isset($_POST['pais']) && !empty($_POST['pais']) ? trim($_POST['pais']) : 'AR';
         // coordenadas default de la unlam
         $latitud = isset($_POST['latitud']) && !empty($_POST['latitud']) ? trim($_POST['latitud']) : -34.67064;
         $longitud = isset($_POST['longitud']) && !empty($_POST['longitud']) ? trim($_POST['longitud']) : -58.562598;
