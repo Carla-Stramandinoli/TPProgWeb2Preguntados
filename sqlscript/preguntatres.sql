@@ -50,7 +50,7 @@ CREATE TABLE pregunta (
     pregunta_creada TINYINT DEFAULT 0,
     id_categoria INT NOT NULL,
     FOREIGN KEY (id_categoria) REFERENCES categoria(id)
-);
+)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 
 CREATE TABLE respuesta (
@@ -59,7 +59,7 @@ CREATE TABLE respuesta (
     es_correcta TINYINT(1) DEFAULT 0,
     id_pregunta INT NOT NULL,
     FOREIGN KEY (id_pregunta) REFERENCES pregunta(id) ON DELETE CASCADE
-);
+)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE usuario (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -93,18 +93,18 @@ CREATE TABLE jugador (
     cantidad_jugada INT DEFAULT 0,
     cantidad_aciertos INT DEFAULT 0,
     FOREIGN KEY (id) REFERENCES usuario(id)
-);
+)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 
 CREATE TABLE administrador (
     id INT PRIMARY KEY,
     FOREIGN KEY (id) REFERENCES usuario(id)
-);
+)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE editor (
     id INT PRIMARY KEY,
     FOREIGN KEY (id) REFERENCES usuario(id)
-);
+)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- inserts de herencia de los usuarios  administrador, editor y jugador
 
@@ -121,7 +121,7 @@ CREATE TABLE partida (
     resultado INT,
     id_jugador INT NOT NULL,
     FOREIGN KEY (id_jugador) REFERENCES jugador(id)
-);
+)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE contesta (
     id_jugador INT NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE contesta (
     PRIMARY KEY (id_jugador, id_pregunta),
     FOREIGN KEY (id_jugador) REFERENCES jugador(id),
     FOREIGN KEY (id_pregunta) REFERENCES pregunta(id)
-);
+)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE sugerencia (
     id_sugerencia INT NOT NULL AUTO_INCREMENT,
@@ -143,7 +143,7 @@ CREATE TABLE sugerencia (
     PRIMARY KEY (id_sugerencia),
     FOREIGN KEY (id_jugador) REFERENCES jugador(id),
     FOREIGN KEY (categoria) REFERENCES categoria(id)
-);
+)CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
