@@ -144,7 +144,7 @@ class AdministradorModel
     }
     public function obtenerCantidadJugadoresNuevosDesdeUnaFecha($fechaInicio)
     {
-        $sql = "SELECT COUNT(genero) as cantidad FROM jugador WHERE fecha_registro >= ?";
+        $sql = "SELECT COUNT(genero) as cantidad FROM jugador WHERE fecha_registro >= ? AND cuenta_activada = 1";
         $resultado = $this->database->queryWithParams($sql, [$fechaInicio]);
         return $resultado[0]['cantidad'] ?? 0;
     }
