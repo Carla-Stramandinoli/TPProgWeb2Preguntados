@@ -201,10 +201,10 @@
             <div class="row my-4">
                 <h4 class="text-center fw-bold mb-3">Jugadores por país</h4>
 
-                <div class="col-6">
-                    <div id="chart_geo" style="height: 500px; max-width: 100%;"></div>
+                <div class="col-12 col-md-6">
+                    <div id="chart_geo"></div>
                 </div>
-                <div id="tabla-paises" class="col-md-6" style="max-height: 500px; overflow-y: auto;">
+                <div id="tabla-paises" class="col-12 col-md-6" style="max-height: 500px; overflow-y: auto;">
                     <table class="table table-hover mb-0 table-sm">
                         <thead class="table-light sticky-top">
                         <tr style="height: 40px;">
@@ -245,7 +245,7 @@
         <input type="hidden" id="jugadoresNuevos" value="{{jugadoresNuevos}}">
         <input type="hidden" id="numMayores" value="{{numMayores}}">
         <input type="hidden" id="leyenda" value="{{leyenda}}">
-
+    </div>
 </main>
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -262,7 +262,7 @@
             {{/paises}}
         ]);
         const options = {
-            colorAxis: {colors: ['#aec7e8', '#1f77b4']},
+            colorAxis: {colors: ['#aec7e8', '#1f77b4']}
         };
         new google.visualization.GeoChart(document.getElementById('chart_geo')).draw(data, options);
     }
