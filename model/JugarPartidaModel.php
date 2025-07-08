@@ -88,11 +88,20 @@ class JugarPartidaModel{
     }
 
     public function obtenerRespuestasPorPregunta($idPregunta) {
-        //$id = $pregunta['id'];
         $result = $this->database->query("
                             SELECT descripcion, id AS id_respuesta, es_correcta
                             FROM respuesta
-                            WHERE id_pregunta = '$idPregunta'");
+                            WHERE id_pregunta = '$idPregunta'
+                            ORDER BY RAND()");
+        
+        $idsTemporales = range(1, count($result));
+        shuffle($idsTemporales);
+        
+        foreach ($result as $key => &$respuesta) {
+            $respuesta['id_temporal'] = $idsTemporales[$key];
+            $respuesta['id_real'] = $respuesta['id_respuesta'];
+        }
+        
         return $result;
     }
 
