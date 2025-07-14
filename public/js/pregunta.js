@@ -84,6 +84,7 @@ const botonTruco5050 = document.getElementById("btn-truco-50-50");
 botonTruco5050.addEventListener('click', () => {
 
     botonTruco5050.classList.replace('btn-success','btn-secondary');
+    botonTruco5050.disabled = true;
 
     fetch("/jugarPartida/aplicarTruco5050")
         .then(res => res.json())
