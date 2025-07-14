@@ -88,11 +88,20 @@ class JugarPartidaModel{
     }
 
     public function obtenerRespuestasPorPregunta($idPregunta) {
-        //$id = $pregunta['id'];
         $result = $this->database->query("
                             SELECT descripcion, id AS id_respuesta, es_correcta
                             FROM respuesta
-                            WHERE id_pregunta = '$idPregunta'");
+                            WHERE id_pregunta = '$idPregunta'
+                            ORDER BY RAND()");
+        
+        $idsTemporales = range(1, count($result));
+        shuffle($idsTemporales);
+        
+        foreach ($result as $key => &$respuesta) {
+            $respuesta['id_temporal'] = $idsTemporales[$key];
+            $respuesta['id_real'] = $respuesta['id_respuesta'];
+        }
+        
         return $result;
     }
 
@@ -210,6 +219,27 @@ class JugarPartidaModel{
     {
         $resultado = $this->database->query("SELECT MAX(resultado) AS mejor_resultado FROM partida WHERE id_jugador='$idJugador'");
         return isset($resultado[0]['mejor_resultado']) ? ($resultado[0]['mejor_resultado']) : false;
+    }
+
+    public function determinarSiUsuarioTieneTrucoDisponible($idUsuario){
+        $tiempoActualEnSegundos = time();
+
+        $ultimaVezQueUsoElTrucoEnSegundos = strtotime($this->database->query("SELECT ultimo_uso_truco FROM jugador WHERE id = '$idUsuario'")[0]['ultimo_uso_truco']);
+
+        return $tiempoActualEnSegundos - $ultimaVezQueUsoElTrucoEnSegundos > 30 * 60 ; // cada 15 min
+    }
+
+    public function obtenerTiempoRestanteEnSegundoParaQueElUsuarioPuedaUsarSuTruco($idUsuario){
+
+        $tiempoQueUsoElUltimoTruco = strtotime($this->database->query("SELECT ultimo_uso_truco FROM jugador WHERE id = '$idUsuario'")[0]['ultimo_uso_truco']);
+
+        return  ($tiempoQueUsoElUltimoTruco + 30 * 60) - time();
+    }
+
+    public function actualizarUltimoUsoDeTrucoAUnUsuario($idUsuario){
+        $tiempoActualEnSegundos = date('Y-m-d H:i:s', time());;
+
+        $this->database->execute("UPDATE jugador SET ultimo_uso_truco = '$tiempoActualEnSegundos' WHERE id = '$idUsuario'");
     }
 
 

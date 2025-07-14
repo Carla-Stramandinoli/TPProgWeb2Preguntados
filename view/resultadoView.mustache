@@ -36,12 +36,12 @@
                 <h3 class="mb-4">{{pregunta}}</h3>
                 <div class="row row-cols-1 g-3 w-100 mb-4">
                     {{#respuestas}}
-                        <div class="col">
-                            <div id="{{id_html}}" role="button"
-                                 class="btn w-100 text-dark py-3 rounded-pill border-0 text-center shadow fs-3">
-                                {{descripcion}}
+                            <div class="col {{#se-uso-truco-5050}}d-none{{/se-uso-truco-5050}}">
+                                <div id="{{id_html}}" role="button"
+                                     class="btn w-100 text-dark py-3 rounded-pill border-0 text-center shadow fs-3">
+                                    {{descripcion}}
+                                </div>
                             </div>
-                        </div>
                     {{/respuestas}}
 
                     <div class="col">

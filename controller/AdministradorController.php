@@ -170,27 +170,4 @@ class AdministradorController
             "arrayPaisesIterable" => $arrayPaisesIterable
         ]);
     }
-
-    public function imprimirPdf()
-    {
-        $fechaActual = time();
-        if (!file_exists('public/images/graficos')) {
-            mkdir('public/images/graficos', 0777, true);
-        }
-        try {
-            $this->graficos->crearGraficoDeTorta(
-                [$_SESSION['datosAImprimir']["numJugadoresTotales"], $_SESSION['datosAImprimir']["jugadoresNuevos"]],
-                ['Jugadores Totales', 'Jugadores Nuevos'],
-                'Distribución',
-                "public/images/graficos/torta.$fechaActual.png"
-            );
-            echo "Gráfico generado.";
-        } catch (Exception $e) {
-            echo "Error generando gráfico: " . $e->getMessage();
-        }
-
-        echo "Gráfico generado.";
-
-    }
-
 }

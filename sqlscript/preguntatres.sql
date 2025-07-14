@@ -92,6 +92,7 @@ CREATE TABLE jugador (
     nickname_hash VARCHAR(250), -- NOT NULL,
     cantidad_jugada INT DEFAULT 0,
     cantidad_aciertos INT DEFAULT 0,
+    ultimo_uso_truco DATETIME NOT NULL DEFAULT current_timestamp(),
     FOREIGN KEY (id) REFERENCES usuario(id)
 )CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
