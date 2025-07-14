@@ -221,6 +221,27 @@ class JugarPartidaModel{
         return isset($resultado[0]['mejor_resultado']) ? ($resultado[0]['mejor_resultado']) : false;
     }
 
+    public function determinarSiUsuarioTieneTrucoDisponible($idUsuario){
+        $tiempoActualEnSegundos = time();
+
+        $ultimaVezQueUsoElTrucoEnSegundos = strtotime($this->database->query("SELECT ultimo_uso_truco FROM jugador WHERE id = '$idUsuario'")[0]['ultimo_uso_truco']);
+
+        return $tiempoActualEnSegundos - $ultimaVezQueUsoElTrucoEnSegundos > 1 * 60 ; // cada 15 min
+    }
+
+    public function obtenerTiempoRestanteEnSegundoParaQueElUsuarioPuedaUsarSuTruco($idUsuario){
+
+        $tiempoQueUsoElUltimoTruco = strtotime($this->database->query("SELECT ultimo_uso_truco FROM jugador WHERE id = '$idUsuario'")[0]['ultimo_uso_truco']);
+
+        return  ($tiempoQueUsoElUltimoTruco + 1 * 60) - time();
+    }
+
+    public function actualizarUltimoUsoDeTrucoAUnUsuario($idUsuario){
+        $tiempoActualEnSegundos = date('Y-m-d H:i:s', time());;
+
+        $this->database->execute("UPDATE jugador SET ultimo_uso_truco = '$tiempoActualEnSegundos' WHERE id = '$idUsuario'");
+    }
+
 
 
 }

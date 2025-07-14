@@ -17,6 +17,20 @@
                         <i class="bi bi-trophy fs-4 me-2"></i> Puntos: {{puntos}}
                     </div>
                 </div>
+                <div class="col-12 d-flex justify-content-center align-items-center flex-column">
+                    {{#puedeUsarTruco}}
+                        <button id="btn-truco-50-50" class="btn btn-success p-3 rounded-3 text-center text-nowrap fw-semibold d-flex align-items-center justify-content-center fs-3" style="min-height: 70px;">
+                            Usar Truco <br> 50-50
+                        </button>
+                    {{/puedeUsarTruco}}
+                    {{^puedeUsarTruco}}
+                        <button disabled id="btn-truco-desactivado" class="btn btn-secondary py-3 m-0 rounded-3 text-center text-nowrap fw-semibold d-flex align-items-center justify-content-center fs-3" style="min-height: 70px;">
+                            Usar Truco <br> 50-50
+                        </button>
+                        <h6 id="contador-segundos-truco" class="d-inline mt-3"></h6>
+                        <input id="segundos-truco" type="hidden" value="{{segundosParaQuePuedaUsarTruco}}">
+                    {{/puedeUsarTruco}}
+                </div>
             </div>
         </div>
 <!--                <div class="col">-->

@@ -68,13 +68,18 @@ class JugarPartidaController{
 
          if (!isset($_SESSION['inicio_pregunta'])){$_SESSION['inicio_pregunta'] = time();}
 
+         $segundosParaQuePuedaUsarTruco = $this->model->obtenerTiempoRestanteEnSegundoParaQueElUsuarioPuedaUsarSuTruco($_SESSION['usuarioId']);
+         $puedeUsarTruco = $this->model->determinarSiUsuarioTieneTrucoDisponible($_SESSION['usuarioId']);
+
         $this->view->render("pregunta", [
             "categoria" => $_SESSION["categoria_actual"],
             "pregunta" => $pregunta,
             "id" => $idPregunta,
             "respuestas" => $respuestas,
             "puntos" => $_SESSION["puntos"],
-            "showLogout" => true] );
+            "puedeUsarTruco" => $puedeUsarTruco,
+            "segundosParaQuePuedaUsarTruco" => $segundosParaQuePuedaUsarTruco,
+            "showLogout" => true]);
     }
     public function timeOut()
     {
@@ -154,12 +159,14 @@ class JugarPartidaController{
             $respuestasParaMostrar[] = [
                 'descripcion' => $respuesta['descripcion'],
                 'id_respuesta' => $respuesta['id_temporal'],
-                'es_correcta' => $respuesta['es_correcta']
+                'es_correcta' => $respuesta['es_correcta'],
+                'se-uso-truco-5050' => $respuesta['se-uso-truco-5050'] ?? false,
             ];
         }
         
         $respuestas = $this->model->obtenerArrayDeRespuestasParaMostrar($respuestaElegida, $respuestasParaMostrar);
         $idPregunta = $this->model->obtenerIdPregunta($_SESSION['ultimo_enunciado']);
+
 
         $this->view->render("resultado", [
             "categoria" => $_SESSION["categoria_actual"],
@@ -172,6 +179,8 @@ class JugarPartidaController{
     public function redirect()
     {
         $racha = $this->model->obtenerRachaMasLargaJugador($_SESSION["usuarioId"]);
+
+        unset($_SESSION['ultimo_enunciado']);
 
         if ( $_SESSION['result'] ==1){
             unset($_SESSION['inicio_pregunta']);
@@ -201,4 +210,31 @@ class JugarPartidaController{
         return $this->redirect();
     }
 
+    public function aplicarTruco5050(){
+
+
+        $tieneTrucoDisponible = $this->model->determinarSiUsuarioTieneTrucoDisponible($_SESSION["usuarioId"]);
+
+        if (!$tieneTrucoDisponible || !isset($_SESSION['ultimo_enunciado']) || !isset($_SESSION['preguntas_array'])) {
+            http_response_code(400); // Bad Request
+            echo json_encode(['error' => 'Sesion invalida o datos incompletos']);
+        }
+
+        else{
+            $preguntaId = $this->model->obtenerIdPregunta($_SESSION['ultimo_enunciado']);
+            $respuestasIncorrectasADevolver = array();
+
+            foreach ($_SESSION['preguntas_array'] as &$respuesta) { // el & sirve para cambiar directamente la respuesta del array de sesion
+
+                if ($this->model->validarRespuestaCorrecta($preguntaId, $respuesta['id_real']) != 1 && count($respuestasIncorrectasADevolver) < 2){
+                    $respuesta['se-uso-truco-5050'] = true;
+                    $respuestasIncorrectasADevolver[] = $respuesta;
+                }
+            }
+
+            $this->model->actualizarUltimoUsoDeTrucoAUnUsuario($_SESSION['usuarioId']);
+
+            echo json_encode($respuestasIncorrectasADevolver);
+        }
+    }
 }

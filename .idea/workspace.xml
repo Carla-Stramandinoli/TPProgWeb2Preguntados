@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5cd495cf-d0df-4c74-b19d-caa7f9003e51" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configuration/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/configuration/config.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/JugarPartidaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/JugarPartidaController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/JugarPartidaModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/JugarPartidaModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/pregunta.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/pregunta.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sqlscript/preguntatres.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sqlscript/preguntatres.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/preguntaView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/preguntaView.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/resultadoView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/resultadoView.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
