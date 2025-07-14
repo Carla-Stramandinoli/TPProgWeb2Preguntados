@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5cd495cf-d0df-4c74-b19d-caa7f9003e51" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/pregunta.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/pregunta.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/JugarPartidaModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/JugarPartidaModel.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +64,8 @@
       <workItem from="1751398895793" duration="2066000" />
       <workItem from="1751911724835" duration="2579000" />
       <workItem from="1751944092730" duration="2717000" />
-      <workItem from="1752479073152" duration="57000" />
+      <workItem from="1752479073152" duration="95000" />
+      <workItem from="1752479245004" duration="2226000" />
     </task>
     <servers />
   </component>

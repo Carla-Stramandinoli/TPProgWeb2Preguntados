@@ -226,14 +226,14 @@ class JugarPartidaModel{
 
         $ultimaVezQueUsoElTrucoEnSegundos = strtotime($this->database->query("SELECT ultimo_uso_truco FROM jugador WHERE id = '$idUsuario'")[0]['ultimo_uso_truco']);
 
-        return $tiempoActualEnSegundos - $ultimaVezQueUsoElTrucoEnSegundos > 1 * 60 ; // cada 15 min
+        return $tiempoActualEnSegundos - $ultimaVezQueUsoElTrucoEnSegundos > 30 * 60 ; // cada 15 min
     }
 
     public function obtenerTiempoRestanteEnSegundoParaQueElUsuarioPuedaUsarSuTruco($idUsuario){
 
         $tiempoQueUsoElUltimoTruco = strtotime($this->database->query("SELECT ultimo_uso_truco FROM jugador WHERE id = '$idUsuario'")[0]['ultimo_uso_truco']);
 
-        return  ($tiempoQueUsoElUltimoTruco + 1 * 60) - time();
+        return  ($tiempoQueUsoElUltimoTruco + 30 * 60) - time();
     }
 
     public function actualizarUltimoUsoDeTrucoAUnUsuario($idUsuario){
